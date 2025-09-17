@@ -1,0 +1,31 @@
+{
+  "name": "api-gateway",
+  "version": "1.0.0",
+  "description": "API Gateway for Nove Backend - Kong Configuration",
+  "main": "index.js",
+  "scripts": {
+    "dev": "kong start --conf kong.conf",
+    "build": "echo 'No build step required for Kong'",
+    "start": "kong start --conf kong.conf",
+    "stop": "kong stop",
+    "reload": "kong reload --conf kong.conf",
+    "restart": "kong restart --conf kong.conf",
+    "status": "kong status",
+    "health": "kong health",
+    "version": "kong version",
+    "migrate": "kong migrations bootstrap",
+    "test": "echo 'No tests for Kong configuration'"
+  },
+  "keywords": [
+    "api-gateway",
+    "kong",
+    "microservices"
+  ],
+  "author": "Sakshi Jadhav",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.2"
+  }
+}

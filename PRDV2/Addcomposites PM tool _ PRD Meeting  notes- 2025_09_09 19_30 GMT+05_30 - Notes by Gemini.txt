@@ -1,0 +1,30 @@
+﻿Sep 9, 2025
+Addcomposites PM tool : PRD Meeting
+Invited Pravin Luthada Sakshi Jadhav
+Attachments Addcomposites PM tool : PRD Meeting 
+Meeting records Transcript 
+
+
+Summary
+Pravin Luthada outlined a strategy for building an AI platform leveraging existing Google infrastructure and a "foundry" development approach with a structured Product Requirement Document (PRD). The core problem identified was inefficient work allocation in Odoo, which Pravin Luthada proposed solving with a simplified UI for daily tasks and integrating with Google Drive and Calendar for project documentation and availability. Sakshi Jadhav affirmed the strategy, acknowledged the importance of focusing on the database schema, sought clarification on project progress display, and confirmed understanding of the integration approach and application type.
+
+
+Details
+* AI Platform Integration Strategy Pravin Luthada discussed the strategy for building an AI platform, emphasizing the importance of starting with the right approach and leveraging existing Google products and infrastructure. They highlighted that most customer data, project chats, and meetings already occur within Google's ecosystem, aiming to embed the new tool seamlessly into the current workflow without changing existing user processes. Sakshi Jadhav affirmed the strategy's correctness (00:00:00).
+* Database Schema as Source of Truth Pravin Luthada stressed the importance of agreeing on a robust database schema that will serve as the main source of truth for all data. They referenced a Reddit thread where an individual successfully built an Odoo-like system by meticulously planning their database. Sakshi Jadhav acknowledged the importance of focusing on the database schema from the outset (00:02:24).
+* Foundry Development Approach Pravin Luthada introduced a "foundry" development approach, which they developed with Rishi, consisting of five stages (00:04:23). This approach prioritizes a structured Product Requirement Document (PRD), which then informs engineered plans, including DB schema and API endpoints (00:05:37). Pravin Luthada clarified that the PRD remains the main document, and any changes should update it to ensure traceability (00:07:00).
+* Core Problem and Solution for Project Management Pravin Luthada identified the core problem as inefficient work allocation in Odoo, aiming to solve it by providing a simplified user interface for employees. They explained that employees should primarily see one to three tasks they need to focus on daily, with more detailed project information linked to existing Google Docs (00:11:48). The system should also address the need for Gantt charts and timelines, which Google products currently lack (00:12:56).
+* Project Characterization and Resource Optimization Pravin Luthada stated that all activities, including internal development and R&D, should be categorized as projects. This approach helps identify available resources when individuals are not assigned to any project (00:15:25). The primary goal of the new system is human resource optimization, ensuring every employee knows their tasks upon entering the office (00:22:52).
+* Project Progress and Cost Tracking Pravin Luthada discussed the need for dynamic adjustments to project timelines and automatic notifications for delays (00:15:25). They highlighted the importance of tracking "people's days spent" on projects to evaluate profitability and refine future project estimations. Sakshi Jadhav sought clarification on how this would be displayed, suggesting dashboards and graphs (00:19:30).
+* Simplified User Interface for Daily Tasks Pravin Luthada emphasized the need for a simple mobile application for day-to-day users, functioning like a phone app that displays their assigned tasks (00:20:39) (00:28:25). They also suggested a "reallocation" button to notify project managers if a team member cannot work on assigned tasks (00:21:52). This minimal interface is intended to prevent overwhelming users with unnecessary complexity (00:13:59).
+* Integration with Google Ecosystem Pravin Luthada explained that the system would integrate with Google Drive for project documentation and Google Calendar for employee availability, without rebuilding these functionalities (00:25:25) (00:29:30). They stated that the application would primarily serve as a browser for existing Google apps, allowing users to access linked Google Drive folders and chat directly within the application (00:25:25) (00:31:49). Sakshi Jadhav confirmed understanding of this integration approach (00:26:15).
+* Application Type and Deployment Regarding the application's format, Pravin Luthada confirmed that it should be a web app, accessible via a browser tab, rather than a downloadable desktop application (00:30:46). For mobile, they suggested distributing an SDK directly to the 20-person team, as uploading to a public app store is unnecessary for internal use. Sakshi Jadhav agreed with this approach (00:32:55).
+
+
+Suggested next steps
+* Sakshi Jadhav will redo the database schema and focus on the API endpoints based on the discussion.
+* Sakshi Jadhav will build an SDK for the mobile application with very basic buttons and a simple interface.
+
+
+You should review Gemini's notes to make sure they're accurate. Get tips and learn how Gemini takes notes
+Please provide feedback about using Gemini to take notes in a short survey.

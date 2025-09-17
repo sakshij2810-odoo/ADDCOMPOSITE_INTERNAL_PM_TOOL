@@ -1,0 +1,29 @@
+{
+  "name": "nove-backend",
+  "version": "1.0.0",
+  "description": "AI-Powered Project Management Platform - Microservices Backend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:auth\" \"npm run dev:user\" \"npm run dev:project\" \"npm run dev:task\" \"npm run dev:company\" \"npm run dev:leads\" \"npm run dev:analytics\"",
+    "dev:auth": "cd microservices/auth-service && PORT=3001 node simple-server.js",
+    "dev:user": "cd microservices/user-service && PORT=3002 node simple-server.js",
+    "dev:project": "cd microservices/project-service && PORT=3003 node simple-server.js",
+    "dev:task": "cd microservices/task-service && PORT=3004 node simple-server.js",
+    "dev:company": "cd microservices/company-information-service && PORT=3005 node simple-server.js",
+    "dev:leads": "cd microservices/leads-service && PORT=3006 node simple-server.js",
+    "dev:analytics": "cd microservices/analytics-service && PORT=3007 node simple-server.js",
+    "start": "npm run dev"
+  },
+  "keywords": [
+    "microservices",
+    "project-management",
+    "ai-powered",
+    "google-integration",
+    "nova-world-group"
+  ],
+  "author": "Sakshi Jadhav",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

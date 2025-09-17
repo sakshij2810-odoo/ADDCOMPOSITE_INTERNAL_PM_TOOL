@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id           String    @id @default(uuid())
+  googleId     String    @unique
+  email        String    @unique
+  name         String
+  firstName    String?
+  lastName     String?
+  avatarUrl    String?
+  role         String    @default("EMPLOYEE")
+  department   String?
+  position     String?
+  phone        String?
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  createdBy    String?
+  updatedBy    String?
+
+  @@map("users")
+}
+
+// UserRole enum values: EMPLOYEE, PROJECT_MANAGER, ADMIN

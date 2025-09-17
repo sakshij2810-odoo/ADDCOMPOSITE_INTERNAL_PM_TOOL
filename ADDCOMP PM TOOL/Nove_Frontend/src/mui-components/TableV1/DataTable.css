@@ -1,0 +1,25 @@
+.row-disabled {
+  background-color: gray;
+  opacity: 0.8;
+}
+
+.tableScroll ::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+/* Track */
+.tableScroll ::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+.tableScroll ::-webkit-scrollbar-thumb {
+  background: #7f7f7f;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.tableScroll ::-webkit-scrollbar-thumb:hover {
+  background: #7f7f7f;
+}

@@ -1,0 +1,627 @@
+_format_version: "3.0"
+_transform: true
+
+# Kong API Gateway Configuration for Nove Backend
+
+services:
+  # Authentication Service
+  - name: auth-service
+    url: http://auth-service:3001
+    routes:
+      - name: auth-routes
+        paths:
+          - /api/v1/authentication
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: auth-service"
+              - "X-Gateway: kong"
+
+  # User Service
+  - name: user-service
+    url: http://user-service:3002
+    routes:
+      - name: user-routes
+        paths:
+          - /api/v1/user
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: user-service"
+              - "X-Gateway: kong"
+
+  # Project Service
+  - name: project-service
+    url: http://project-service:3003
+    routes:
+      - name: project-routes
+        paths:
+          - /api/v1/projects
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: project-service"
+              - "X-Gateway: kong"
+
+  # Task Service (Core Feature)
+  - name: task-service
+    url: http://task-service:3004
+    routes:
+      - name: task-routes
+        paths:
+          - /api/v1/tasks
+          - /api/v1/daily-tasks
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: task-service"
+              - "X-Gateway: kong"
+
+  # Analytics Service
+  - name: analytics-service
+    url: http://analytics-service:3005
+    routes:
+      - name: analytics-routes
+        paths:
+          - /api/v1/analytics
+        methods:
+          - GET
+          - POST
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 50
+          hour: 500
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: analytics-service"
+              - "X-Gateway: kong"
+
+  # File Service
+  - name: file-service
+    url: http://file-service:3006
+    routes:
+      - name: file-routes
+        paths:
+          - /api/v1/files
+          - /api/v1/general/upload-files
+          - /api/v1/general/download-files
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 200
+          hour: 2000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 50
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: file-service"
+              - "X-Gateway: kong"
+
+  # Notification Service
+  - name: notification-service
+    url: http://notification-service:3007
+    routes:
+      - name: notification-routes
+        paths:
+          - /api/v1/notifications
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: notification-service"
+              - "X-Gateway: kong"
+
+  # Integration Service
+  - name: integration-service
+    url: http://integration-service:3008
+    routes:
+      - name: integration-routes
+        paths:
+          - /api/v1/google
+          - /api/v1/integrations
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: integration-service"
+              - "X-Gateway: kong"
+
+  # Reporting Service
+  - name: reporting-service
+    url: http://reporting-service:3009
+    routes:
+      - name: reporting-routes
+        paths:
+          - /api/v1/reports
+        methods:
+          - GET
+          - POST
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 50
+          hour: 500
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: reporting-service"
+              - "X-Gateway: kong"
+
+  # Resource Management (Project Service)
+  - name: resource-service
+    url: http://project-service:3003
+    routes:
+      - name: resource-routes
+        paths:
+          - /api/v1/resources
+          - /api/v1/reallocation-requests
+          - /api/v1/time-entries
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: project-service"
+              - "X-Gateway: kong"
+
+  # Nova World Group API Integration
+  - name: nova-integration
+    url: https://api.novaworldgroup.ca
+    routes:
+      - name: nova-routes
+        paths:
+          - /api/v1/accounting
+          - /api/v1/approval
+          - /api/v1/comment
+          - /api/v1/companyInformation
+          - /api/v1/conversation
+          - /api/v1/customer
+          - /api/v1/dataManagement
+          - /api/v1/formula
+          - /api/v1/general
+          - /api/v1/history
+          - /api/v1/lead
+          - /api/v1/questionnaire
+          - /api/v1/security
+          - /api/v1/services
+          - /api/v1/template
+          - /api/v1/workflow
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 200
+          hour: 2000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: nova-integration"
+              - "X-Gateway: kong"
+
+# Global plugins
+plugins:
+  - name: prometheus
+    config:
+      per_consumer: true
+      status_code_metrics: true
+      latency_metrics: true
+      bandwidth_metrics: true
+      upstream_health_metrics: true
+  - name: correlation-id
+    config:
+      header_name: Kong-Request-ID
+      echo_downstream: true
+  - name: request-id
+    config:
+      header_name: X-Request-ID
+      echo_downstream: true
+  - name: zipkin
+    config:
+      http_endpoint: http://zipkin:9411/api/v2/spans
+      sample_ratio: 0.1
+      trace_id_128bit: true
+      tags:
+        - name: kong
+          value: true

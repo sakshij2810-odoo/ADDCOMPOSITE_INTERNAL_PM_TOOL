@@ -1,0 +1,386 @@
+﻿Sep 9, 2025
+Addcomposites PM tool : PRD Meeting - Transcript
+00:00:00
+ 
+Sakshi Jadhav: Yeah. Okay.
+Pravin Luthada: I think uh this has been a long time coming. I'm sorry I had like customers here last week so I was not able to focus but I really wanted to sit down and get this uh finalized. I think um why I've been holding on to this is because um there are multiple things overall uh in terms of how we start to build because I want to um make sure that if we are using any
+Sakshi Jadhav: Yeah.
+Pravin Luthada: of the AI platforms we are starting with the right point um and then building it more like um that is something more suitable for us.
+Sakshi Jadhav: Oh.
+Pravin Luthada: So uh because we use lot of Google products as you know by default and so I want to make sure to not use any thing that we don't need to use externally and if we can somehow embed this
+Sakshi Jadhav: Yeah. Yeah. Correct.
+Pravin Luthada: tool within within the workflow because if I have to say database uh so most of the customer data is already there in Google drives um then All of the um chat related to projects happen in the chat of
+ 
+ 
+00:01:16
+ 
+Sakshi Jadhav: Oh, correct.
+Pravin Luthada: the Google thingy and then whenever we do meetings we already do meetings through this interface. So there is a lot that we already have the infrastructure that we don't need to we definitely need to somehow figure out how to access this APIs and set up the yeah utilize that in the in the overall
+Sakshi Jadhav: Yeah, correct.
+Pravin Luthada: um system. But um yeah, I think same goes for the sales quotation, purchase order confirmations, everything is all there.
+Sakshi Jadhav: Okay. Okay.
+Pravin Luthada: So it's like uh yeah, so now like if you think overall you got already so much covered if you start from this point and none of the people's workflows are changing.
+Sakshi Jadhav: Mhm.
+Pravin Luthada: So they basically are able to so this is our database already kind of schema.
+Sakshi Jadhav: Yeah. Correct.
+Pravin Luthada: Yeah. Yeah. Yeah. And that's why I was like okay we don't need to build then ODO because um uh yeah yeah yeah but yeah I think that's the main starting point and then the next thing I wanted to focus is like
+ 
+ 
+00:02:24
+ 
+Sakshi Jadhav: Yes. Yeah.
+Pravin Luthada: um agree on the database schema that is uh how do I say this um we build first and that we use as the main source of truth for everything else.
+Sakshi Jadhav: Mhm. Correct.
+Pravin Luthada: So yeah, so if I have to say now I'm trying to uh because uh this is more of a reference.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: Let me try to find this.
+Sakshi Jadhav: Yeah, sure.
+Pravin Luthada: Yeah. Uh so one of the uh uh it was um it was one of the uh Reddit thread that I was reading through and a person trying to build their own odo kind of and was sharing their journey.
+Sakshi Jadhav: Okay. Yeah.
+Pravin Luthada: how they like went about it. And the first thing was basically uh that person tried a lot.
+Sakshi Jadhav: Mhm. Yeah.
+Pravin Luthada: Um and uh unfortunately what happened was um they ended up succeeding because um um they really planned their database.
+Sakshi Jadhav: Okay, that's why like we apply from the schema.
+Pravin Luthada: There you go.
+ 
+ 
+00:04:23
+ 
+Pravin Luthada: Yeah.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: Yeah. And that's kind of was my main um like um like a starting point because I was myself trying to think okay can a hubspot like tool or can um odo type tool be built with this AI chatbots but
+Sakshi Jadhav: Yeah.
+Pravin Luthada: what they struggle with because there is a always um uh this is where I have ended up still now is that they end up um messing up server side or client side uh communication they end up creating multiple DB schema and then there is like internal competition between uh calls okay who is fetching what data and once you have this mess then you it's just a downhill role so just really wanted to focus on this um
+Sakshi Jadhav: Okay. Yeah.
+Pravin Luthada: as like the structure so I and I with rushi also I've now worked on and built this like an approach which what I would call like a foundry foundary approach and I think it came out at least it
+Sakshi Jadhav: Yeah.
+Pravin Luthada: has it seemed to have worked quite well. So which basically has a five stages of development.
+ 
+ 
+00:05:37
+ 
+Sakshi Jadhav: Okay.
+Pravin Luthada: Uh so one thing is like where do you start uh what do we need? Um and then other thing is okay when we are in the process how do we make sure that you know it with each iteration that we end up doing we are actually making the progress and not actually moving
+Sakshi Jadhav: Mhm. Yeah. Correct.
+Pravin Luthada: backwards or destroying something that we have done you know so there is the segregation separation and there is this um workflow that is built by let me try to find it and show um 8090 workflow it is called
+Sakshi Jadhav: Okay.
+Pravin Luthada: I try to see if I'm able to yeah I have the description here but basically what it has is uh you start with idea and then you have the you definitely create a structured PRD that is where we are at right Um so yeah we start with creating this structured PRD and from PRD we go to basically an engineered plans.
+Sakshi Jadhav: Yeah. Yeah.
+Pravin Luthada: So um we generate like detail how the engineering how do I say would be so it basically what would be DB schema API endpoints.
+ 
+ 
+00:07:00
+ 
+Sakshi Jadhav: like the API used in Yeah. Yeah.
+Pravin Luthada: Yeah. And then um basically the ground truth still remains is uh you have any changes um that you feel like okay this is maybe PRD got it wrong. So you keep updating the PRD document as the main main document and and basically auto update and you make sure that your PRD you're not too much uh making changes to the PRD or drifting it away from it.
+Sakshi Jadhav: Huh?
+Pravin Luthada: So always keep checking and yeah and now once you got this then you have like a good architecture uh you got a text stack that is figured out and then you have implementation outline that you get to um
+Sakshi Jadhav: Okay. Yeah.
+Pravin Luthada: and then move down into like okay now let's divide it into a smaller modular work task that we then can give to agents. Agents are good with kind of not too long term task and you know so yeah kind of giving them into chunks um and make sure that their dependencies are that they are touching is limited and kind of cross-checking
+ 
+ 
+00:08:05
+ 
+Sakshi Jadhav: Yeah.
+Pravin Luthada: it and yeah and make sure that whatever is getting completed in the PRD uh we are having that traceability that okay this is now looks complete Um yeah yeah yeah and um and now here you have the um
+Sakshi Jadhav: Yeah. Okay. Okay.
+Pravin Luthada: finally you have the assembly that now you start to you got the independent modules working so let's say you got your authentication module working you got your I don't know like a signup page working or whatn not and
+Sakshi Jadhav: Yeah, we can create services structure.
+Pravin Luthada: then yeah the integration part is like where you have the slight more you basically structure.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: Yeah, because we already did the schema and endpoints configuration. Now this should be and after this is basically you know you run through a validation code that okay now whatever I have built and assembled um as per my PRD there should be like now certain tests that I should pass and that basically make sure that I am doing okay and this full cycle you have to run multiple times but you start with um like u every time you focus on some certain number of modules and
+ 
+ 
+00:09:22
+ 
+Sakshi Jadhav: Yeah. Yes.
+Pravin Luthada: then you go and then you make sure nothing else is breaking. Everything else is kind of following the schema that we did and for agents to be able to handle the just short-term things that we are able to make sure and when it comes to assembly is when you let's
+Sakshi Jadhav: Yeah.
+Pravin Luthada: say you have to pay more attention and then we have this. So this is the main main like kind of approach is what I really like and I would like to follow.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: This is not mine and it's just uh something that I found and read upon and I really think this is um this Yeah.
+Sakshi Jadhav: Yeah, this is great. Great.
+Pravin Luthada: Yeah.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: So yeah this is this called there is a company named um 8090 solutions they have developed and I just um basically read through and you know trying using this.
+Sakshi Jadhav: Okay.
+Pravin Luthada: So I created the PRD um for um the Chimera project with for Rishi for this from this only and I think now we have uh I think through 14 iteration and I think the product is ready.
+ 
+ 
+00:10:36
+ 
+Sakshi Jadhav: Okay.
+Pravin Luthada: So that's kind of yeah where we are at.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: So I don't know how we want to go uh towards this PRD but now outline like why I wanted to like kind of pause a bit have this discussion before we actually start to draft a PRD so you
+Sakshi Jadhav: Yeah. Like Mhm. Yeah.
+Pravin Luthada: get the idea and the vision like okay why I'm requesting things to be done a certain way.
+Sakshi Jadhav: H uh I think like uh first we can discuss like what all are the features that we want in this uh project like we know that like entire ODO modules we want like currently we are using time off
+Pravin Luthada: Yeah. Yeah.
+Sakshi Jadhav: for the employee management employee and then currently like uh I have created this PR totally based on the project management it's like creating the project task and that GAN chart view and uh to track the employee I have added the uh employee module as well and the like to track the like attendance of the employee or the leave details I have like added the time off module as well but then if we want to again add
+ 
+ 
+00:11:48
+ 
+Pravin Luthada: Yeah.
+Sakshi Jadhav: the like Google chat integration also and HubSpot as you have mentioned So yeah,
+Pravin Luthada: Oh no, no hubspot. No. So that's kind of one of the things I want to make sure is we're really really focused on what we want to do with this one. The main goal of uh this uh whole um reason of like not using odo uh is comes from that we are odo is not being very helpful in terms of work allocation. So let's say today I come and I need to know and this is the fundamental problem that we are trying to solve and so we have to think a bit more differently.
+Sakshi Jadhav: Okay.
+Pravin Luthada: Uh I think the the basic structure that is there's not that much wrong with it but how a user interfaces with it is is a bit what is wrong.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: So um what I need to know as a user like the day I'm I'm starting my day in the morning I need to know okay what are the one or two or three things let's say max I'm focusing on today that's what I want I don't want to know anything else I if I want to know more details I can definitely click on it and it will take me to the because we already do uh this
+ 
+ 
+00:12:56
+ 
+Sakshi Jadhav: Yeah. Correct. Yes. Yes.
+Pravin Luthada: is where my point is so if somebody want to know about a certain project there's there's already a Google doc related to that particular project uh that we create.
+Sakshi Jadhav: Got it. Yeah. Yeah.
+Pravin Luthada: So you don't need to do too too much uh there and the only thing that I think Google is not very good with right now is having this GAN chart or timelines or such and uh yeah but all
+Sakshi Jadhav: Got it. Yeah. Mhm. Yes.
+Pravin Luthada: the documents related to the project they are always in one this Google drive folders uh they are there organized starting from uh okay what the customer ordered to when we had the first meeting which is what we call
+Sakshi Jadhav: Yes.
+Pravin Luthada: the kickoff meeting which you can say the start point of the GAN chart is and then to one delivery that what when we are expecting.
+Sakshi Jadhav: Okay.
+Pravin Luthada: So we get usually two end points and then what you would want um a person who is uh trying to say okay manage the delivery or get to like okay when can we deliver this product get uh okay
+ 
+ 
+00:13:59
+ 
+Sakshi Jadhav: Mhm. Mhm.
+Pravin Luthada: who is available during this period of time and whose time can I uh allocate uh here and now here comes here the employee um like okay who's working in which dates assuming we have uh everybody's working throughout the
+Sakshi Jadhav: Okay. Mhm.
+Pravin Luthada: things but now they are already assigned to certain other projects then they are basically away for us for this project then they are away so now what we want to make sure is that okay hey they are not
+Sakshi Jadhav: Yeah. Yeah.
+Pravin Luthada: allocated in three places is the key and uh this is all the complexity that we see is all on the side of people who is configuring this project so that it can be a bit more complex looking and
+Sakshi Jadhav: Yeah. Correct.
+Pravin Luthada: it's still okay because um this person is the main user of the software.
+Sakshi Jadhav: Yeah, good.
+Pravin Luthada: the other uh people whose main work is like you know designing something else or um you know coming up with something or you know making actually some software otherwise or such they don't need all this complexity what they need oh what are the three projects that I'm supposed to you know work on today or two project or one thing that I'm working on today um and um and everything else we can just characterize as projects So
+ 
+ 
+00:15:25
+ 
+Sakshi Jadhav: Mhm. Okay.
+Pravin Luthada: everything this could be internal development it could be inhouse something everything um that a person is doing it should be characterized as like some project so even if we are let's say making a new design inhouse that we are not shipping it to somebody but it's a project we are doing it internally we are not selling it but it's a R&D project let's say we so everything is a project and if a person is not In
+Sakshi Jadhav: Okay. Okay. Okay.
+Pravin Luthada: any project then they are free they are available resource and then they can be like okay thought of as okay what project work can be um they doing at a given point of time and it has to be
+Sakshi Jadhav: Great.
+Pravin Luthada: dynamic so let's say today somebody says oh I was supposed to finish this in 3 days but you know it took five uh so now uh it basically says that okay it took five days so now every week
+Sakshi Jadhav: Yes.
+Pravin Luthada: or so, somebody has to make the adjustments and in if some timelines have shifted to the end user or whosoever in is like a customer, you know, they're waiting for their delivery.
+ 
+ 
+00:16:35
+ 
+Sakshi Jadhav: Yes.
+Pravin Luthada: Now, they are not going to that thing.
+Sakshi Jadhav: Correct.
+Pravin Luthada: So somehow the project manager or the whosoever is in touch with them I have to inform them hey it seems we are running a bit behind um and uh it's looking that we might be two weeks you know delayed or whatever like that and that's kind of what the notification we want at the end after dealing with all this complexity is what I want to know is am I on time or am I delayed okay yeah
+Sakshi Jadhav: Okay. Okay. is okay. Okay.
+Pravin Luthada: and This is the in the simplest form what we need right now.
+Sakshi Jadhav: Okay.
+Pravin Luthada: Uh because this will eliminate a person's role overall in a way. So right now we have this person. So everybody end up doing this thing.
+Sakshi Jadhav: Okay.
+Pravin Luthada: If we are not to solve it through this uh let's say software interface, we would have to hire somebody who will just have to do this manually which is terrible.
+Sakshi Jadhav: Mhm.
+ 
+ 
+00:17:41
+ 
+Sakshi Jadhav: Okay.
+Pravin Luthada: Yeah.
+Sakshi Jadhav: Yes. Yes.
+Pravin Luthada: So and the from the user side what they or whoever is actually the technical person working on you know with their task for them it should be like okay out of whatever three or two or three task that I have with me uh I just can click in any one of them and start my timer.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: Okay this is where I'm working now.
+Sakshi Jadhav: Okay. Timer also we want clear.
+Pravin Luthada: Timer is a way is like I have 8 hours or whatever 9 hours in a day. uh but the timer is more focused on not calculating how many hours I'm working in a day but to see where I'm spending the day okay how percentage so it's not about like exact to dot to me measure
+Sakshi Jadhav: Yeah. Yeah. Yeah. Okay.
+Pravin Luthada: my time but the main focus is like okay how did I spend my day or 20% you were on this project 30% you worked on this and then 50% you worked on that that's kind of how so the
+ 
+ 
+00:18:37
+ 
+Sakshi Jadhav: Yeah.
+Pravin Luthada: sense of time is a bit more fluid because when you are working in this type of thing. It's like coding, you know, you get in the zone, you're coding very well. You don't notice time that much.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: So it's it's the day that you work and then someday you're sitting and nothing come but it's still you're sitting on that thing.
+Sakshi Jadhav: Yeah. Yeah. Yeah.
+Pravin Luthada: So you just want to know okay how did I spend my day? Was it this project or this project? And at the end of the day you specifically people look things in days terms.
+Sakshi Jadhav: Mhm.
+Pravin Luthada: Nobody's like oh you know I came at 49 and no like okay I started my day and this is what I did it was not able to complete uh let me you know next time. So the the key input that the project manager will take from this is uh okay did I estimate the time correctly?
+Sakshi Jadhav: Mhm. Yeah.
+Pravin Luthada: Let me when I plan next time, let me allocate slightly more time or did we do some mistake so we can can we just eliminate this task and outsource it to you just order the component rather than doing
+ 
+ 
+00:19:30
+ 
+Sakshi Jadhav: Okay.
+Pravin Luthada: it in house or whatever you know.
+Sakshi Jadhav: Okay. Yeah. Yeah.
+Pravin Luthada: Yeah. So from the the person who is operating the software let's say this case in this case it will be uh three to four people. So myself uh Vikram James uh other project managers also and then there is the other um side of the things and what essentially you end up getting towards the end of the day how many people's days we have
+Sakshi Jadhav: Okay.
+Pravin Luthada: spent on some project isn't it and we know like okay how much it cost to have people and then have we really made any profit or not is something that I'll be interested in knowing I don't need any
+Sakshi Jadhav: Okay. Yeah. Okay. Then like in the form of the dashboard graphs and Okay.
+Pravin Luthada: graph I just need okay how many people's days we have spent on it and when I was uh charging the customer or I was telling them okay this is the price uh did I anticipate those days correctly or
+ 
+ 
+00:20:39
+ 
+Sakshi Jadhav: Mhm.
+Pravin Luthada: do I have I need to update my calculations for it you know so um yeah for us like that is also one of the key input and that we will get project by project.
+Sakshi Jadhav: Okay.
+Pravin Luthada: Certain projects that we have u maybe not priced well. We did a lot more work and um some are just too obvious but uh many of them you don't get.
+Sakshi Jadhav: Yeah. Yes.
+Pravin Luthada: So the key to make it really simple on the uh people who are actually doing their work on day-to-day basis is to just have like a very simple like a phone app that has nothing else other than it
+Sakshi Jadhav: Mhm. Okay.
+Pravin Luthada: kind of shows up when when they start their first thing and then um whatever the things are there they can kind of see okay these are the things that I'm supposed to do today and if they end up
+Sakshi Jadhav: Yeah. Good.
+Pravin Luthada: doing something else they can just find it as well like through whatever the desktop application is like they can say okay this is what I'm working on or or such I don't know how that would go but they could just say to the project manager hey I'm I was supposed to be working on this but some people are telling me other thing is urgent so can you just allocate that to me and then that is allocated
+ 
+ 
+00:21:52
+ 
+Sakshi Jadhav: Okay.
+Pravin Luthada: to them and then they are working on it but they this is very like slightly stringent but then um if to overall this should be uh yeah I think uh yeah there could be just a button like ask
+Sakshi Jadhav: Okay.
+Pravin Luthada: for reallocation to other project you know just like yeah like this could be just a message that goes to whoever is the project manager it's like hey this person is not able to do any of these thing three
+Sakshi Jadhav: Okay. Yeah. Yeah.
+Pravin Luthada: things today because whatever reason allocate them something else um yeah yeah but this is very very basic what we want to do overall with this.
+Sakshi Jadhav: Mhm. Okay. And Oh yeah.
+Pravin Luthada: Once this module is there, everything else then we build around to this. Um yeah so this is the core module. Then comes like okay as people are getting the work you know done or uh things then we get into okay do they have the right equipments or sorry things let's say if something need somebody need to assemble something
+ 
+ 
+00:22:52
+ 
+Sakshi Jadhav: Mhm.
+Pravin Luthada: they need all the components for it to assemble but they don't have all the components they can't assemble. So then we see okay the yeah so but but then we start to see okay how the inventory module can be possible here to add but that comes way later.
+Sakshi Jadhav: Yeah. Okay. Yeah. First the project.
+Pravin Luthada: Yeah.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: So once this project this is the highest amount of resource also. So if you think in this way people are the most expensive resource in any company in our company is the same.
+Sakshi Jadhav: Mhm.
+Pravin Luthada: So we need to make sure that first optimization of resource that we are doing is people.
+Sakshi Jadhav: Okay.
+Pravin Luthada: This is all towards only one goal to make sure that everybody knows what they are supposed to do the moment they enter the office premise like I know this is to do this is what I have to do.
+Sakshi Jadhav: Okay. Yeah.
+Pravin Luthada: Yeah. Yeah. And if they are not present or traveling or something then the project manager is just reallocating and making sure keeping the um end delivery whoever supposed to receive them if it is delayed from promise date then you know
+ 
+ 
+00:23:57
+ 
+Sakshi Jadhav: Yeah. Sure. Mhm. Yeah.
+Pravin Luthada: informing them and keeping them in loop that okay this has happened and that's why we are running a bit behind or what not. Yeah. And that's the management side of things there. But this is in is as a core once we build this then everything can be built around to this I feel uh because uh yeah I don't see any um how do I say this?
+Sakshi Jadhav: Yes. Yeah. Yeah.
+Pravin Luthada: this I don't think so is too complicated but um this has pretty much all the elements that you have already worked on if if you think it's it it needs somebody to create a project somebody to create tasks
+Sakshi Jadhav: No. Yes. tasks.
+Pravin Luthada: and somebody to show like in the GAN chart view it has all the elements it just reduces complexity on the end user side um yeah and what would be the best case scenario for us is that uh um
+Sakshi Jadhav: Yeah. Yeah.
+Pravin Luthada: as I said uh all of the project related documentation they are in certain folder.
+ 
+ 
+00:25:25
+ 
+Sakshi Jadhav: Okay. Sure.
+Pravin Luthada: Yeah. Yeah. So always whenever somebody creates a project they're like hey you know select whatever Google drive folder where you know things are stored related to this project.
+Sakshi Jadhav: H Yeah.
+Pravin Luthada: Anybody want to know anything about the project, they basically click on that link and they go through a technical aspect of that project and they don't need to it's just like a think of like a Google Drive browser
+Sakshi Jadhav: Okay.
+Pravin Luthada: inside the app that they can just click through and lick and if they don't find the thing then there is the chat that okay I would be able to ask I know the person who is related to this
+Sakshi Jadhav: Mhm.
+Pravin Luthada: project let me just ask then they don't have to have 10 apps is the same they are able to find the detail and if they are not able to find the detail they know the person to talk to
+Sakshi Jadhav: Yeah. Okay.
+Pravin Luthada: to get the detail yeah it's basically just chat it's just chat displayed there nothing else so
+ 
+ 
+00:26:15
+ 
+Sakshi Jadhav: Okay. So it means like in the uh software itself uh in future we wanted to add the chat also and the browsing option to browse the drive documents. Okay. Okay. Okay.
+Pravin Luthada: we don't have to build chat we don't have we just have to figure out how to get the chat had to you know appear in the app and the same thing with the Google uh drive as well you know just get the authentication there so a person is able to open the Google drive links uh without authenticating it again and again and again that's it yeah so we are not building Google drive is there we just
+Sakshi Jadhav: Okay. Okay. Okay. Yeah, I got it. Yeah.
+Pravin Luthada: have this one folders so whosoever shares it they can just share like okay share link you know with everybody body in add composits. Okay. And and then uh whosoever opens that project folder, they are able to see all the details that they need to look. It's all there in Google Drive folder.
+ 
+ 
+00:27:17
+ 
+Pravin Luthada: So don't need to worry as such.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: Yeah. Yeah.
+Sakshi Jadhav: Okay.
+Pravin Luthada: Yeah. Yeah.
+Sakshi Jadhav: Okay.
+Pravin Luthada: Oh yes.
+Sakshi Jadhav: Yeah. I think uh like I have created like created the database schema but that is like completely different from currently what we have discussed. So I will again red like uh redo that thing and also I will focus on the API endpoints as well like as today we discuss Yeah.
+Pravin Luthada: Yeah. Yeah. So what is there like Saki I did like this meeting is have complete transcribed so you can use the transcript of the meeting to help with any of these things. Um yeah and um the moment you feel that you have the details in place uh we can have one more like a call similar to this where we can uh then go into exactly the uh if you got
+Sakshi Jadhav: Yeah. Mhm.
+Pravin Luthada: the details in place but I would refer again back to this uh very uh like if I have to define a singular goal is the Human resource optimization is is the main goal and and that basically drives from
+ 
+ 
+00:28:25
+ 
+Sakshi Jadhav: Yeah. Okay.
+Pravin Luthada: something that is in the phone and then something that will be there with the on the desktop and these are two different interfaces but basically very simplified very basic version that goes on everybody's phone that way they know
+Sakshi Jadhav: Yeah. Mhm. Mhm. Okay.
+Pravin Luthada: what they have to do and then the on the complex side which is like um doing G chart and alloc location of task and everything like that. That goes on the project manager side and we basically uh can do that. Uh uh the project manager does that and it's dynamic and it makes sure that you know a person has only one day and it cannot be allocated 10 places and and such.
+Sakshi Jadhav: That's it.
+Pravin Luthada: So that is the main main issue that we have right now with why I don't like ODO and why I think the complexity it has adds to us.
+Sakshi Jadhav: Okay.
+Pravin Luthada: it actually requests us to shift our whole database whereas if we build something I think we can just make sure there's a link to the drive look here that's it then uh there is the um because also it
+ 
+ 
+00:29:30
+ 
+Sakshi Jadhav: Yeah. Yeah, correct.
+Pravin Luthada: will be if I have to add easily here because it's Google and in Google calendar you can just say hey I'm off here to here that's it it automatically is there everything is there so we don't create I
+Sakshi Jadhav: Mhm. Yeah, correct. Sure.
+Pravin Luthada: don't know a lot more things is my my understanding. Yeah.
+Sakshi Jadhav: Okay. Okay.
+Pravin Luthada: Yeah. Yeah. Okay. I think uh that should should clarify this this details. Uh I think once you have the document we can have a have a brief u call again. Um after we can I can review the document and then we can start building.
+Sakshi Jadhav: Sure.
+Pravin Luthada: Uh maybe one quick question that I have. Are you planning to build this um as a web app or uh how how is the
+Sakshi Jadhav: Yeah. Yeah. Uh just like the udu like uh we can open it on the desktop also like browser or do we want like an uh like download option how we download the cursor and it open browser.
+ 
+ 
+00:30:46
+ 
+Pravin Luthada: No, no, no. I think it's okay to have just on like a web. To me, it's just a tab that's open.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: a u a tab that's open and in that um I have as a project manager like some level of complexity that I handle um related to the project.
+Sakshi Jadhav: Yeah. Yeah.
+Pravin Luthada: So um how do I say this? Um uh yeah. So apart from very very basic details as it comes to more complexity uh like okay some more description or this or that what I would usually recommend in this case just to simplify whole thing is like hey make
+Sakshi Jadhav: Mhm. Yeah. Mhm.
+Pravin Luthada: a Google doc attach a link here make uh whatever you know just like okay go attach a Google Google thing here it's still in the same folder all the document if you want to see it in this view
+Sakshi Jadhav: Yeah. Yeah.
+Pravin Luthada: or you just open the Google folder And you can see there. But that's for the project manager side of things.
+ 
+ 
+00:31:49
+ 
+Pravin Luthada: It can be a bit more. But to really make it very very simple, uh it's like it's going to be very light application. If you think from that point of view, um you're not handling a lot and it's basically just uh um opening this um uh drive inside the app and or calendar inside the app or uh the chat inside the
+Sakshi Jadhav: Yeah.
+Pravin Luthada: app. So, it's still running the fundamental Google apps.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: Yeah.
+Sakshi Jadhav: Yes. Yes. Yeah. Yeah. Yeah. Sure. Okay. And about the uh like mobile currently uh we have like live three free tools now. So for all of them we like those tools are not on the play store which is like from where we can download and then use it as an app. It's like a browser link where it is responsive for the mobile phone also. So but currently odo is an application where like we can download it from the play store. So what approach we wanted to follow for the mobile screens?
+ 
+ 
+00:32:55
+ 
+Pravin Luthada: I think uh very simple. We have how many people? 20 people. I think it's very easy to just send them the SDK and let them just run it. Uh I don't know if we should upload anything to the play store because we are not selling this application to anybody.
+Sakshi Jadhav: Yeah.
+Pravin Luthada: it's just for us to run. Uh so I would assume like if there is an SDK it's okay but if you think um uh yeah I think a simple SDK should be okay where you are um able to just have like very very basic
+Sakshi Jadhav: Yeah.
+Pravin Luthada: buttons you know and very simple interface overall of the okay I'm supposed to do this task and then that's it.
+Sakshi Jadhav: Yeah, sure. Okay.
+Pravin Luthada: Okay, I think uh then Saki I will leave this to you. I would assume the transcript you will also receive because you have created this meeting. Um yeah so you'll get the transcript and you can refer to this and if you uh want to know any about any of this methodologies or such I've talked about please feel free to ask so I can uh
+Sakshi Jadhav: I have created. Yeah, I can. Sure.
+Pravin Luthada: yeah provide okay thanks.
+Sakshi Jadhav: Yeah. Yeah, sure. I will ask.
+Pravin Luthada: Yeah have a nice evening.
+ 
+ 
+Transcription ended after 00:34:27
+
+
+This editable transcript was computer generated and might contain errors. People can also change the text after it was created.

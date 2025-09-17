@@ -1,0 +1,277 @@
+version: "3.8"
+
+services:
+  # API Gateway
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    environment:
+      - KONG_DATABASE=off
+      - KONG_DECLARATIVE_CONFIG=/usr/local/kong/declarative/kong.yml
+    depends_on:
+      - consul
+    networks:
+      - nove-network
+
+  # Service Discovery
+  consul:
+    image: consul:1.16
+    ports:
+      - "8500:8500"
+      - "8600:8600"
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+    command: consul agent -server -bootstrap-expect=1 -ui -client=0.0.0.0
+    networks:
+      - nove-network
+
+  # Redis Cluster
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - nove-network
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=pm_platform
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - nove-network
+
+  # Auth Service
+  auth-service:
+    build: ./microservices/auth-service
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - DATABASE_URL=postgresql://user:password@postgres:5432/pm_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-key
+      - GOOGLE_CLIENT_ID=your-google-client-id
+      - GOOGLE_CLIENT_SECRET=your-google-client-secret
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+    depends_on:
+      - postgres
+      - redis
+      - consul
+    networks:
+      - nove-network
+
+  # User Service
+  user-service:
+    build: ./microservices/user-service
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=development
+      - PORT=3002
+      - DATABASE_URL=postgresql://user:password@postgres:5432/pm_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-key
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+    depends_on:
+      - postgres
+      - redis
+      - consul
+    networks:
+      - nove-network
+
+  # Project Service
+  project-service:
+    build: ./microservices/project-service
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=development
+      - PORT=3003
+      - DATABASE_URL=postgresql://user:password@postgres:5432/pm_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-key
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+    depends_on:
+      - postgres
+      - redis
+      - consul
+    networks:
+      - nove-network
+
+  # Task Service
+  task-service:
+    build: ./microservices/task-service
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=development
+      - PORT=3004
+      - DATABASE_URL=postgresql://user:password@postgres:5432/pm_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-key
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+    depends_on:
+      - postgres
+      - redis
+      - consul
+    networks:
+      - nove-network
+
+  # Analytics Service
+  analytics-service:
+    build: ./microservices/analytics-service
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=development
+      - PORT=3005
+      - DATABASE_URL=postgresql://user:password@postgres:5432/pm_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-key
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+    depends_on:
+      - postgres
+      - redis
+      - consul
+    networks:
+      - nove-network
+
+  # File Service
+  file-service:
+    build: ./microservices/file-service
+    ports:
+      - "3006:3006"
+    environment:
+      - NODE_ENV=development
+      - PORT=3006
+      - DATABASE_URL=postgresql://user:password@postgres:5432/pm_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-key
+      - GOOGLE_DRIVE_API_KEY=your-google-drive-api-key
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+    depends_on:
+      - postgres
+      - redis
+      - consul
+    networks:
+      - nove-network
+
+  # Notification Service
+  notification-service:
+    build: ./microservices/notification-service
+    ports:
+      - "3007:3007"
+    environment:
+      - NODE_ENV=development
+      - PORT=3007
+      - DATABASE_URL=postgresql://user:password@postgres:5432/pm_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-key
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+    depends_on:
+      - postgres
+      - redis
+      - consul
+    networks:
+      - nove-network
+
+  # Integration Service
+  integration-service:
+    build: ./microservices/integration-service
+    ports:
+      - "3008:3008"
+    environment:
+      - NODE_ENV=development
+      - PORT=3008
+      - DATABASE_URL=postgresql://user:password@postgres:5432/pm_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-key
+      - GOOGLE_CLIENT_ID=your-google-client-id
+      - GOOGLE_CLIENT_SECRET=your-google-client-secret
+      - NOVA_API_BASE_URL=https://api.novaworldgroup.ca
+      - NOVA_API_KEY=your-nova-api-key
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+    depends_on:
+      - postgres
+      - redis
+      - consul
+    networks:
+      - nove-network
+
+  # Reporting Service
+  reporting-service:
+    build: ./microservices/reporting-service
+    ports:
+      - "3009:3009"
+    environment:
+      - NODE_ENV=development
+      - PORT=3009
+      - DATABASE_URL=postgresql://user:password@postgres:5432/pm_platform
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-key
+      - CONSUL_HOST=consul
+      - CONSUL_PORT=8500
+    depends_on:
+      - postgres
+      - redis
+      - consul
+    networks:
+      - nove-network
+
+  # Prometheus (Monitoring)
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+      - "--web.enable-lifecycle"
+    networks:
+      - nove-network
+
+  # Grafana (Monitoring Dashboard)
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - nove-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  grafana_data:
+
+networks:
+  nove-network:
+    driver: bridge
