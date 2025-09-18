@@ -28,8 +28,6 @@ export function decodeJwtToken(token: string): IDecodedJwt | null {
   } catch (error) {
     console.error('Invalid JWT Token:', error);
     return null;
-  } finally {
-    return null;
   }
 }
 
@@ -67,9 +65,8 @@ export function isValidToken(accessToken: string) {
     if (!decoded || !('exp' in decoded)) {
       return false;
     }
-    return true
-    // const currentTime = Date.now() / 1000;
-    // return decoded.exp > currentTime;
+    const currentTime = Date.now() / 1000;
+    return decoded.exp > currentTime;
   } catch (error) {
     console.error('Error during token validation:', error);
     return false;

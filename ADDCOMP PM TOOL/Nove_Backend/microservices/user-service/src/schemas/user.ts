@@ -50,3 +50,12 @@ export const userQuerySchema = Joi.object({
 export const userIdSchema = Joi.object({
   id: Joi.string().uuid().required(),
 });
+
+// Get users query schema for Nova World Group format
+export const getUsersQuerySchema = Joi.object({
+  page: Joi.number().integer().min(1).default(1),
+  limit: Joi.number().integer().min(1).max(100).default(10),
+  status: Joi.string().valid("ACTIVE", "INACTIVE", "PENDING").optional(),
+  role: Joi.string().optional(),
+  search: Joi.string().max(100).optional(),
+});

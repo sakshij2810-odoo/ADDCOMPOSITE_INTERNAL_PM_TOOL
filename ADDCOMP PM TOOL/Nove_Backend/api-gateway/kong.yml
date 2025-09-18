@@ -266,6 +266,60 @@ services:
               - "X-Service: analytics-service"
               - "X-Gateway: kong"
 
+  # Company Information Service
+  - name: company-information-service
+    url: http://company-information-service:3005
+    routes:
+      - name: company-info-routes
+        paths:
+          - /api/v1/companyInformation
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        strip_path: true
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - http://localhost:3000
+            - http://localhost:8004
+            - https://pm.addcomposites.com
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Accept
+            - Accept-Version
+            - Content-Length
+            - Content-MD5
+            - Content-Type
+            - Date
+            - X-Auth-Token
+            - Authorization
+          exposed_headers:
+            - X-Auth-Token
+          credentials: true
+          max_age: 3600
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+          policy: local
+      - name: request-size-limiting
+        config:
+          allowed_payload_size: 10
+      - name: response-transformer
+        config:
+          add:
+            headers:
+              - "X-Service: company-information-service"
+              - "X-Gateway: kong"
+
   # File Service
   - name: file-service
     url: http://file-service:3006
@@ -541,7 +595,6 @@ services:
           - /api/v1/accounting
           - /api/v1/approval
           - /api/v1/comment
-          - /api/v1/companyInformation
           - /api/v1/conversation
           - /api/v1/customer
           - /api/v1/dataManagement

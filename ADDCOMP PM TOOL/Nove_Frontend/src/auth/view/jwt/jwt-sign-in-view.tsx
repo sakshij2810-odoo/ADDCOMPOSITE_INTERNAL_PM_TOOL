@@ -54,13 +54,21 @@ export function JwtSignInView() {
   const password = useBoolean();
 
   const defaultValues = {
-    email: '',
-    password: '',
+    email: 'sakshi.jadhav@addcomposites.com',
+    password: '12345678',
   };
 
   const methods = useForm<SignInSchemaType>({
     resolver: zodResolver(SignInSchema),
     defaultValues,
+  });
+
+  // Add debugging for form state
+  console.log('📝 Form state:', {
+    isSubmitting: methods.formState.isSubmitting,
+    isValid: methods.formState.isValid,
+    errors: methods.formState.errors,
+    values: methods.getValues()
   });
 
   const {
@@ -70,14 +78,20 @@ export function JwtSignInView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      console.log('🚀 Login form submitted with:', { email: data.email, password: '***' });
       await signInWithPassword({ email: data.email, password: data.password });
+      console.log('✅ Sign in successful, checking user session...');
       await checkUserSession?.();
-      if (!queryParam) {
+      console.log('✅ User session checked, navigating...');
+      if (queryParam) {
+        console.log('🔄 Navigating to query param:', queryParam);
+        router.push(queryParam);
+      } else {
+        console.log('🔄 Navigating to root path');
         router.push('/');
       }
-      router.refresh();
     } catch (error) {
-      console.error(error);
+      console.error('❌ Login form error:', error);
       setErrorMsg(typeof error === 'string' ? error : error.message);
     }
   });
@@ -123,6 +137,9 @@ export function JwtSignInView() {
         variant="contained"
         loading={isSubmitting}
         loadingIndicator="Sign in..."
+        onClick={() => {
+          console.log('🖱️ Sign in button clicked!');
+        }}
       >
         Sign in
       </LoadingButton>

@@ -100,23 +100,49 @@ app.get("/api/v1/companyInformation/get-company-information", (req, res) => {
   console.log("🏢 Company information request received");
 
   res.json({
-    message: "Company Information Record",
+    message: "Company Information: ",
     totalRecords: 1,
     currentRecords: 1,
     data: [
       {
+        company_information_id: 25,
+        company_information_unique_id: 1,
+        company_uuid: "f259059b-2fa0-4448-a2a7-193192ca6eac",
         company_name: "Nova World Immigration Services Incorporated",
-        preview_logo:
-          "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/logoNova_Worlds_Private_Limited2025-01-29_05-06-32.png",
-        preview_fav_icon:
-          "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/nova_app_logoNova_Worlds_Private_Limited2025-01-29_04-36-50.png",
-        company_title: "Leading Immigration Services",
-        company_description: "Professional immigration consulting services",
+        company_title: null,
+        company_description: null,
+        address: null,
+        unit_or_suite: "4A",
+        city: "Mississauga",
+        province_or_state: "Ontario",
+        postal_code: "L4T1G3",
+        country: "Canada",
+        phone: " 1 647 404 6682",
+        telephone: " 1 647 403 6682",
+        fax: "",
+        default_language: "ENGLISH",
+        email: null,
+        accounts_email: "info@nwimmigration.ca",
+        cl_email: null,
+        pl_email: null,
+        default_tax_region: "ON",
+        pst_or_gst_or_vat_number: null,
+        bahamas_premium_tax: null,
+        logo: "company_information/Nova_Worlds_Private_Limited/logoNova_Worlds_Private_Limited2025-01-29_05-06-32.png",
+        fav_icon: "company_information/Nova_Worlds_Private_Limited/nova_app_logoNova_Worlds_Private_Limited2025-01-29_04-36-50.png",
         adsense_header_code: null,
-        created_at: "2025-01-29T05:06:32.000Z",
-        updated_at: "2025-01-29T05:06:32.000Z",
-      },
-    ],
+        about: null,
+        status: "ACTIVE",
+        created_by_uuid: "77c189b1-403e-4ebc-a6cf-4a35fbbc0937",
+        created_by_name: "Kamal",
+        modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        modified_by_name: "Ramesh",
+        create_ts: "2025-01-06T09:09:02.000Z",
+        insert_ts: "2025-07-01T13:15:09.000Z",
+        preview_logo: "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/logoNova_Worlds_Private_Limited2025-01-29_05-06-32.png",
+        preview_fav_icon: "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/nova_app_logoNova_Worlds_Private_Limited2025-01-29_04-36-50.png"
+      }
+    ]
   });
 });
 

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Button } from "@mui/material";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -35,6 +36,20 @@ const SecurityApprovalTableView: React.FC = () => {
     (storeState: IStoreState) => storeState.management.security.approval,
   );
   const dispatch = useAppDispatch();
+
+  // Safe data handling - prevent undefined crashes
+  const safeRecordCountArray = recordCountArray ?? [];
+  const safeMultipleDataArray = multipleDataArray ?? [];
+  const safeTotalCount = totalCount ?? 0;
+
+  // Debug logging (non-invasive)
+  console.log('SecurityApprovalTableView props:', JSON.stringify({
+    recordCountArray: safeRecordCountArray,
+    multipleDataArray: safeMultipleDataArray,
+    totalCount: safeTotalCount,
+    dataLoading,
+    recordCountLoading
+  }, null, 2));
 
   const {
     state: { dateState, searchState, tabs, columnsConfig },
@@ -73,7 +88,7 @@ const SecurityApprovalTableView: React.FC = () => {
 
   const tasksTableProps: IDataTableV2Props = {
     isPagination: true,
-    totalRecords: totalCount,
+    totalRecords: safeTotalCount,
     rowsPerPageOptions: pagination.rowsPerPage,
     isDataLoading: dataLoading === ILoadState.pending,
     tableCommandBarProps: {
@@ -114,13 +129,19 @@ const SecurityApprovalTableView: React.FC = () => {
         renderType: DataTableV2RowRenderType.CUSTOM_RENDER,
         width: '90px',
         isFirstColumnSticky: true,
-        onRowCellRender: (value, row: ISecurityApproval) =>
-          <StandardTableActions
+        onRowCellRender: (value, row: ISecurityApproval) => {
+          // Safe handling for row data
+          if (!row || !row.approval_count_uuid) {
+            console.warn('SecurityApprovalTableView: Row or approval_count_uuid is undefined');
+            return <div>No data</div>;
+          }
+          return <StandardTableActions
             onEditClick={() => {
               router.push(`${main_app_routes.app.security.approvals}/manage/${row.approval_count_uuid}`
               );
             }}
-          />
+          />;
+        }
       },
       {
         key: "status",
@@ -129,6 +150,11 @@ const SecurityApprovalTableView: React.FC = () => {
         enableSorting: true,
         renderType: DataTableV2RowRenderType.CHIP_WARNING,
         onRowCellRender: (value, row) => {
+          // Safe handling for row data
+          if (!row || !row.status) {
+            console.warn('SecurityApprovalTableView: Row or status is undefined');
+            return <div>No status</div>;
+          }
           return <StatusRenderer status={row.status} />;
         },
       },
@@ -157,7 +183,7 @@ const SecurityApprovalTableView: React.FC = () => {
       },
     },
 
-    rows: multipleDataArray,
+    rows: safeMultipleDataArray,
 
     onPageChange: (newPageNumber) => {
       setPagination({ ...pagination, pageNumber: newPageNumber });
@@ -178,11 +204,11 @@ const SecurityApprovalTableView: React.FC = () => {
         { label: "Dead", value: "DEAD", variant: "error" },
         { label: "Opportunity", value: "OPPORTUNITY", variant: "grey" },
       ],
-      recordCountArray
+      safeRecordCountArray
     );
 
     setTableTabs(tabsData);
-  }, [recordCountArray]);
+  }, [safeRecordCountArray]);
 
   React.useEffect(() => {
     return () => {
@@ -215,4 +241,27 @@ const SecurityApprovalTableView: React.FC = () => {
   );
 };
 
-export default SecurityApprovalTableView
+// Error Boundary Fallback Component
+const ErrorFallback: React.FC<{ error: Error }> = ({ error }) => (
+  <div style={{ padding: '20px', textAlign: 'center' }}>
+    <h2>Something went wrong:</h2>
+    <p style={{ color: 'red', marginBottom: '20px' }}>{error.message}</p>
+    <button onClick={() => window.location.reload()}>
+      Reload Page
+    </button>
+  </div>
+);
+
+// Wrapped component with ErrorBoundary
+const SecurityApprovalTableViewWithErrorBoundary: React.FC = () => (
+  <ErrorBoundary
+    FallbackComponent={ErrorFallback}
+    onError={(error, errorInfo) => {
+      console.error('SecurityApprovalTableView Error:', error, errorInfo);
+    }}
+  >
+    <SecurityApprovalTableView />
+  </ErrorBoundary>
+);
+
+export default SecurityApprovalTableViewWithErrorBoundary

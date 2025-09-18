@@ -2,7 +2,7 @@
 
 export interface User {
   id: string;
-  googleId: string;
+  googleId?: string;
   email: string;
   name: string;
   firstName?: string;
@@ -18,6 +18,71 @@ export interface User {
   updatedAt: Date;
   createdBy?: string;
   updatedBy?: string;
+}
+
+// Nova World Group specific user interface
+export interface NovaWorldUser {
+  user_fact_id: number;
+  user_uuid: string;
+  email: string;
+  status: string;
+  created_by_uuid?: string;
+  created_by_name?: string;
+  create_ts?: string;
+  insert_ts?: string;
+  user_dim_id?: number;
+  role_uuid?: string;
+  role_value?: string;
+  user_profile_id?: number;
+  first_name?: string;
+  last_name?: string;
+  full_name?: string;
+  personal_email?: string;
+  job_title?: string;
+  user_type?: string;
+  assigned_phone_number?: string;
+  shared_email?: string;
+  mobile?: string;
+  home_phone?: string;
+  linkedin_profile?: string;
+  hire_date?: string;
+  last_day_at_work?: string;
+  department?: string;
+  fax?: string;
+  date_of_birth?: string;
+  mother_maiden_name?: string;
+  photo?: string;
+  signature?: string;
+  street_address?: string;
+  unit_or_suite?: string;
+  city?: string;
+  csr?: string;
+  csr_code?: string;
+  marketer?: string;
+  marketer_code?: string;
+  producer_one?: string;
+  producer_one_code?: string;
+  producer_two?: string;
+  producer_two_code?: string;
+  producer_three?: string;
+  producer_three_code?: string;
+  branch_code?: string;
+  province_or_state?: string;
+  postal_code?: string;
+  country?: string;
+  languages_known?: string;
+  documents?: string;
+  branch_name?: string;
+  branch_uuid?: string;
+  referral_code?: string;
+}
+
+// Nova World Group API response structure
+export interface NovaWorldUserResponse {
+  message: string;
+  totalRecords: number;
+  currentRecords: number;
+  data: NovaWorldUser[];
 }
 
 export enum UserRole {

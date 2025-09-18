@@ -24,18 +24,33 @@ export type SignUpParams = {
 export const signInWithPassword = async ({ email, password }: SignInParams): Promise<void> => {
   try {
     const params = { email, password };
+    console.log('🔐 Attempting login with:', { email, password: '***' });
+    console.log('🌐 Making request to:', server_base_endpoints.auth.sign_in);
+    console.log('🔗 Full URL:', `${axios_base_api.defaults.baseURL}${server_base_endpoints.auth.sign_in}`);
 
     const res = await axios_base_api.post(server_base_endpoints.auth.sign_in, params);
+    console.log('✅ Login response received:', res.data);
+    console.log('📊 Response status:', res.status);
+    console.log('📋 Response headers:', res.headers);
 
     const { token: accessToken, user } = res.data.data;
 
     if (!accessToken) {
       throw new Error('Access token not found in response');
     }
+    
+    console.log('💾 Saving user data and token');
     saveAuthUserIntoStorage(user)
     setSession(accessToken);
+    console.log('✅ Login successful, user session established');
   } catch (error) {
-    console.error('Error during sign in:', error);
+    console.error('❌ Error during sign in:', error);
+    console.error('❌ Error details:', {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+      headers: error.response?.headers
+    });
     throw error;
   }
 };

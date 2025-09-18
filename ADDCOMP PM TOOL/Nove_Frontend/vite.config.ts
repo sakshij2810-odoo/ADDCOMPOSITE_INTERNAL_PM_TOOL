@@ -91,9 +91,9 @@ export default defineConfig({
         secure: true,
       },
       '/api/v1/companyInformation': {
-        target: 'https://api.novaworldgroup.ca',
+        target: 'http://localhost:3005',
         changeOrigin: true,
-        secure: true,
+        secure: false,
       },
       '/api/v1/conversation': {
         target: 'https://api.novaworldgroup.ca',

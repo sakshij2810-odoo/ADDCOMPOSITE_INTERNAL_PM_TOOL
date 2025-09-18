@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id           String    @id @default(uuid())
-  googleId     String    @unique
+  googleId     String?   @unique
   email        String    @unique
   name         String
   firstName    String?
@@ -28,6 +28,56 @@ model User {
   updatedAt    DateTime  @updatedAt
   createdBy    String?
   updatedBy    String?
+
+  // Nova World Group specific fields
+  userFactId       Int?     @unique
+  userUuid         String?  @unique
+  status           String?  @default("ACTIVE")
+  createdByUuid    String?
+  createdByName    String?
+  createTs         DateTime?
+  insertTs         DateTime?
+  userDimId        Int?
+  roleUuid         String?
+  roleValue        String?
+  userProfileId    Int?
+  personalEmail    String?
+  jobTitle         String?
+  userType         String?
+  assignedPhoneNumber String?
+  sharedEmail      String?
+  mobile           String?
+  homePhone        String?
+  linkedinProfile  String?
+  hireDate         DateTime?
+  lastDayAtWork    DateTime?
+  fax              String?
+  dateOfBirth      DateTime?
+  motherMaidenName String?
+  photo            String?
+  signature        String?
+  streetAddress    String?
+  unitOrSuite      String?
+  city             String?
+  csr              String?
+  csrCode          String?
+  marketer         String?
+  marketerCode     String?
+  producerOne      String?
+  producerOneCode  String?
+  producerTwo      String?
+  producerTwoCode  String?
+  producerThree    String?
+  producerThreeCode String?
+  branchCode       String?
+  provinceOrState  String?
+  postalCode       String?
+  country          String?
+  languagesKnown   String?
+  documents        String?
+  branchName       String?
+  branchUuid       String?
+  referralCode     String?
 
   @@map("users")
 }

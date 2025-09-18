@@ -1,16 +1,198 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
+import * as bcrypt from "bcryptjs";
 
 import { config } from "../../../shared/config";
 import { logger } from "../utils/logger";
 import { validateRequest } from "../middleware/validation";
-import { userSchema, updateUserSchema, changePasswordSchema } from "../schemas/user";
+import { userSchema, updateUserSchema, changePasswordSchema, getUsersQuerySchema } from "../schemas/user";
 import { createApiResponse, createApiError } from "../../../shared/utils";
-import { User, UserRole } from "../../../shared/types";
+import { User, UserRole, NovaWorldUser, NovaWorldUserResponse } from "../../../shared/types";
 
 const router = express.Router();
 const prisma = new PrismaClient();
+
+/**
+ * GET /api/v1/user/get-user
+ * Get all users in Nova World Group format
+ */
+router.get("/get-user", async (req, res) => {
+  try {
+    const { page = 1, limit = 10, status, role, search, user_uuid } = req.query;
+    
+    const skip = (Number(page) - 1) * Number(limit);
+    const where: any = {};
+
+    // Apply filters
+    if (status) {
+      where.status = status;
+    }
+    
+    if (role) {
+      where.roleValue = role;
+    }
+    
+    if (user_uuid) {
+      where.OR = [
+        { userUuid: user_uuid as string },
+        { id: user_uuid as string }
+      ];
+    }
+    
+    if (search) {
+      where.OR = [
+        { email: { contains: search as string, mode: 'insensitive' } },
+        { firstName: { contains: search as string, mode: 'insensitive' } },
+        { lastName: { contains: search as string, mode: 'insensitive' } },
+        { name: { contains: search as string, mode: 'insensitive' } }
+      ];
+    }
+
+    const [users, totalRecords] = await Promise.all([
+      prisma.user.findMany({
+        where,
+        select: {
+          userFactId: true,
+          userUuid: true,
+          email: true,
+          status: true,
+          createdByUuid: true,
+          createdByName: true,
+          createTs: true,
+          insertTs: true,
+          userDimId: true,
+          roleUuid: true,
+          roleValue: true,
+          userProfileId: true,
+          firstName: true,
+          lastName: true,
+          personalEmail: true,
+          jobTitle: true,
+          userType: true,
+          assignedPhoneNumber: true,
+          sharedEmail: true,
+          mobile: true,
+          homePhone: true,
+          linkedinProfile: true,
+          hireDate: true,
+          lastDayAtWork: true,
+          department: true,
+          fax: true,
+          dateOfBirth: true,
+          motherMaidenName: true,
+          photo: true,
+          signature: true,
+          streetAddress: true,
+          unitOrSuite: true,
+          city: true,
+          csr: true,
+          csrCode: true,
+          marketer: true,
+          marketerCode: true,
+          producerOne: true,
+          producerOneCode: true,
+          producerTwo: true,
+          producerTwoCode: true,
+          producerThree: true,
+          producerThreeCode: true,
+          branchCode: true,
+          provinceOrState: true,
+          postalCode: true,
+          country: true,
+          languagesKnown: true,
+          documents: true,
+          branchName: true,
+          branchUuid: true,
+          referralCode: true,
+        },
+        skip,
+        take: Number(limit),
+        orderBy: { userFactId: 'desc' },
+      }),
+      prisma.user.count({ where }),
+    ]);
+
+    // Transform users to Nova World Group format
+    const transformedUsers: NovaWorldUser[] = users.map(user => ({
+      user_fact_id: user.userFactId || 0,
+      user_uuid: user.userUuid || user.id,
+      email: user.email,
+      status: user.status || "ACTIVE",
+      created_by_uuid: user.createdByUuid || null,
+      created_by_name: user.createdByName || null,
+      create_ts: user.createTs?.toISOString() || null,
+      insert_ts: user.insertTs?.toISOString() || null,
+      user_dim_id: user.userDimId || null,
+      role_uuid: user.roleUuid || null,
+      role_value: user.roleValue || null,
+      user_profile_id: user.userProfileId || null,
+      first_name: user.firstName || null,
+      last_name: user.lastName || null,
+      full_name: user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : (user.firstName || user.lastName || user.name),
+      personal_email: user.personalEmail || null,
+      job_title: user.jobTitle || null,
+      user_type: user.userType || null,
+      assigned_phone_number: user.assignedPhoneNumber || null,
+      shared_email: user.sharedEmail || null,
+      mobile: user.mobile || null,
+      home_phone: user.homePhone || null,
+      linkedin_profile: user.linkedinProfile || null,
+      hire_date: user.hireDate?.toISOString() || null,
+      last_day_at_work: user.lastDayAtWork?.toISOString() || null,
+      department: user.department || null,
+      fax: user.fax || null,
+      date_of_birth: user.dateOfBirth?.toISOString() || null,
+      mother_maiden_name: user.motherMaidenName || null,
+      photo: user.photo || null,
+      signature: user.signature || null,
+      street_address: user.streetAddress || null,
+      unit_or_suite: user.unitOrSuite || null,
+      city: user.city || null,
+      csr: user.csr || null,
+      csr_code: user.csrCode || null,
+      marketer: user.marketer || null,
+      marketer_code: user.marketerCode || null,
+      producer_one: user.producerOne || null,
+      producer_one_code: user.producerOneCode || null,
+      producer_two: user.producerTwo || null,
+      producer_two_code: user.producerTwoCode || null,
+      producer_three: user.producerThree || null,
+      producer_three_code: user.producerThreeCode || null,
+      branch_code: user.branchCode || null,
+      province_or_state: user.provinceOrState || null,
+      postal_code: user.postalCode || null,
+      country: user.country || null,
+      languages_known: user.languagesKnown || null,
+      documents: user.documents || null,
+      branch_name: user.branchName || null,
+      branch_uuid: user.branchUuid || null,
+      referral_code: user.referralCode || null,
+    }));
+
+    const response: NovaWorldUserResponse = {
+      message: "All User",
+      totalRecords,
+      currentRecords: transformedUsers.length,
+      data: transformedUsers,
+    };
+
+    logger.info(`Retrieved ${transformedUsers.length} users in Nova World Group format`);
+
+    res.json(response);
+
+  } catch (error) {
+    logger.error("Get users error:", error);
+    res
+      .status(500)
+      .json(
+        createApiResponse(
+          false,
+          null,
+          createApiError("INTERNAL_ERROR", "Internal server error")
+        )
+      );
+  }
+});
 
 /**
  * GET /api/v1/user/profile

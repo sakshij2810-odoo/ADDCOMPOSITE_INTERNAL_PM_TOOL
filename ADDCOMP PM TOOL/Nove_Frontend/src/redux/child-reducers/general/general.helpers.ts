@@ -64,9 +64,20 @@ export const createTabsWithRecordcounts = (
   mainData: { label: string; value: string; variant: string }[],
   recordCounts: IRecordCount[]
 ): ITableTab[] => {
+  // Safe data handling - prevent undefined crashes
+  const safeMainData = Array.isArray(mainData) ? mainData : [];
+  const safeRecordCounts = Array.isArray(recordCounts) ? recordCounts : [];
+  
+  console.log('createTabsWithRecordcounts - Safe data:', {
+    mainDataLength: safeMainData.length,
+    recordCountsLength: safeRecordCounts.length,
+    originalMainData: mainData,
+    originalRecordCounts: recordCounts
+  });
+
   let totalCount = 0;
-  const mergedArray = mainData.map((item) => {
-    const countObj = recordCounts.find(
+  const mergedArray = safeMainData.map((item) => {
+    const countObj = safeRecordCounts.find(
       (obj) => (obj.status ? obj.status.toString() : '').toLowerCase() === item.value.toLowerCase()
     );
     const count = countObj ? countObj.count : 0;

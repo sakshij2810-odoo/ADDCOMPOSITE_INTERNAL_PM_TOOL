@@ -29,17 +29,26 @@ export function AuthProvider({ children }: Props) {
 
   const checkUserSession = useCallback(async () => {
     try {
+      console.log('🔍 Checking user session...');
       const accessToken = getAccessTokenFromStorage();
       const authUserInfo = getAuthUserFromStorage();
+      
+      console.log('🔑 Access token found:', !!accessToken);
+      console.log('👤 Auth user info found:', !!authUserInfo);
+      console.log('✅ Token valid:', accessToken ? isValidToken(accessToken) : false);
+      
       if (accessToken && isValidToken(accessToken) && authUserInfo) {
+        console.log('🔄 Setting session and fetching user info...');
         setSession(accessToken);
         const currentUserInfo = await getAuthUserInfo(authUserInfo.user_uuid)
+        console.log('👤 User info fetched:', currentUserInfo);
         setState({ user: currentUserInfo, loading: false });
       } else {
+        console.log('❌ No valid session found, clearing user state');
         setState({ user: null, loading: false });
       }
     } catch (error) {
-      console.error(error);
+      console.error('❌ Error checking user session:', error);
       setState({ user: null, loading: false });
     }
   }, [setState]);
