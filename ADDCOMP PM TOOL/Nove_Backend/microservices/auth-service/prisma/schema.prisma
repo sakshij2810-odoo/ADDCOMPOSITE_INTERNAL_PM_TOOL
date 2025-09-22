@@ -82,6 +82,29 @@ model User {
   @@map("users")
 }
 
+model Branch {
+  id               Int      @id @default(autoincrement())
+  branchUuid       String   @unique @default(uuid())
+  branchName       String
+  branchCode       String?
+  branchEmail      String?
+  branchLogo       String?
+  description      String?
+  branchPhoneNo    String?
+  branchMobileNo   String?
+  status           String   @default("ACTIVE")
+  createdByUuid    String?
+  createdByName    String?
+  modifiedByUuid   String?
+  modifiedByName   String?
+  createTs         DateTime @default(now())
+  insertTs         DateTime @default(now())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("branch")
+}
+
 enum UserRole {
   EMPLOYEE
   PROJECT_MANAGER

@@ -14,12 +14,15 @@ import { DataTableV2 } from 'src/mui-components/TableV2/DataTableV2';
 import { useTableV2State } from 'src/mui-components/TableV2/hooks/useTableV2State';
 import { DataTableV2RowRenderType } from 'src/mui-components/TableV2/interfaces/IDataTableV2Props';
 import { StandardTableActions } from 'src/mui-components/StandardTableActions/StandardTableActions';
-import { clearBranchListStateSync, clearQuestionnaireListStateSync, duplicateSingleQuestionnaireWithArgsAsync, fetchMultipleBranchesWithArgsAsync, fetchMultipleQuestionnairesWithArgsAsync } from 'src/redux/child-reducers';
+import { clearBranchListStateSync, clearQuestionnaireListStateSync, clearRecordCountStateSync, duplicateSingleQuestionnaireWithArgsAsync, fetchMultipleBranchesWithArgsAsync, fetchMultipleQuestionnairesWithArgsAsync } from 'src/redux/child-reducers';
 
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { usePopover } from 'src/components/custom-popover';
 import { useRouter } from 'src/routes/hooks';
+import { createTabsWithRecordcounts } from 'src/redux/child-reducers/general/general.helpers';
+import { useRecordCountStore } from 'src/redux';
+import { fetchRecordCountAsync } from 'src/redux/child-reducers/general/general.actions';
 
 const BranchTableView = () => {
     const [pagination, setPagination] = React.useState({
@@ -31,6 +34,10 @@ const BranchTableView = () => {
     const router = useRouter();
 
     const dispatch = useAppDispatch();
+    const {
+        data: recordCountArray,
+        loading: recordCountLoading
+    } = useRecordCountStore();
     const {
         data: multipleDataArray,
         count: totalCount,
@@ -52,6 +59,7 @@ const BranchTableView = () => {
     });
 
     const fetchList = () => {
+        dispatch(fetchRecordCountAsync("latest_branch"));
         dispatch(
             fetchMultipleBranchesWithArgsAsync({
                 page: pagination.pageNumber,
@@ -180,17 +188,21 @@ const BranchTableView = () => {
     };
 
     React.useEffect(() => {
-        setTableTabs([
-            { label: "All", value: "-1", variant: "default", count: 0 },
-            { label: "Active", value: "ACTIVE", variant: "success", count: 0 },
-            { label: "In Active", value: "INACTIVE", variant: "error", count: 0 },
-        ])
-    }, []);
+        const tabsData = createTabsWithRecordcounts(
+            [
+                { label: "Active", value: "ACTIVE", variant: "success" },
+                { label: "In Active", value: "INACTIVE", variant: "error" },
+            ],
+            recordCountArray
+        );
+        setTableTabs(tabsData);
+    }, [recordCountArray]);
 
 
     React.useEffect(() => {
         return () => {
             dispatch(clearBranchListStateSync());
+            dispatch(clearRecordCountStateSync());
         }
     }, [dispatch]);
 

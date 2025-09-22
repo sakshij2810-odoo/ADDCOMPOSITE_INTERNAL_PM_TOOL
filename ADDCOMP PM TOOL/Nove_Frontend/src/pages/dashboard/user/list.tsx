@@ -143,7 +143,13 @@ export default function Page() {
         fieldName: "name",
         renderType: DataTableV2RowRenderType.TEXT_DARK,
         enableSorting: true,
-
+        onRowCellRender: (value, row: any) => {
+          // Combine first_name and last_name from the API response
+          const firstName = row.first_name || '';
+          const lastName = row.last_name || '';
+          const fullName = `${firstName} ${lastName}`.trim();
+          return fullName || 'N/A';
+        },
       },
       {
         key: "email",

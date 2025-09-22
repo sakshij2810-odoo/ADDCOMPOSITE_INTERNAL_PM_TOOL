@@ -11,6 +11,251 @@ require("dotenv").config();
 // Initialize Prisma client
 const prisma = new PrismaClient();
 
+// Company configuration storage (similar to company_outlet_env)
+let companyConfigStorage = [
+  {
+    id: 1,
+    company_outlet_env: "c4f8a2b1-1234-5678-9abc-def012345678",
+    master_company_outlet: "m1a2b3c4-5678-9def-0123-456789abcdef",
+    env_name: "WhatsApp Phone ID",
+    env_key: "WHATSAPP_PHONE_ID",
+    env_value: "+919511119155",
+    value_datatype: "STRING",
+    is_encrypted: 0,
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: "2025-09-22T11:00:00.000Z",
+    insert_ts: "2025-09-22T11:00:00.000Z"
+  },
+  {
+    id: 2,
+    company_outlet_env: "d5f9b3c2-2345-6789-bcde-f123456789ab",
+    master_company_outlet: "m1a2b3c4-5678-9def-0123-456789abcdef",
+    env_name: "Enable Email Status Reports",
+    env_key: "SEND_STATUS_REPORT",
+    env_value: "true",
+    value_datatype: "BOOLEAN",
+    is_encrypted: 0,
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: "2025-09-22T11:01:00.000Z",
+    insert_ts: "2025-09-22T11:01:00.000Z"
+  },
+  {
+    id: 3,
+    company_outlet_env: "e6a0c4d3-3456-789a-cdef-23456789abcd",
+    master_company_outlet: "m1a2b3c4-5678-9def-0123-456789abcdef",
+    env_name: "Status Report Webhook URL",
+    env_key: "STATUS_REPORT_WEBHOOK",
+    env_value: "https://api.example.com/webhook/status",
+    value_datatype: "URL",
+    is_encrypted: 0,
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: "2025-09-22T11:02:00.000Z",
+    insert_ts: "2025-09-22T11:02:00.000Z"
+  },
+  {
+    id: 4,
+    company_outlet_env: "f7b1d5e4-4567-89ab-def0-3456789abcde",
+    master_company_outlet: "m1a2b3c4-5678-9def-0123-456789abcdef",
+    env_name: "WhatsApp Business Account ID",
+    env_key: "WHATSAPP_BUSINESS_ACCOUNT_ID",
+    env_value: "694409273758187",
+    value_datatype: "STRING",
+    is_encrypted: 0,
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: "2025-09-22T11:03:00.000Z",
+    insert_ts: "2025-09-22T11:03:00.000Z"
+  },
+  {
+    id: 5,
+    company_outlet_env: "a8c2e6f5-5678-9abc-ef01-456789abcdef",
+    master_company_outlet: "m1a2b3c4-5678-9def-0123-456789abcdef",
+    env_name: "Company Email Address",
+    env_key: "COMPANY_EMAIL",
+    env_value: "info@nwimmigration.ca",
+    value_datatype: "EMAIL",
+    is_encrypted: 0,
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: "2025-09-22T11:04:00.000Z",
+    insert_ts: "2025-09-22T11:04:00.000Z"
+  },
+  {
+    id: 6,
+    company_outlet_env: "b9d3f7a6-6789-abcd-f012-56789abcdef0",
+    master_company_outlet: "m1a2b3c4-5678-9def-0123-456789abcdef",
+    env_name: "Database Connection String",
+    env_key: "DATABASE_URL",
+    env_value: "postgresql://user:password@localhost:5432/pm_platform",
+    value_datatype: "CONNECTION_STRING",
+    is_encrypted: 1,
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: "2025-09-22T11:05:00.000Z",
+    insert_ts: "2025-09-22T11:05:00.000Z"
+  },
+  {
+    id: 7,
+    company_outlet_env: "c0e4a8b7-789a-bcde-0123-6789abcdef01",
+    master_company_outlet: "m1a2b3c4-5678-9def-0123-456789abcdef",
+    env_name: "API Rate Limit",
+    env_key: "API_RATE_LIMIT",
+    env_value: "1000",
+    value_datatype: "NUMBER",
+    is_encrypted: 0,
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: "2025-09-22T11:06:00.000Z",
+    insert_ts: "2025-09-22T11:06:00.000Z"
+  },
+  {
+    id: 8,
+    company_outlet_env: "d1f5b9c8-89ab-cdef-1234-789abcdef012",
+    master_company_outlet: "m1a2b3c4-5678-9def-0123-456789abcdef",
+    env_name: "Company Logo URL",
+    env_key: "COMPANY_LOGO_URL",
+    env_value: "https://nwimmigration.ca/assets/logo.png",
+    value_datatype: "URL",
+    is_encrypted: 0,
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: "2025-09-22T11:07:00.000Z",
+    insert_ts: "2025-09-22T11:07:00.000Z"
+  }
+];
+
+// JSON storage for branches (similar to branch_json_store table)
+let branchJsonStorage = [];
+
+// In-memory storage for branches (for demo purposes)
+let branchesStorage = [
+  {
+    branch_uuid: "91b78ebf-8ba7-45f8-baf4-051053aa8c47",
+    branch_name: "NOVA SCOTIA",
+    branch_code: "NS-001",
+    branch_email: "info@novascotia.nwimmigration.ca",
+    branch_logo: null,
+    description: "Nova Scotia Branch",
+    branch_phone_no: "1 647 404 6682",
+    branch_mobile_no: "1 647 403 6682",
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: new Date().toISOString(),
+    insert_ts: new Date().toISOString()
+  },
+  {
+    branch_uuid: "d9caf335-d89f-4d65-8b74-2e502fc57189",
+    branch_name: "TORONTO",
+    branch_code: "TOR-001",
+    branch_email: "info@toronto.nwimmigration.ca",
+    branch_logo: null,
+    description: "Toronto Branch",
+    branch_phone_no: "1 416 555 0123",
+    branch_mobile_no: "1 416 555 0124",
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: new Date().toISOString(),
+    insert_ts: new Date().toISOString()
+  },
+  {
+    branch_uuid: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+    branch_name: "VANCOUVER",
+    branch_code: "VAN-001",
+    branch_email: "info@vancouver.nwimmigration.ca",
+    branch_logo: null,
+    description: "Vancouver Branch",
+    branch_phone_no: "1 604 555 0123",
+    branch_mobile_no: "1 604 555 0124",
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    create_ts: new Date().toISOString(),
+    insert_ts: new Date().toISOString()
+  }
+];
+
+// In-memory storage for users (for demo purposes)
+let usersStorage = [];
+
+// In-memory storage for role groups (for demo purposes)
+let roleGroupsStorage = [
+  {
+    role_group_id: 8,
+    role_group_unique_id: 6,
+    role_group_uuid: "246b70ee-0c9e-4794-a25b-77eea6701b67",
+    role_group: "AGENT",
+    status: "ACTIVE",
+    created_by_uuid: "6309cda0-2101-4ad1-8e98-c186d04c8bd5",
+    create_ts: "2025-06-25T06:15:23.000Z",
+    insert_ts: "2025-06-25T06:15:23.000Z"
+  },
+  {
+    role_group_id: 7,
+    role_group_unique_id: 5,
+    role_group_uuid: "0f39154c-0838-471a-b8dc-ef2e6f8dc825",
+    role_group: "EMPLOYEE",
+    status: "ACTIVE",
+    created_by_uuid: "77c189b1-403e-4ebc-a6cf-4a35fbbc0937",
+    create_ts: "2025-04-16T07:23:14.000Z",
+    insert_ts: "2025-04-19T19:49:52.000Z"
+  },
+  {
+    role_group_id: 5,
+    role_group_unique_id: 4,
+    role_group_uuid: "84800115-f94c-4df1-b421-5c5ba380e0ef",
+    role_group: "MANAGER",
+    status: "ACTIVE",
+    created_by_uuid: "08d8bdeb-5e28-45a3-9337-52bf25423973",
+    create_ts: "2025-04-16T04:52:22.000Z",
+    insert_ts: "2025-04-16T04:52:22.000Z"
+  },
+  {
+    role_group_id: 3,
+    role_group_unique_id: 3,
+    role_group_uuid: "35ba47e0-99c5-459a-a1ca-13ac55097631",
+    role_group: "ALL",
+    status: "ACTIVE",
+    created_by_uuid: "77c189b1-403e-4ebc-a6cf-4a35fbbc0937",
+    create_ts: "2024-12-27T10:04:30.000Z",
+    insert_ts: "2024-12-27T15:34:36.000Z"
+  }
+];
+
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
@@ -103,7 +348,7 @@ app.get("/api/v1/user/get-user", async (req, res) => {
 
   try {
     // Fetch users from PostgreSQL database
-    const users = await prisma.user.findMany({
+    const dbUsers = await prisma.user.findMany({
       where: {
         ...(status && { status }),
         ...(user_uuid && { userUuid: user_uuid }),
@@ -111,9 +356,87 @@ app.get("/api/v1/user/get-user", async (req, res) => {
       take: 10, // Limit results
     });
 
-    console.log(`📊 Found ${users.length} users in database`);
+    console.log(`📊 Found ${dbUsers.length} users in database`);
 
-    if (users.length === 0) {
+    // Get users from our in-memory storage
+    let storageUsers = usersStorage;
+    
+    // Filter by status if provided
+    if (status && status !== '-1') {
+      storageUsers = usersStorage.filter(user => user.status === status);
+    }
+    
+    // Filter by user_uuid if provided
+    if (user_uuid) {
+      storageUsers = usersStorage.filter(user => user.user_uuid === user_uuid);
+    }
+
+    console.log(`📊 Found ${storageUsers.length} users in storage`);
+
+    // Transform storage users to match database format
+    const transformedStorageUsers = storageUsers.map((user, index) => ({
+      user_fact_id: index + 1000, // Generate unique ID for storage users
+      user_uuid: user.user_uuid,
+      email: user.email,
+      status: user.status,
+      created_by_uuid: user.created_by_uuid,
+      created_by_name: user.created_by_name,
+      create_ts: user.insert_ts,
+      insert_ts: user.insert_ts,
+      user_dim_id: index + 1000,
+      role_uuid: user.user_role === "ADMIN" ? "1a2209e9-21f7-4448-b144-611bd39c8517" : "0870ac83-045a-4263-80f1-9cd65e25c0bc",
+      role_value: user.user_role,
+      user_profile_id: index + 1000,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      full_name: `${user.first_name} ${user.last_name}`.trim(),
+      personal_email: user.email,
+      job_title: null,
+      user_type: null,
+      assigned_phone_number: null,
+      shared_email: null,
+      mobile: null,
+      home_phone: null,
+      linkedin_profile: null,
+      hire_date: null,
+      last_day_at_work: null,
+      department: null,
+      fax: null,
+      date_of_birth: null,
+      mother_maiden_name: null,
+      photo: null,
+      signature: null,
+      street_address: null,
+      unit_or_suite: null,
+      city: null,
+      csr: null,
+      csr_code: null,
+      marketer: null,
+      marketer_code: null,
+      producer_one: null,
+      producer_one_code: null,
+      producer_two: null,
+      producer_two_code: null,
+      producer_three: null,
+      producer_three_code: null,
+      branch_code: null,
+      province_or_state: null,
+      postal_code: null,
+      country: null,
+      languages_known: null,
+      documents: null,
+      branch_name: user.branch_name,
+      branch_uuid: user.branch_uuid,
+      referral_code: null,
+      module_security: []
+    }));
+
+    // Combine database users and storage users
+    const allUsers = [...dbUsers, ...transformedStorageUsers];
+
+    console.log(`📊 Total users (DB + Storage): ${allUsers.length}`);
+
+    if (allUsers.length === 0) {
       // Return mock data if no users found in database
       const mockUserData = {
     user_fact_id: 40,
@@ -1144,76 +1467,76 @@ app.get("/api/v1/user/get-user", async (req, res) => {
   };
 
       console.log("✅ Mock user data response sent successfully");
-      res.json({
-        message: "All User",
-        totalRecords: 1,
-        currentRecords: 1,
+  res.json({
+    message: "All User",
+    totalRecords: 1,
+    currentRecords: 1,
         data: [mockUserData],
       });
     } else {
-      // Transform database users to match API format
-      const transformedUsers = users.map(user => ({
-        user_fact_id: user.userFactId,
-        user_uuid: user.userUuid,
+      // Transform combined users to match API format
+      const transformedUsers = allUsers.map(user => ({
+        user_fact_id: user.userFactId || user.user_fact_id,
+        user_uuid: user.userUuid || user.user_uuid,
         email: user.email,
         status: user.status,
-        created_by_uuid: user.createdByUuid,
-        created_by_name: user.createdByName,
-        create_ts: user.createTs,
-        insert_ts: user.insertTs,
-        user_dim_id: user.userDimId,
-        role_uuid: user.roleUuid,
-        role_value: user.roleValue,
-        user_profile_id: user.userProfileId,
-        first_name: user.firstName,
-        last_name: user.lastName,
-        full_name: user.name,
-        personal_email: user.personalEmail,
-        job_title: user.jobTitle,
-        user_type: user.userType,
-        assigned_phone_number: user.assignedPhoneNumber,
-        shared_email: user.sharedEmail,
+        created_by_uuid: user.createdByUuid || user.created_by_uuid,
+        created_by_name: user.createdByName || user.created_by_name,
+        create_ts: user.createTs || user.create_ts,
+        insert_ts: user.insertTs || user.insert_ts,
+        user_dim_id: user.userDimId || user.user_dim_id,
+        role_uuid: user.roleUuid || user.role_uuid,
+        role_value: user.roleValue || user.role_value,
+        user_profile_id: user.userProfileId || user.user_profile_id,
+        first_name: user.firstName || user.first_name,
+        last_name: user.lastName || user.last_name,
+        full_name: user.name || user.full_name,
+        personal_email: user.personalEmail || user.personal_email,
+        job_title: user.jobTitle || user.job_title,
+        user_type: user.userType || user.user_type,
+        assigned_phone_number: user.assignedPhoneNumber || user.assigned_phone_number,
+        shared_email: user.sharedEmail || user.shared_email,
         mobile: user.mobile,
-        home_phone: user.homePhone,
-        linkedin_profile: user.linkedinProfile,
-        hire_date: user.hireDate,
-        last_day_at_work: user.lastDayAtWork,
+        home_phone: user.homePhone || user.home_phone,
+        linkedin_profile: user.linkedinProfile || user.linkedin_profile,
+        hire_date: user.hireDate || user.hire_date,
+        last_day_at_work: user.lastDayAtWork || user.last_day_at_work,
         department: user.department,
         fax: user.fax,
-        date_of_birth: user.dateOfBirth,
-        mother_maiden_name: user.motherMaidenName,
+        date_of_birth: user.dateOfBirth || user.date_of_birth,
+        mother_maiden_name: user.motherMaidenName || user.mother_maiden_name,
         photo: user.photo,
         signature: user.signature,
-        street_address: user.streetAddress,
-        unit_or_suite: user.unitOrSuite,
+        street_address: user.streetAddress || user.street_address,
+        unit_or_suite: user.unitOrSuite || user.unit_or_suite,
         city: user.city,
         csr: user.csr,
-        csr_code: user.csrCode,
+        csr_code: user.csrCode || user.csr_code,
         marketer: user.marketer,
-        marketer_code: user.marketerCode,
-        producer_one: user.producerOne,
-        producer_one_code: user.producerOneCode,
-        producer_two: user.producerTwo,
-        producer_two_code: user.producerTwoCode,
-        producer_three: user.producerThree,
-        producer_three_code: user.producerThreeCode,
-        branch_code: user.branchCode,
-        province_or_state: user.provinceOrState,
-        postal_code: user.postalCode,
+        marketer_code: user.marketerCode || user.marketer_code,
+        producer_one: user.producerOne || user.producer_one,
+        producer_one_code: user.producerOneCode || user.producer_one_code,
+        producer_two: user.producerTwo || user.producer_two,
+        producer_two_code: user.producerTwoCode || user.producer_two_code,
+        producer_three: user.producerThree || user.producer_three,
+        producer_three_code: user.producerThreeCode || user.producer_three_code,
+        branch_code: user.branchCode || user.branch_code,
+        province_or_state: user.provinceOrState || user.province_or_state,
+        postal_code: user.postalCode || user.postal_code,
         country: user.country,
-        languages_known: user.languagesKnown,
+        languages_known: user.languagesKnown || user.languages_known,
         documents: user.documents,
-        branch_name: user.branchName,
-        branch_uuid: user.branchUuid,
-        referral_code: user.referralCode,
+        branch_name: user.branchName || user.branch_name,
+        branch_uuid: user.branchUuid || user.branch_uuid,
+        referral_code: user.referralCode || user.referral_code,
         module_security: [] // Add security modules if needed
       }));
 
       console.log("✅ Database user data response sent successfully");
       res.json({
         message: "All User",
-        totalRecords: users.length,
-        currentRecords: users.length,
+        totalRecords: allUsers.length,
+        currentRecords: allUsers.length,
         data: transformedUsers,
       });
     }
@@ -1337,12 +1660,1003 @@ app.get("/api/v1/dataManagement/get-branch", (req, res) => {
     timestamp: new Date().toISOString(),
   });
 
-  // Mock branch data - matches Nova World Group API structure
+  // Return stored branches with pagination support
+  const { pageNo = 1, itemPerPage = 10, status } = req.query;
+  let filteredBranches = branchesStorage;
+
+  // Filter by status if provided
+  if (status && status !== '-1') {
+    filteredBranches = branchesStorage.filter(branch => branch.status === status);
+  }
+
+  // Calculate pagination
+  const startIndex = (pageNo - 1) * itemPerPage;
+  const endIndex = startIndex + parseInt(itemPerPage);
+  const paginatedBranches = filteredBranches.slice(startIndex, endIndex);
+
+  console.log("📊 Returning branch data:", {
+    totalBranches: branchesStorage.length,
+    filteredBranches: filteredBranches.length,
+    paginatedBranches: paginatedBranches.length,
+    pageNo,
+    itemPerPage
+  });
+
   res.json({
     message: "All Branch",
-    totalRecords: 0,
-    currentRecords: 0,
-    data: []
+    totalRecords: filteredBranches.length,
+    currentRecords: paginatedBranches.length,
+    data: paginatedBranches
+  });
+});
+
+// Data Management API - Get Single Branch endpoint
+app.get("/api/v1/dataManagement/get-single-branch", (req, res) => {
+  console.log("🏢 Single branch request received:", {
+    query: req.query,
+    uuid: req.query.uuid,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { uuid } = req.query;
+
+  if (!uuid) {
+    return res.status(400).json({
+      success: false,
+      message: "Branch UUID is required",
+      error: "MISSING_UUID"
+    });
+  }
+
+  // Find branch by UUID in our storage
+  const branch = branchesStorage.find(branch => branch.branch_uuid === uuid);
+
+  if (!branch) {
+    return res.status(404).json({
+      success: false,
+      message: "Branch not found",
+      error: "BRANCH_NOT_FOUND"
+    });
+  }
+
+  console.log("✅ Single branch found:", branch.branch_uuid);
+
+  res.json({
+    success: true,
+    message: "Branch retrieved successfully",
+    data: branch
+  });
+});
+
+// Data Management API - Upsert Branch endpoint
+app.post("/api/v1/dataManagement/upsert-branch", (req, res) => {
+  console.log("🏢 Branch upsert request received:", {
+    body: req.body,
+    headers: req.headers,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    // Destructure all fields including branch_uuid for upsert logic
+    const {
+      branch_uuid,
+      branch_name,
+      branch_code,
+      branch_email,
+      branch_logo,
+      description,
+      branch_phone_no,
+      branch_mobile_no,
+      status
+    } = req.body;
+
+    // Mock created/modified user data (replace with actual logged-in user context)
+    const uuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const name = "Sakshi Jadhav";
+
+    let resultBranch;
+    let isUpdate = false;
+
+    // Check if branch_uuid exists in request body (update operation)
+    if (branch_uuid) {
+      // Find existing branch by UUID
+      const existingBranchIndex = branchesStorage.findIndex(branch => branch.branch_uuid === branch_uuid);
+      
+      if (existingBranchIndex !== -1) {
+        // Update existing branch
+        const existingBranch = branchesStorage[existingBranchIndex];
+        resultBranch = {
+          ...existingBranch,
+          branch_name: branch_name || existingBranch.branch_name,
+          branch_code: branch_code || existingBranch.branch_code,
+          branch_email: branch_email || existingBranch.branch_email,
+          branch_logo: branch_logo !== undefined ? branch_logo : existingBranch.branch_logo,
+          description: description || existingBranch.description,
+          branch_phone_no: branch_phone_no || existingBranch.branch_phone_no,
+          branch_mobile_no: branch_mobile_no || existingBranch.branch_mobile_no,
+          status: status || existingBranch.status,
+          modified_by_uuid: uuid,
+          modified_by_name: name,
+          insert_ts: new Date().toISOString()
+        };
+        
+        // Update the branch in storage
+        branchesStorage[existingBranchIndex] = resultBranch;
+        isUpdate = true;
+        
+        console.log("✅ Branch updated successfully:", resultBranch.branch_uuid);
+      } else {
+        // Branch UUID provided but not found - treat as new creation
+        console.log("⚠️ Branch UUID provided but not found, creating new branch");
+      }
+    }
+
+    // If not an update, create new branch
+    if (!isUpdate) {
+      resultBranch = {
+        branch_uuid: branch_uuid || "91b78ebf-8ba7-45f8-baf4-051053aa8c47", // Use provided UUID or generate new one
+        branch_name: branch_name || "NOVA SCOTIA",
+        branch_code: branch_code || "NS-001",
+        branch_email: branch_email || "info@novascotia.nwimmigration.ca",
+        branch_logo: branch_logo || null,
+        description: description || "Nova Scotia Branch",
+        branch_phone_no: branch_phone_no || "1 647 404 6682",
+        branch_mobile_no: branch_mobile_no || "1 647 403 6682",
+        status: status || "ACTIVE",
+        created_by_uuid: uuid,
+        created_by_name: name,
+        modified_by_uuid: uuid,
+        modified_by_name: name,
+        create_ts: new Date().toISOString(),
+        insert_ts: new Date().toISOString()
+      };
+
+      // Store the new branch in our in-memory storage
+      branchesStorage.push(resultBranch);
+      
+      console.log("✅ Branch created successfully:", resultBranch.branch_uuid);
+    }
+
+    // Dynamic response based on operation type
+    res.status(isUpdate ? 200 : 201).json({
+      message: isUpdate ? "Branch updated successfully." : "Branch created successfully.",
+      data: resultBranch
+    });
+  } catch (err) {
+    console.error("❌ Error in branch upsert:", err);
+    res.status(500).json({ 
+      message: "Error creating branch", 
+      error: err.message 
+    });
+  }
+});
+
+// User API - Get Branch endpoint (for user creation form)
+app.get("/api/v1/user/get-branch", (req, res) => {
+  console.log("🏢 User branch request received:", {
+    query: req.query,
+    pageNo: req.query.pageNo,
+    itemPerPage: req.query.itemPerPage,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Return stored branches with pagination support
+  const { pageNo = 1, itemPerPage = 20 } = req.query;
+  
+  // Calculate pagination
+  const startIndex = (pageNo - 1) * itemPerPage;
+  const endIndex = startIndex + parseInt(itemPerPage);
+  const paginatedBranches = branchesStorage.slice(startIndex, endIndex);
+
+  // Transform data to match expected structure with branch_id
+  const transformedBranches = paginatedBranches.map((branch, index) => ({
+    branch_id: startIndex + index + 1, // Generate sequential ID
+    branch_uuid: branch.branch_uuid,
+    branch_name: branch.branch_name,
+    branch_code: branch.branch_code,
+    branch_phone_no: branch.branch_phone_no,
+    branch_mobile_no: branch.branch_mobile_no,
+    branch_logo: branch.branch_logo,
+    branch_email: branch.branch_email,
+    description: branch.description,
+    branch_address_line1: null,
+    branch_address_line2: null,
+    branch_address_state: null,
+    branch_address_city: null,
+    branch_address_district: null,
+    branch_address_country: null,
+    branch_address_pincode: null,
+    status: branch.status,
+    created_by_uuid: branch.created_by_uuid,
+    created_by_name: branch.created_by_name,
+    modified_by_uuid: branch.modified_by_uuid,
+    modified_by_name: branch.modified_by_name,
+    create_ts: branch.create_ts,
+    insert_ts: branch.insert_ts
+  }));
+
+  console.log("📊 Returning branch data for user form:", {
+    totalBranches: branchesStorage.length,
+    paginatedBranches: transformedBranches.length,
+    pageNo,
+    itemPerPage
+  });
+
+  res.json({
+    message: "All Branch",
+    totalRecords: branchesStorage.length,
+    currentRecords: transformedBranches.length,
+    data: transformedBranches
+  });
+});
+
+// User API - Get Branch endpoint (alternative path for frontend compatibility)
+app.get("/user/get-branch", (req, res) => {
+  console.log("🏢 User branch request received (alt path):", {
+    query: req.query,
+    pageNo: req.query.pageNo,
+    itemPerPage: req.query.itemPerPage,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Return stored branches with pagination support
+  const { pageNo = 1, itemPerPage = 20 } = req.query;
+  
+  // Calculate pagination
+  const startIndex = (pageNo - 1) * itemPerPage;
+  const endIndex = startIndex + parseInt(itemPerPage);
+  const paginatedBranches = branchesStorage.slice(startIndex, endIndex);
+
+  // Transform data to match IUserBranch interface expected by frontend
+  const transformedBranches = paginatedBranches.map((branch) => ({
+    branch_uuid: branch.branch_uuid,
+    branch_name: branch.branch_name,
+    status: branch.status
+  }));
+
+  console.log("📊 Returning branch data for user form (alt path):", {
+    totalBranches: branchesStorage.length,
+    paginatedBranches: transformedBranches.length,
+    pageNo,
+    itemPerPage
+  });
+
+  res.json({
+    message: "All Branch",
+    totalRecords: branchesStorage.length,
+    currentRecords: transformedBranches.length,
+    data: transformedBranches
+  });
+});
+
+// User API - Upsert User endpoint
+app.post("/api/v1/user/upsert-user", (req, res) => {
+  console.log("👤 User upsert request received:", {
+    body: req.body,
+    headers: req.headers,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    // Destructure all fields including user_uuid for upsert logic
+    const {
+      user_uuid,
+      first_name,
+      last_name,
+      email,
+      user_role,
+      branch_uuid,
+      status
+    } = req.body;
+
+    // Mock created/modified user data (replace with actual logged-in user context)
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Sakshi jadhav";
+
+    let resultUser;
+    let isUpdate = false;
+
+    // Find branch name from branch_uuid
+    const branch = branchesStorage.find(b => b.branch_uuid === branch_uuid);
+    const branchName = branch ? branch.branch_name : "Unknown Branch";
+
+    // Check if user_uuid exists in request body (update operation)
+    if (user_uuid) {
+      // Find existing user by UUID
+      const existingUserIndex = usersStorage.findIndex(user => user.user_uuid === user_uuid);
+      
+      if (existingUserIndex !== -1) {
+        // Update existing user
+        const existingUser = usersStorage[existingUserIndex];
+        resultUser = {
+          user_uuid: existingUser.user_uuid,
+          first_name: first_name || existingUser.first_name,
+          last_name: last_name || existingUser.last_name,
+          email: email || existingUser.email,
+          user_role: user_role || existingUser.user_role,
+          branch_uuid: branch_uuid || existingUser.branch_uuid,
+          branch_name: branchName || existingUser.branch_name,
+          status: status || existingUser.status,
+          created_by_uuid: existingUser.created_by_uuid,
+          created_by_name: existingUser.created_by_name,
+          modified_by_uuid: adminUuid,
+          modified_by_name: adminName,
+          insert_ts: new Date().toISOString()
+        };
+        
+        // Update the user in storage
+        usersStorage[existingUserIndex] = resultUser;
+        isUpdate = true;
+        
+        console.log("✅ User updated successfully:", resultUser.user_uuid);
+      } else {
+        // User UUID provided but not found - treat as new creation
+        console.log("⚠️ User UUID provided but not found, creating new user");
+      }
+    }
+
+    // If not an update, create new user
+    if (!isUpdate) {
+      resultUser = {
+        user_uuid: user_uuid || generateUUID(), // Use provided UUID or generate new one
+        first_name: first_name || "",
+        last_name: last_name || "",
+        email: email || "",
+        user_role: user_role || "EMPLOYEE",
+        branch_uuid: branch_uuid || "",
+        branch_name: branchName || "",
+        status: status || "ACTIVE",
+        created_by_uuid: adminUuid,
+        created_by_name: adminName,
+        modified_by_uuid: adminUuid,
+        modified_by_name: adminName,
+        insert_ts: new Date().toISOString()
+      };
+
+      // Store the new user in our in-memory storage
+      usersStorage.push(resultUser);
+      
+      console.log("✅ User created successfully:", resultUser.user_uuid);
+    }
+
+    // Dynamic response based on operation type
+    res.status(isUpdate ? 200 : 201).json({
+      message: isUpdate ? "User updated successfully." : "User created successfully.",
+      data: resultUser
+    });
+  } catch (err) {
+    console.error("❌ Error in user upsert:", err);
+    res.status(500).json({ 
+      message: "Error creating/updating user", 
+      error: err.message 
+    });
+  }
+});
+
+// Helper function to generate UUID
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+// Helper function to generate template code
+function generateTemplateCode() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 6; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+// Security API - Role Module Content Access Permission endpoint
+app.get("/api/v1/security/get-role-module-content-access-permission", (req, res) => {
+  console.log("🔐 Get role module content access permission request received:", {
+    query: req.query,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  // Return the same data structure as the production API
+  const mockModuleData = [
+    {
+      "module_uuid": "36b96d9d-9fd4-436d-80b5-35dbd74a1366",
+      "module_name": "Tasks",
+      "submodule_name": "Taskboard",
+      "map_column_user_uuid": [
+        "created_by_uuid",
+        "modified_by_uuid"
+      ],
+      "column_relation_options": [
+        {
+          "api": "/user/get-user",
+          "field": "email",
+          "value": "user_uuid",
+          "column_key": "user_uuid",
+          "column_label": "User"
+        },
+        {
+          "api": "/user/get-branch",
+          "field": "branch_name",
+          "value": "branch_uuid",
+          "column_key": "branch_uuid",
+          "column_label": "Branch"
+        }
+      ],
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "insert_ts": "2024-11-21T11:09:51.000Z",
+      "role_name": "",
+      "role_uuid": "",
+      "view_access": 0,
+      "edit_access": 0,
+      "send_sms": 0,
+      "send_mail": 0,
+      "send_whatsapp": 0,
+      "send_call": 0,
+      "show_module": 0,
+      "filter_values": {}
+    },
+    {
+      "module_uuid": "dfaf7756-1362-459a-8560-d7827d1f352c",
+      "module_name": "Users",
+      "submodule_name": "Users",
+      "map_column_user_uuid": [
+        "created_by_uuid",
+        "modified_by_uuid"
+      ],
+      "column_relation_options": [
+        {
+          "api": "/user/get-user",
+          "field": "email",
+          "value": "user_uuid",
+          "column_key": "user_uuid",
+          "column_label": "User"
+        },
+        {
+          "api": "/user/get-branch",
+          "field": "branch_name",
+          "value": "branch_uuid",
+          "column_key": "branch_uuid",
+          "column_label": "Branch"
+        }
+      ],
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "insert_ts": "2024-11-21T11:09:51.000Z",
+      "role_name": "",
+      "role_uuid": "",
+      "view_access": 0,
+      "edit_access": 0,
+      "send_sms": 0,
+      "send_mail": 0,
+      "send_whatsapp": 0,
+      "send_call": 0,
+      "show_module": 0,
+      "filter_values": {}
+    },
+    {
+      "module_uuid": "b1fbbbc8-e078-4088-aac4-1811baf73696",
+      "module_name": "Data Management",
+      "submodule_name": "Branch",
+      "map_column_user_uuid": [
+        "created_by_uuid",
+        "modified_by_uuid"
+      ],
+      "column_relation_options": [
+        {
+          "api": "/user/get-user",
+          "field": "email",
+          "value": "user_uuid",
+          "column_key": "user_uuid",
+          "column_label": "User"
+        },
+        {
+          "api": "/user/get-branch",
+          "field": "branch_name",
+          "value": "branch_uuid",
+          "column_key": "branch_uuid",
+          "column_label": "Branch"
+        }
+      ],
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "insert_ts": "2024-11-21T11:09:51.000Z",
+      "role_name": "",
+      "role_uuid": "",
+      "view_access": 0,
+      "edit_access": 0,
+      "send_sms": 0,
+      "send_mail": 0,
+      "send_whatsapp": 0,
+      "send_call": 0,
+      "show_module": 0,
+      "filter_values": {}
+    }
+  ];
+
+  console.log("✅ Role module content access permission response sent successfully");
+  res.json({
+    message: "Module List",
+    data: mockModuleData
+  });
+});
+
+// Security API - Upsert Roles endpoint
+app.post("/api/v1/security/upsert-roles", (req, res) => {
+  console.log("🔐 Upsert roles request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      role_name,
+      role_group,
+      status,
+      role_uuid // For update operations
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "sakshi jadhav";
+
+    let resultRole;
+    let isUpdate = false;
+
+    // Generate a new UUID if not provided
+    const newRoleUuid = role_uuid || generateUUID();
+
+    // For now, we'll just return the created role data
+    // In a real implementation, this would interact with a database
+    resultRole = {
+      role_name: role_name || "NEW_ROLE",
+      role_group: role_group || "EMPLOYEE",
+      status: status || "ACTIVE",
+      created_by_uuid: adminUuid,
+      created_by_name: adminName,
+      modified_by_uuid: adminUuid,
+      modified_by_name: adminName,
+      role_value: role_name || "NEW_ROLE",
+      role_uuid: newRoleUuid
+    };
+
+    console.log("✅ Role upsert response sent successfully");
+    res.status(201).json({
+      message: "Roles created successfully.",
+      data: resultRole
+    });
+  } catch (err) {
+    console.error("❌ Error in role upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating role",
+      error: err.message
+    });
+  }
+});
+
+// Security API - Upsert Role Module Content Access Permission endpoint
+app.post("/api/v1/security/upsert-role-module-content-access-permission", (req, res) => {
+  console.log("🔐 Upsert role module content access permission request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      role_uuid,
+      role_name,
+      module_permissions // Array of module permissions
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Umesh Yadav";
+
+    // Mock data structure based on the production API response
+    const mockModuleData = [
+      {
+        "module_uuid": "36b96d9d-9fd4-436d-80b5-35dbd74a1366",
+        "module_name": "Tasks",
+        "submodule_name": "Taskboard",
+        "map_column_user_uuid": [
+          "created_by_uuid",
+          "modified_by_uuid"
+        ],
+        "column_relation_options": [
+          {
+            "api": "/user/get-user",
+            "field": "email",
+            "value": "user_uuid",
+            "column_key": "user_uuid",
+            "column_label": "User"
+          },
+          {
+            "api": "/user/get-branch",
+            "field": "branch_name",
+            "value": "branch_uuid",
+            "column_key": "branch_uuid",
+            "column_label": "Branch"
+          }
+        ],
+        "created_by_name": adminName,
+        "modified_by_uuid": adminUuid,
+        "modified_by_name": adminName,
+        "insert_ts": "2024-11-21T11:09:51.000Z",
+        "role_name": role_name || "abbc",
+        "role_uuid": role_uuid || "0e9f19f5-5bfc-4a36-b16a-37a821eafa16",
+        "view_access": 0,
+        "edit_access": 0,
+        "send_sms": 0,
+        "send_mail": 0,
+        "send_whatsapp": 0,
+        "send_call": 0,
+        "show_module": 0,
+        "filter_values": "{}",
+        "created_by_uuid": adminUuid,
+        "role_module_uuid": generateUUID(),
+        "create_ts": "2025-09-22 08-45-20",
+        "status": "ACTIVE"
+      },
+      {
+        "module_uuid": "dfaf7756-1362-459a-8560-d7827d1f352c",
+        "module_name": "Users",
+        "submodule_name": "Users",
+        "map_column_user_uuid": [
+          "created_by_uuid",
+          "modified_by_uuid"
+        ],
+        "column_relation_options": [
+          {
+            "api": "/user/get-user",
+            "field": "email",
+            "value": "user_uuid",
+            "column_key": "user_uuid",
+            "column_label": "User"
+          },
+          {
+            "api": "/user/get-branch",
+            "field": "branch_name",
+            "value": "branch_uuid",
+            "column_key": "branch_uuid",
+            "column_label": "Branch"
+          }
+        ],
+        "created_by_name": adminName,
+        "modified_by_uuid": adminUuid,
+        "modified_by_name": adminName,
+        "insert_ts": "2024-11-21T11:09:51.000Z",
+        "role_name": role_name || "abbc",
+        "role_uuid": role_uuid || "0e9f19f5-5bfc-4a36-b16a-37a821eafa16",
+        "view_access": 0,
+        "edit_access": 0,
+        "send_sms": 0,
+        "send_mail": 0,
+        "send_whatsapp": 0,
+        "send_call": 0,
+        "show_module": 0,
+        "filter_values": "{}",
+        "created_by_uuid": adminUuid,
+        "role_module_uuid": generateUUID(),
+        "create_ts": "2025-09-22 08-45-20",
+        "status": "ACTIVE"
+      },
+      {
+        "module_uuid": "b1fbbbc8-e078-4088-aac4-1811baf73696",
+        "module_name": "Data Management",
+        "submodule_name": "Branch",
+        "map_column_user_uuid": [
+          "created_by_uuid",
+          "modified_by_uuid"
+        ],
+        "column_relation_options": [
+          {
+            "api": "/user/get-user",
+            "field": "email",
+            "value": "user_uuid",
+            "column_key": "user_uuid",
+            "column_label": "User"
+          },
+          {
+            "api": "/user/get-branch",
+            "field": "branch_name",
+            "value": "branch_uuid",
+            "column_key": "branch_uuid",
+            "column_label": "Branch"
+          }
+        ],
+        "created_by_name": adminName,
+        "modified_by_uuid": adminUuid,
+        "modified_by_name": adminName,
+        "insert_ts": "2024-11-21T11:09:51.000Z",
+        "role_name": role_name || "abbc",
+        "role_uuid": role_uuid || "0e9f19f5-5bfc-4a36-b16a-37a821eafa16",
+        "view_access": 0,
+        "edit_access": 0,
+        "send_sms": 0,
+        "send_mail": 0,
+        "send_whatsapp": 0,
+        "send_call": 0,
+        "show_module": 0,
+        "filter_values": "{}",
+        "created_by_uuid": adminUuid,
+        "role_module_uuid": generateUUID(),
+        "create_ts": "2025-09-22 08-45-20",
+        "status": "ACTIVE"
+      }
+    ];
+
+    console.log("✅ Role module content access permission upsert response sent successfully");
+    res.status(200).json({
+      message: "Role module has been Updated.",
+      data: mockModuleData
+    });
+  } catch (err) {
+    console.error("❌ Error in role module permission upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating role module permissions",
+      error: err.message
+    });
+  }
+});
+
+// Security API - Upsert Role Group endpoint
+app.post("/api/v1/security/upsert-role-group", (req, res) => {
+  console.log("🔐 Upsert role group request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      role_group_uuid,
+      role_group,
+      status
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Sakshi Jadhav";
+
+    let resultRoleGroup;
+    let isUpdate = false;
+
+    if (role_group_uuid) {
+      // Check if role group exists for update
+      const existingRoleGroupIndex = roleGroupsStorage.findIndex(rg => rg.role_group_uuid === role_group_uuid);
+      if (existingRoleGroupIndex !== -1) {
+        const existingRoleGroup = roleGroupsStorage[existingRoleGroupIndex];
+        resultRoleGroup = {
+          ...existingRoleGroup,
+          role_group: role_group || existingRoleGroup.role_group,
+          status: status || existingRoleGroup.status,
+          insert_ts: new Date().toISOString()
+        };
+        roleGroupsStorage[existingRoleGroupIndex] = resultRoleGroup;
+        isUpdate = true;
+        console.log("✅ Role group updated successfully:", resultRoleGroup.role_group_uuid);
+      } else {
+        console.log("⚠️ Role group UUID provided but not found, creating new role group");
+      }
+    }
+
+    if (!isUpdate) {
+      // Create new role group
+      resultRoleGroup = {
+        role_group_id: Math.max(...roleGroupsStorage.map(rg => rg.role_group_id)) + 1,
+        role_group_unique_id: Math.max(...roleGroupsStorage.map(rg => rg.role_group_unique_id)) + 1,
+        role_group_uuid: role_group_uuid || generateUUID(),
+        role_group: role_group || "NEW_ROLE_GROUP",
+        status: status || "ACTIVE",
+        created_by_uuid: adminUuid,
+        create_ts: new Date().toISOString(),
+        insert_ts: new Date().toISOString()
+      };
+      roleGroupsStorage.push(resultRoleGroup);
+      console.log("✅ Role group created successfully:", resultRoleGroup.role_group_uuid);
+    }
+
+    console.log("✅ Role group upsert response sent successfully");
+    res.status(isUpdate ? 200 : 201).json({
+      message: isUpdate ? "Role group updated successfully." : "Role group created successfully.",
+      data: resultRoleGroup
+    });
+  } catch (err) {
+    console.error("❌ Error in role group upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating role group",
+      error: err.message
+    });
+  }
+});
+
+// Security API - Get Modules endpoint
+app.get("/api/v1/security/get-modules", (req, res) => {
+  console.log("🔐 Security modules request received:", {
+    query: req.query,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  // Return the same data structure as the production API
+  const mockModulesData = [
+    {
+      "module_uuid": "36b96d9d-9fd4-436d-80b5-35dbd74a1366",
+      "module_name": "Tasks",
+      "submodule_name": "Taskboard",
+      "table_name": "latest_task_module_wise",
+      "map_column_user_uuid": [
+        "created_by_uuid",
+        "modified_by_uuid"
+      ],
+      "column_relation_options": [
+        {
+          "api": "/user/get-user",
+          "field": "email",
+          "value": "user_uuid",
+          "column_key": "user_uuid",
+          "column_label": "User"
+        },
+        {
+          "api": "/user/get-branch",
+          "field": "branch_name",
+          "value": "branch_uuid",
+          "column_key": "branch_uuid",
+          "column_label": "Branch"
+        }
+      ],
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": null
+    },
+    {
+      "module_uuid": "dfaf7756-1362-459a-8560-d7827d1f352c",
+      "module_name": "Users",
+      "submodule_name": "Users",
+      "table_name": "latest_user",
+      "map_column_user_uuid": [
+        "created_by_uuid",
+        "modified_by_uuid"
+      ],
+      "column_relation_options": [
+        {
+          "api": "/user/get-user",
+          "field": "email",
+          "value": "user_uuid",
+          "column_key": "user_uuid",
+          "column_label": "User"
+        },
+        {
+          "api": "/user/get-branch",
+          "field": "branch_name",
+          "value": "branch_uuid",
+          "column_key": "branch_uuid",
+          "column_label": "Branch"
+        }
+      ],
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": null
+    },
+    {
+      "module_uuid": "b1fbbbc8-e078-4088-aac4-1811baf73696",
+      "module_name": "Data Management",
+      "submodule_name": "Branch",
+      "table_name": "latest_branch",
+      "map_column_user_uuid": [
+        "created_by_uuid",
+        "modified_by_uuid"
+      ],
+      "column_relation_options": [
+        {
+          "api": "/user/get-user",
+          "field": "email",
+          "value": "user_uuid",
+          "column_key": "user_uuid",
+          "column_label": "User"
+        },
+        {
+          "api": "/user/get-branch",
+          "field": "branch_name",
+          "value": "branch_uuid",
+          "column_key": "branch_uuid",
+          "column_label": "Branch"
+        }
+      ],
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": null
+    },
+    {
+      "module_uuid": "fe57d8b4-11a5-4f0a-841e-499a4e53c44a",
+      "module_name": "Security",
+      "submodule_name": "Security",
+      "table_name": "role_module",
+      "map_column_user_uuid": [
+        "created_by_uuid",
+        "modified_by_uuid"
+      ],
+      "column_relation_options": [
+        {
+          "api": "/user/get-user",
+          "field": "email",
+          "value": "user_uuid",
+          "column_key": "user_uuid",
+          "column_label": "User"
+        },
+        {
+          "api": "/user/get-branch",
+          "field": "branch_name",
+          "value": "branch_uuid",
+          "column_key": "branch_uuid",
+          "column_label": "Branch"
+        }
+      ],
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": null
+    },
+    {
+      "module_uuid": "b474d2d3-9f41-46b4-91dd-aaf3bca7a18a",
+      "module_name": "Security",
+      "submodule_name": "Role Group",
+      "table_name": "latest_role_group",
+      "map_column_user_uuid": [
+        "created_by_uuid",
+        "modified_by_uuid"
+      ],
+      "column_relation_options": [
+        {
+          "api": "/user/get-user",
+          "field": "email",
+          "value": "user_uuid",
+          "column_key": "user_uuid",
+          "column_label": "User"
+        },
+        {
+          "api": "/user/get-branch",
+          "field": "branch_name",
+          "value": "branch_uuid",
+          "column_key": "branch_uuid",
+          "column_label": "Branch"
+        }
+      ],
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": null
+    }
+  ];
+
+  console.log("✅ Security modules response sent successfully");
+  res.json({
+    message: "Modules",
+    data: mockModulesData
   });
 });
 
@@ -1442,53 +2756,33 @@ app.get("/api/v1/security/get-role-group", (req, res) => {
     timestamp: new Date().toISOString(),
   });
 
-  // Mock role groups data - matches Nova World Group API structure
+  // Return stored role groups with pagination support
+  const { pageNo = 1, itemPerPage = 10, status } = req.query;
+  let filteredRoleGroups = roleGroupsStorage;
+
+  // Filter by status if provided
+  if (status && status !== '-1') {
+    filteredRoleGroups = roleGroupsStorage.filter(rg => rg.status === status);
+  }
+
+  // Calculate pagination
+  const startIndex = (pageNo - 1) * itemPerPage;
+  const endIndex = startIndex + parseInt(itemPerPage);
+  const paginatedRoleGroups = filteredRoleGroups.slice(startIndex, endIndex);
+
+  console.log("📊 Returning role group data:", {
+    totalRoleGroups: roleGroupsStorage.length,
+    filteredRoleGroups: filteredRoleGroups.length,
+    paginatedRoleGroups: paginatedRoleGroups.length,
+    pageNo,
+    itemPerPage
+  });
+
   res.json({
     message: "Role Groups ",
-    totalRecords: 4,
-    currentRecords: 4,
-    data: [
-      {
-        role_group_id: 8,
-        role_group_unique_id: 6,
-        role_group_uuid: "246b70ee-0c9e-4794-a25b-77eea6701b67",
-        role_group: "AGENT",
-        status: "ACTIVE",
-        created_by_uuid: "6309cda0-2101-4ad1-8e98-c186d04c8bd5",
-        create_ts: "2025-06-25T06:15:23.000Z",
-        insert_ts: "2025-06-25T06:15:23.000Z"
-      },
-      {
-        role_group_id: 7,
-        role_group_unique_id: 5,
-        role_group_uuid: "0f39154c-0838-471a-b8dc-ef2e6f8dc825",
-        role_group: "EMPLOYEE",
-        status: "ACTIVE",
-        created_by_uuid: "77c189b1-403e-4ebc-a6cf-4a35fbbc0937",
-        create_ts: "2025-04-16T07:23:14.000Z",
-        insert_ts: "2025-04-19T19:49:52.000Z"
-      },
-      {
-        role_group_id: 5,
-        role_group_unique_id: 4,
-        role_group_uuid: "84800115-f94c-4df1-b421-5c5ba380e0ef",
-        role_group: "MANAGER",
-        status: "ACTIVE",
-        created_by_uuid: "08d8bdeb-5e28-45a3-9337-52bf25423973",
-        create_ts: "2025-04-16T04:52:22.000Z",
-        insert_ts: "2025-04-16T04:52:22.000Z"
-      },
-      {
-        role_group_id: 3,
-        role_group_unique_id: 3,
-        role_group_uuid: "35ba47e0-99c5-459a-a1ca-13ac55097631",
-        role_group: "ALL",
-        status: "ACTIVE",
-        created_by_uuid: "77c189b1-403e-4ebc-a6cf-4a35fbbc0937",
-        create_ts: "2024-12-27T10:04:30.000Z",
-        insert_ts: "2024-12-27T15:34:36.000Z"
-      }
-    ]
+    totalRecords: filteredRoleGroups.length,
+    currentRecords: paginatedRoleGroups.length,
+    data: paginatedRoleGroups
   });
 });
 
@@ -1565,7 +2859,7 @@ app.get("/api/v1/general/get-record-counts", (req, res) => {
   let count = 0;
   switch (table_name) {
     case "latest_role_group":
-      count = 4;
+      count = roleGroupsStorage.length;
       break;
     case "latest_user":
       count = 3;
@@ -1575,6 +2869,9 @@ app.get("/api/v1/general/get-record-counts", (req, res) => {
       break;
     case "latest_approval_count":
       count = 5;
+      break;
+    case "latest_branch":
+      count = branchesStorage.length;
       break;
     default:
       count = 0;
@@ -1586,6 +2883,2961 @@ app.get("/api/v1/general/get-record-counts", (req, res) => {
     table_name: table_name,
     count: count
   });
+});
+
+// General API - Get table info endpoint
+app.get("/api/v1/general/get-table-info", (req, res) => {
+  console.log("📊 General table info request received:", {
+    query: req.query,
+    table_name: req.query.table_name,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { table_name } = req.query;
+
+  if (!table_name) {
+    return res.status(400).json({
+      success: false,
+      message: "Table name is required",
+      error: "MISSING_TABLE_NAME"
+    });
+  }
+
+  // Mock table info based on table name
+  let tableInfo = {
+    success: true,
+    message: `Table info for ${table_name}`,
+    table_name: table_name,
+    columns: [],
+    row_count: 0,
+    table_type: "VIEW"
+  };
+
+  // Provide different mock data based on table name
+  switch (table_name) {
+    case "latest_task_module_wise":
+      tableInfo = {
+        success: true,
+        message: `Table info for ${table_name}`,
+        table_name: table_name,
+        columns: [
+          { name: "task_id", type: "INTEGER", nullable: false },
+          { name: "task_uuid", type: "VARCHAR", nullable: false },
+          { name: "task_name", type: "VARCHAR", nullable: true },
+          { name: "task_description", type: "TEXT", nullable: true },
+          { name: "status", type: "VARCHAR", nullable: true },
+          { name: "created_by_uuid", type: "VARCHAR", nullable: true },
+          { name: "modified_by_uuid", type: "VARCHAR", nullable: true },
+          { name: "create_ts", type: "TIMESTAMP", nullable: true },
+          { name: "insert_ts", type: "TIMESTAMP", nullable: true }
+        ],
+        row_count: 0,
+        table_type: "VIEW",
+        data: [
+          {
+            table_status: ["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED", "ON_HOLD"]
+          }
+        ]
+      };
+      break;
+    case "latest_user":
+      tableInfo = {
+        success: true,
+        message: `Table info for ${table_name}`,
+        table_name: table_name,
+        columns: [
+          { name: "user_id", type: "INTEGER", nullable: false },
+          { name: "user_uuid", type: "VARCHAR", nullable: false },
+          { name: "email", type: "VARCHAR", nullable: false },
+          { name: "first_name", type: "VARCHAR", nullable: true },
+          { name: "last_name", type: "VARCHAR", nullable: true },
+          { name: "status", type: "VARCHAR", nullable: true },
+          { name: "created_by_uuid", type: "VARCHAR", nullable: true },
+          { name: "modified_by_uuid", type: "VARCHAR", nullable: true },
+          { name: "create_ts", type: "TIMESTAMP", nullable: true },
+          { name: "insert_ts", type: "TIMESTAMP", nullable: true }
+        ],
+        row_count: 3,
+        table_type: "VIEW",
+        data: [
+          {
+            table_status: ["ACTIVE", "INACTIVE", "PENDING", "SUSPENDED", "DELETED"]
+          }
+        ]
+      };
+      break;
+    case "latest_branch":
+      tableInfo = {
+        success: true,
+        message: `Table info for ${table_name}`,
+        table_name: table_name,
+        columns: [
+          { name: "branch_id", type: "INTEGER", nullable: false },
+          { name: "branch_uuid", type: "VARCHAR", nullable: false },
+          { name: "branch_name", type: "VARCHAR", nullable: false },
+          { name: "branch_code", type: "VARCHAR", nullable: true },
+          { name: "branch_email", type: "VARCHAR", nullable: true },
+          { name: "status", type: "VARCHAR", nullable: true },
+          { name: "created_by_uuid", type: "VARCHAR", nullable: true },
+          { name: "modified_by_uuid", type: "VARCHAR", nullable: true },
+          { name: "create_ts", type: "TIMESTAMP", nullable: true },
+          { name: "insert_ts", type: "TIMESTAMP", nullable: true }
+        ],
+        row_count: branchesStorage.length,
+        table_type: "VIEW",
+        data: [
+          {
+            table_status: ["ACTIVE", "INACTIVE", "PENDING", "MAINTENANCE"]
+          }
+        ]
+      };
+      break;
+    case "latest_role_group":
+      tableInfo = {
+        success: true,
+        message: `Table info for ${table_name}`,
+        table_name: table_name,
+        columns: [
+          { name: "role_group_id", type: "INTEGER", nullable: false },
+          { name: "role_group_uuid", type: "VARCHAR", nullable: false },
+          { name: "role_group", type: "VARCHAR", nullable: false },
+          { name: "status", type: "VARCHAR", nullable: true },
+          { name: "created_by_uuid", type: "VARCHAR", nullable: true },
+          { name: "create_ts", type: "TIMESTAMP", nullable: true },
+          { name: "insert_ts", type: "TIMESTAMP", nullable: true }
+        ],
+        row_count: roleGroupsStorage.length,
+        table_type: "VIEW",
+        data: [
+          {
+            table_status: ["ACTIVE", "INACTIVE", "PENDING"]
+          }
+        ]
+      };
+      break;
+    default:
+      tableInfo = {
+        success: true,
+        message: `Table info for ${table_name}`,
+        table_name: table_name,
+        columns: [
+          { name: "id", type: "INTEGER", nullable: false },
+          { name: "name", type: "VARCHAR", nullable: true },
+          { name: "status", type: "VARCHAR", nullable: true },
+          { name: "created_at", type: "TIMESTAMP", nullable: true },
+          { name: "updated_at", type: "TIMESTAMP", nullable: true }
+        ],
+        row_count: 0,
+        table_type: "TABLE",
+        data: [
+          {
+            table_status: ["ACTIVE", "INACTIVE", "PENDING"]
+          }
+        ]
+      };
+  }
+
+  console.log("✅ Table info response sent successfully for:", table_name);
+  res.json(tableInfo);
+});
+
+// Template API - Get SQL view or columns endpoint
+app.get("/api/v1/template/get-sql-view-or-columns", (req, res) => {
+  console.log("📊 Template SQL view/columns request received:", {
+    query: req.query,
+    templates_dynamic_views_code: req.query.templates_dynamic_views_code,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { templates_dynamic_views_code } = req.query;
+
+  // If templates_dynamic_views_code is provided, return columns for that specific view
+  if (templates_dynamic_views_code) {
+    console.log("📋 Returning columns for SQL view:", templates_dynamic_views_code);
+    
+    // Mock column data based on the view code
+    let columnsData = [];
+    
+    switch (templates_dynamic_views_code) {
+      case "UHQAKRTNTG":
+        columnsData = [
+          "id",
+          "name", 
+          "description",
+          "status",
+          "created_at",
+          "updated_at"
+        ];
+        break;
+      case "VUWFWMHKB1":
+        columnsData = [
+          "lead_id",
+          "lead_name",
+          "opportunity_id",
+          "opportunity_name",
+          "lead_status",
+          "opportunity_status",
+          "assigned_to",
+          "created_at",
+          "updated_at"
+        ];
+        break;
+      case "JR32TYKWOO":
+        columnsData = [
+          "lead_id",
+          "lead_name",
+          "lead_email",
+          "lead_phone",
+          "lead_status",
+          "assigned_to",
+          "assigned_date",
+          "created_at"
+        ];
+        break;
+      default:
+        columnsData = [
+          "id",
+          "name",
+          "status",
+          "created_at"
+        ];
+    }
+
+    console.log("✅ Template SQL view columns response sent successfully");
+    res.json({
+      message: "template views and columns",
+      data: columnsData
+    });
+  } else {
+    // Return the list of available SQL views
+    const templateViewsData = [
+      {
+        templates_dynamic_views_unique_id: 3,
+        templates_dynamic_views_code: "UHQAKRTNTG",
+        view_for: ""
+      },
+      {
+        templates_dynamic_views_unique_id: 2,
+        templates_dynamic_views_code: "VUWFWMHKB1",
+        view_for: "Lead assign with oppourtunity"
+      },
+      {
+        templates_dynamic_views_unique_id: 1,
+        templates_dynamic_views_code: "JR32TYKWOO",
+        view_for: "Lead Assign"
+      }
+    ];
+
+    console.log("✅ Template SQL view list response sent successfully");
+    res.json({
+      message: "template views and columns",
+      totalRecords: 3,
+      currentRecords: 3,
+      data: templateViewsData
+    });
+  }
+});
+
+// General API - Get table or column name endpoint
+app.get("/api/v1/general/get-table-or-column-name", (req, res) => {
+  console.log("🗃️ General table/column name request received:", {
+    query: req.query,
+    table_type: req.query.table_type,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { table_type } = req.query;
+
+  // Comprehensive list of database views and tables
+  const viewsList = [
+    "latest_accn_account_receivable_trust",
+    "latest_accn_accounting_information",
+    "latest_accn_accounts_payable",
+    "latest_accn_accounts_payable_cheque",
+    "latest_accn_accounts_receivable",
+    "latest_accn_bank_account",
+    "latest_accn_bill_template",
+    "latest_accn_bill_transaction_items",
+    "latest_accn_cheque",
+    "latest_accn_company_charts_of_accounts",
+    "latest_accn_company_gl_accounts",
+    "latest_accn_company_information",
+    "latest_accn_company_onboarding",
+    "latest_accn_create_bill",
+    "latest_accn_create_payment",
+    "latest_accn_invoice_information",
+    "latest_accn_invoice_payment_accounts_receivable",
+    "latest_accn_invoice_payment_transaction_items",
+    "latest_accn_invoice_template",
+    "latest_accn_invoice_transaction_items",
+    "latest_accn_payment_payable_details",
+    "latest_accn_system_gl_account",
+    "latest_accn_tax_info",
+    "latest_accn_transaction_description",
+    "latest_accn_transaction_type",
+    "latest_accn_transactions",
+    "latest_accn_vendor",
+    "latest_answers",
+    "latest_approval",
+    "latest_approval_count",
+    "latest_assignee",
+    "latest_branch",
+    "latest_comment_t",
+    "latest_company_information",
+    "latest_conversation",
+    "latest_country_state",
+    "latest_crs_draws",
+    "latest_crs_draws_noc_code",
+    "latest_customer_automation",
+    "latest_customer_invoice",
+    "latest_customer_personal_information",
+    "latest_customer_pr",
+    "latest_customer_prospect_details",
+    "latest_customer_service",
+    "latest_customer_social",
+    "latest_distinct_services_type",
+    "latest_document",
+    "latest_document_signature",
+    "latest_document_template",
+    "latest_documents",
+    "latest_environment_configuration",
+    "latest_formula",
+    "latest_history",
+    "latest_langchain_response",
+    "latest_lead_signature",
+    "latest_lead_to_graph",
+    "latest_lead_with_opportunity",
+    "latest_lead_without_opportunity_status",
+    "latest_lead_without_opportunity_status_1",
+    "latest_leads",
+    "latest_messages",
+    "latest_module",
+    "latest_noc_codes",
+    "latest_opportunity",
+    "latest_participants",
+    "latest_pdf_buffers",
+    "latest_process_records",
+    "latest_question_answer",
+    "latest_questionnaire",
+    "latest_questions",
+    "latest_questions_options",
+    "latest_retainer",
+    "latest_retainer_leads",
+    "latest_role",
+    "latest_role_group",
+    "latest_role_module",
+    "latest_services",
+    "latest_services_customer_info",
+    "latest_study_program",
+    "latest_task_module_wise",
+    "latest_task_user_taskboard",
+    "latest_template_module_mapping",
+    "latest_templates",
+    "latest_templates_dynamic_views",
+    "latest_user",
+    "latest_user_dim",
+    "latest_user_profile",
+    "latest_webhook_signature",
+    "latest_workflow_action",
+    "latest_workflow_action_email",
+    "latest_workflow_action_message",
+    "latest_workflow_basic",
+    "latest_workflow_condition",
+    "latest_zone"
+  ];
+
+  console.log("✅ Table/column name response sent successfully");
+  res.json({
+    message: "All Views list",
+    data: viewsList
+  });
+});
+
+// General API - Get country state endpoint
+app.get("/api/v1/general/get-country-state", (req, res) => {
+  console.log("🌍 Get country state request received:", {
+    query: req.query,
+    country_name: req.query.country_name,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { country_name } = req.query;
+
+  if (!country_name) {
+    return res.status(400).json({
+      message: "Country name is required",
+      error: "MISSING_COUNTRY_NAME"
+    });
+  }
+
+  // Mock data for India states and union territories
+  const indiaStatesData = [
+    {
+      "country_state_id": 4853,
+      "country_state_unique_id": 4853,
+      "country_state_uuid": "e4efd40c-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "West Bengal",
+      "country_code": "IN",
+      "state_code": "WB",
+      "type": "state",
+      "latitude": "22.9867569",
+      "longitude": "87.8549755",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:57:01.000Z",
+      "insert_ts": "2025-04-28T11:57:01.000Z"
+    },
+    {
+      "country_state_id": 4852,
+      "country_state_unique_id": 4852,
+      "country_state_uuid": "e08da7ad-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Ladakh",
+      "country_code": "IN",
+      "state_code": "LA",
+      "type": "union territory",
+      "latitude": "34.2268475",
+      "longitude": "77.5619419",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:53.000Z",
+      "insert_ts": "2025-04-28T11:56:53.000Z"
+    },
+    {
+      "country_state_id": 4040,
+      "country_state_unique_id": 4040,
+      "country_state_uuid": "ddb05ed1-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Chhattisgarh",
+      "country_code": "IN",
+      "state_code": "CT",
+      "type": "state",
+      "latitude": "21.2786567",
+      "longitude": "81.8661442",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:49.000Z",
+      "insert_ts": "2025-04-28T11:56:49.000Z"
+    },
+    {
+      "country_state_id": 4039,
+      "country_state_unique_id": 4039,
+      "country_state_uuid": "e10b7529-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Madhya Pradesh",
+      "country_code": "IN",
+      "state_code": "MP",
+      "type": "state",
+      "latitude": "22.9734229",
+      "longitude": "78.6568942",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:54.000Z",
+      "insert_ts": "2025-04-28T11:56:54.000Z"
+    },
+    {
+      "country_state_id": 4038,
+      "country_state_unique_id": 4038,
+      "country_state_uuid": "e4166e88-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Tripura",
+      "country_code": "IN",
+      "state_code": "TR",
+      "type": "state",
+      "latitude": "23.9408482",
+      "longitude": "91.9881527",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:59.000Z",
+      "insert_ts": "2025-04-28T11:56:59.000Z"
+    },
+    {
+      "country_state_id": 4037,
+      "country_state_unique_id": 4037,
+      "country_state_uuid": "dd288f18-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Bihar",
+      "country_code": "IN",
+      "state_code": "BR",
+      "type": "state",
+      "latitude": "25.0960742",
+      "longitude": "85.3131194",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:48.000Z",
+      "insert_ts": "2025-04-28T11:56:48.000Z"
+    },
+    {
+      "country_state_id": 4036,
+      "country_state_unique_id": 4036,
+      "country_state_uuid": "e204fd41-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Mizoram",
+      "country_code": "IN",
+      "state_code": "MZ",
+      "type": "state",
+      "latitude": "23.164543",
+      "longitude": "92.9375739",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:56.000Z",
+      "insert_ts": "2025-04-28T11:56:56.000Z"
+    },
+    {
+      "country_state_id": 4035,
+      "country_state_unique_id": 4035,
+      "country_state_uuid": "e39ba276-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Tamil Nadu",
+      "country_code": "IN",
+      "state_code": "TN",
+      "type": "state",
+      "latitude": "11.1271225",
+      "longitude": "78.6568942",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:58.000Z",
+      "insert_ts": "2025-04-28T11:56:58.000Z"
+    },
+    {
+      "country_state_id": 4034,
+      "country_state_unique_id": 4034,
+      "country_state_uuid": "e35c4d57-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Sikkim",
+      "country_code": "IN",
+      "state_code": "SK",
+      "type": "state",
+      "latitude": "27.5329718",
+      "longitude": "88.5122178",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:58.000Z",
+      "insert_ts": "2025-04-28T11:56:58.000Z"
+    },
+    {
+      "country_state_id": 4033,
+      "country_state_unique_id": 4033,
+      "country_state_uuid": "ddee2f20-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Dadra and Nagar Haveli and Daman and Diu",
+      "country_code": "IN",
+      "state_code": "DH",
+      "type": "union territory",
+      "latitude": "20.3973736",
+      "longitude": "72.8327991",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:49.000Z",
+      "insert_ts": "2025-04-28T11:56:49.000Z"
+    },
+    {
+      "country_state_id": 4031,
+      "country_state_unique_id": 4031,
+      "country_state_uuid": "dd604c7a-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Chandigarh",
+      "country_code": "IN",
+      "state_code": "CH",
+      "type": "union territory",
+      "latitude": "30.7333148",
+      "longitude": "76.7794179",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:48.000Z",
+      "insert_ts": "2025-04-28T11:56:48.000Z"
+    },
+    {
+      "country_state_id": 4030,
+      "country_state_unique_id": 4030,
+      "country_state_uuid": "def95f99-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Gujarat",
+      "country_code": "IN",
+      "state_code": "GJ",
+      "type": "state",
+      "latitude": "22.258652",
+      "longitude": "71.1923805",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:51.000Z",
+      "insert_ts": "2025-04-28T11:56:51.000Z"
+    },
+    {
+      "country_state_id": 4029,
+      "country_state_unique_id": 4029,
+      "country_state_uuid": "dfabbcf4-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Jammu and Kashmir",
+      "country_code": "IN",
+      "state_code": "JK",
+      "type": "union territory",
+      "latitude": "33.277839",
+      "longitude": "75.3412179",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:52.000Z",
+      "insert_ts": "2025-04-28T11:56:52.000Z"
+    },
+    {
+      "country_state_id": 4028,
+      "country_state_unique_id": 4028,
+      "country_state_uuid": "e0551721-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Kerala",
+      "country_code": "IN",
+      "state_code": "KL",
+      "type": "state",
+      "latitude": "10.8505159",
+      "longitude": "76.2710833",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:53.000Z",
+      "insert_ts": "2025-04-28T11:56:53.000Z"
+    },
+    {
+      "country_state_id": 4027,
+      "country_state_unique_id": 4027,
+      "country_state_uuid": "dce4b65e-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Assam",
+      "country_code": "IN",
+      "state_code": "AS",
+      "type": "state",
+      "latitude": "26.2006043",
+      "longitude": "92.9375739",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:47.000Z",
+      "insert_ts": "2025-04-28T11:56:47.000Z"
+    },
+    {
+      "country_state_id": 4026,
+      "country_state_unique_id": 4026,
+      "country_state_uuid": "e018d3b7-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Karnataka",
+      "country_code": "IN",
+      "state_code": "KA",
+      "type": "state",
+      "latitude": "15.3172775",
+      "longitude": "75.7138884",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:53.000Z",
+      "insert_ts": "2025-04-28T11:56:53.000Z"
+    },
+    {
+      "country_state_id": 4025,
+      "country_state_unique_id": 4025,
+      "country_state_uuid": "dfe43dbb-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Jharkhand",
+      "country_code": "IN",
+      "state_code": "JH",
+      "type": "state",
+      "latitude": "23.6101808",
+      "longitude": "85.2799354",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:52.000Z",
+      "insert_ts": "2025-04-28T11:56:52.000Z"
+    },
+    {
+      "country_state_id": 4024,
+      "country_state_unique_id": 4024,
+      "country_state_uuid": "dc5784cb-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Arunachal Pradesh",
+      "country_code": "IN",
+      "state_code": "AR",
+      "type": "state",
+      "latitude": "28.2179994",
+      "longitude": "94.7277528",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:46.000Z",
+      "insert_ts": "2025-04-28T11:56:46.000Z"
+    },
+    {
+      "country_state_id": 4023,
+      "country_state_unique_id": 4023,
+      "country_state_uuid": "dbe1577a-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Andaman and Nicobar Islands",
+      "country_code": "IN",
+      "state_code": "AN",
+      "type": "union territory",
+      "latitude": "11.7400867",
+      "longitude": "92.6586401",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:45.000Z",
+      "insert_ts": "2025-04-28T11:56:45.000Z"
+    },
+    {
+      "country_state_id": 4022,
+      "country_state_unique_id": 4022,
+      "country_state_uuid": "e44d5ea2-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Uttar Pradesh",
+      "country_code": "IN",
+      "state_code": "UP",
+      "type": "state",
+      "latitude": "26.8467088",
+      "longitude": "80.9461592",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:57:00.000Z",
+      "insert_ts": "2025-04-28T11:57:00.000Z"
+    },
+    {
+      "country_state_id": 4021,
+      "country_state_unique_id": 4021,
+      "country_state_uuid": "de2d9379-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Delhi",
+      "country_code": "IN",
+      "state_code": "DL",
+      "type": "union territory",
+      "latitude": "28.7040592",
+      "longitude": "77.1024902",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:49.000Z",
+      "insert_ts": "2025-04-28T11:56:49.000Z"
+    },
+    {
+      "country_state_id": 4020,
+      "country_state_unique_id": 4020,
+      "country_state_uuid": "df7650d2-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Himachal Pradesh",
+      "country_code": "IN",
+      "state_code": "HP",
+      "type": "state",
+      "latitude": "31.1048294",
+      "longitude": "77.1733901",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:51.000Z",
+      "insert_ts": "2025-04-28T11:56:51.000Z"
+    },
+    {
+      "country_state_id": 4019,
+      "country_state_unique_id": 4019,
+      "country_state_uuid": "e0cdb396-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Lakshadweep",
+      "country_code": "IN",
+      "state_code": "LD",
+      "type": "union territory",
+      "latitude": "10.3280265",
+      "longitude": "72.7846336",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:54.000Z",
+      "insert_ts": "2025-04-28T11:56:54.000Z"
+    },
+    {
+      "country_state_id": 4018,
+      "country_state_unique_id": 4018,
+      "country_state_uuid": "e238d1be-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Nagaland",
+      "country_code": "IN",
+      "state_code": "NL",
+      "type": "state",
+      "latitude": "26.1584354",
+      "longitude": "94.5624426",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:56.000Z",
+      "insert_ts": "2025-04-28T11:56:56.000Z"
+    },
+    {
+      "country_state_id": 4017,
+      "country_state_unique_id": 4017,
+      "country_state_uuid": "dc190ba1-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Andhra Pradesh",
+      "country_code": "IN",
+      "state_code": "AP",
+      "type": "state",
+      "latitude": "15.9128998",
+      "longitude": "79.7399875",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:46.000Z",
+      "insert_ts": "2025-04-28T11:56:46.000Z"
+    },
+    {
+      "country_state_id": 4016,
+      "country_state_unique_id": 4016,
+      "country_state_uuid": "e4b6b9ee-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Uttarakhand",
+      "country_code": "IN",
+      "state_code": "UK",
+      "type": "state",
+      "latitude": "30.066753",
+      "longitude": "79.0192997",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:57:00.000Z",
+      "insert_ts": "2025-04-28T11:57:00.000Z"
+    },
+    {
+      "country_state_id": 4015,
+      "country_state_unique_id": 4015,
+      "country_state_uuid": "e2e0b1a2-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Punjab",
+      "country_code": "IN",
+      "state_code": "PB",
+      "type": "state",
+      "latitude": "31.1471305",
+      "longitude": "75.3412179",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:57.000Z",
+      "insert_ts": "2025-04-28T11:56:57.000Z"
+    },
+    {
+      "country_state_id": 4014,
+      "country_state_unique_id": 4014,
+      "country_state_uuid": "e322484c-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Rajasthan",
+      "country_code": "IN",
+      "state_code": "RJ",
+      "type": "state",
+      "latitude": "27.0238036",
+      "longitude": "74.2179326",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:58.000Z",
+      "insert_ts": "2025-04-28T11:56:58.000Z"
+    },
+    {
+      "country_state_id": 4013,
+      "country_state_unique_id": 4013,
+      "country_state_uuid": "e26ef556-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Odisha",
+      "country_code": "IN",
+      "state_code": "OR",
+      "type": "state",
+      "latitude": "20.9516658",
+      "longitude": "85.0985236",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:56.000Z",
+      "insert_ts": "2025-04-28T11:56:56.000Z"
+    },
+    {
+      "country_state_id": 4012,
+      "country_state_unique_id": 4012,
+      "country_state_uuid": "e3da234c-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Telangana",
+      "country_code": "IN",
+      "state_code": "TG",
+      "type": "state",
+      "latitude": "18.1124372",
+      "longitude": "79.0192997",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:59.000Z",
+      "insert_ts": "2025-04-28T11:56:59.000Z"
+    },
+    {
+      "country_state_id": 4011,
+      "country_state_unique_id": 4011,
+      "country_state_uuid": "e2a45f1e-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Puducherry",
+      "country_code": "IN",
+      "state_code": "PY",
+      "type": "union territory",
+      "latitude": "11.9415915",
+      "longitude": "79.8083133",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:57.000Z",
+      "insert_ts": "2025-04-28T11:56:57.000Z"
+    },
+    {
+      "country_state_id": 4010,
+      "country_state_unique_id": 4010,
+      "country_state_uuid": "e1794bd4-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Manipur",
+      "country_code": "IN",
+      "state_code": "MN",
+      "type": "state",
+      "latitude": "24.6637173",
+      "longitude": "93.9062688",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:55.000Z",
+      "insert_ts": "2025-04-28T11:56:55.000Z"
+    },
+    {
+      "country_state_id": 4009,
+      "country_state_unique_id": 4009,
+      "country_state_uuid": "dec3dccb-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Goa",
+      "country_code": "IN",
+      "state_code": "GA",
+      "type": "state",
+      "latitude": "15.2993265",
+      "longitude": "74.123996",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:50.000Z",
+      "insert_ts": "2025-04-28T11:56:50.000Z"
+    },
+    {
+      "country_state_id": 4008,
+      "country_state_unique_id": 4008,
+      "country_state_uuid": "e1431de9-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Maharashtra",
+      "country_code": "IN",
+      "state_code": "MH",
+      "type": "state",
+      "latitude": "19.7514798",
+      "longitude": "75.7138884",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:55.000Z",
+      "insert_ts": "2025-04-28T11:56:55.000Z"
+    },
+    {
+      "country_state_id": 4007,
+      "country_state_unique_id": 4007,
+      "country_state_uuid": "df37f870-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Haryana",
+      "country_code": "IN",
+      "state_code": "HR",
+      "type": "state",
+      "latitude": "29.0587757",
+      "longitude": "76.085601",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:51.000Z",
+      "insert_ts": "2025-04-28T11:56:51.000Z"
+    },
+    {
+      "country_state_id": 4006,
+      "country_state_unique_id": 4006,
+      "country_state_uuid": "e1c71c1b-2427-11f0-a003-0e525aef9233",
+      "country_id": 101,
+      "country_name": "India",
+      "state_name": "Meghalaya",
+      "country_code": "IN",
+      "state_code": "ML",
+      "type": "state",
+      "latitude": "25.4670308",
+      "longitude": "91.366216",
+      "status": "ACTIVE",
+      "created_by_uuid": null,
+      "created_by_name": null,
+      "modified_by_uuid": null,
+      "modified_by_name": null,
+      "create_ts": "2025-04-28T11:56:55.000Z",
+      "insert_ts": "2025-04-28T11:56:55.000Z"
+    }
+  ];
+
+  // Filter by country name (case-insensitive)
+  let filteredData = [];
+  if (country_name.toLowerCase() === 'india') {
+    filteredData = indiaStatesData;
+  } else {
+    // For other countries, return empty array for now
+    filteredData = [];
+  }
+
+  console.log("✅ Country state response sent successfully for:", country_name);
+  res.json({
+    message: "Country state record",
+    totalRecords: filteredData.length,
+    currentRecords: filteredData.length,
+    data: filteredData
+  });
+});
+
+// Customer API - Upsert customer invoice endpoint
+app.post("/api/v1/customer/upsert-customer-invoice", (req, res) => {
+  console.log("💰 Customer invoice upsert request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      customer_invoice_uuid,
+      customer_uuid,
+      invoice_no,
+      creation_date,
+      due_date,
+      company_name,
+      company_address_line1,
+      company_address_line2,
+      company_city,
+      company_state,
+      company_country,
+      company_postal_code,
+      customer_name,
+      customer_address_line1,
+      customer_address_line2,
+      customer_city,
+      customer_state,
+      customer_country,
+      customer_postal_code,
+      invoice_items,
+      payment_paid,
+      adjustment,
+      taxes,
+      sub_total,
+      total,
+      status
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Umesh Yadav";
+
+    // Generate UUID if not provided
+    const newCustomerInvoiceUuid = customer_invoice_uuid || generateUUID();
+
+    // Default invoice items if not provided
+    const defaultInvoiceItems = invoice_items || [
+      {
+        "transaction_type": "SERVICE",
+        "correction_sign": "+",
+        "description": "",
+        "service_type": "",
+        "service_sub_type": "",
+        "tax": "",
+        "price": "",
+        "country": "",
+        "state_or_province": ""
+      }
+    ];
+
+    // Mock response structure matching the exact format provided
+    const resultCustomerInvoice = {
+      "customer_invoice_uuid": newCustomerInvoiceUuid,
+      "customer_uuid": customer_uuid || "",
+      "invoice_no": invoice_no || Math.floor(Math.random() * 1000) + 1,
+      "creation_date": creation_date || "8990-06-06T18:30:00.000Z",
+      "due_date": due_date || "6789-04-04T18:30:00.000Z",
+      "company_name": company_name || "",
+      "company_address_line1": company_address_line1 || "",
+      "company_address_line2": company_address_line2 || "",
+      "company_city": company_city || "",
+      "company_state": company_state || "",
+      "company_country": company_country || "",
+      "company_postal_code": company_postal_code || "",
+      "customer_name": customer_name || "",
+      "customer_address_line1": customer_address_line1 || "",
+      "customer_address_line2": customer_address_line2 || "",
+      "customer_city": customer_city || "",
+      "customer_state": customer_state || "",
+      "customer_country": customer_country || "",
+      "customer_postal_code": customer_postal_code || "",
+      "invoice_items": defaultInvoiceItems,
+      "payment_paid": payment_paid || "0.00",
+      "adjustment": adjustment || "0.00",
+      "taxes": taxes || "0.00",
+      "sub_total": sub_total || "0.00",
+      "total": total || "0.00",
+      "status": status || "PAID",
+      "created_by_uuid": adminUuid,
+      "created_by_name": adminName,
+      "modified_by_uuid": adminUuid,
+      "modified_by_name": adminName,
+      "create_ts": new Date().toLocaleString('en-US', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false 
+      }).replace(/(\d+)\/(\d+)\/(\d+),?\s*(\d+):(\d+):(\d+)/, '$3-$1-$2 $4:$5:$6')
+    };
+
+    console.log("✅ Customer invoice upsert response sent successfully");
+    res.status(201).json({
+      message: "Customer Invoice has been false?updated : created",
+      data: resultCustomerInvoice
+    });
+  } catch (err) {
+    console.error("❌ Error in customer invoice upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating customer invoice",
+      error: err.message
+    });
+  }
+});
+
+// Branch JSON Storage API - Insert branch data as JSON
+app.post("/api/v1/branch/json-store", (req, res) => {
+  console.log("📦 Branch JSON store insert request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    // Build JSON object similar to your SQL query
+    const jsonData = {
+      message: "All Branch",
+      totalRecords: branchesStorage.length,
+      currentRecords: branchesStorage.length,
+      data: branchesStorage.map(branch => ({
+        branch_uuid: branch.branch_uuid,
+        branch_name: branch.branch_name,
+        branch_code: branch.branch_code,
+        branch_email: branch.branch_email,
+        branch_logo: branch.branch_logo,
+        description: branch.description,
+        branch_phone_no: branch.branch_phone_no,
+        branch_mobile_no: branch.branch_mobile_no,
+        status: branch.status,
+        created_by_uuid: branch.created_by_uuid,
+        created_by_name: branch.created_by_name,
+        modified_by_uuid: branch.modified_by_uuid,
+        modified_by_name: branch.modified_by_name,
+        create_ts: branch.create_ts,
+        insert_ts: branch.insert_ts
+      }))
+    };
+
+    // Store in JSON storage
+    const jsonStoreEntry = {
+      id: branchJsonStorage.length + 1,
+      data: jsonData,
+      created_at: new Date().toISOString()
+    };
+
+    branchJsonStorage.push(jsonStoreEntry);
+
+    console.log("✅ Branch JSON store insert successful:", jsonStoreEntry.id);
+    res.status(201).json({
+      message: "Branch data stored as JSON successfully",
+      data: jsonStoreEntry
+    });
+  } catch (err) {
+    console.error("❌ Error in branch JSON store insert:", err);
+    res.status(500).json({
+      message: "Error storing branch data as JSON",
+      error: err.message
+    });
+  }
+});
+
+// Branch JSON Storage API - Get all JSON stored data
+app.get("/api/v1/branch/json-store", (req, res) => {
+  console.log("📦 Branch JSON store get request received:", {
+    query: req.query,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { id } = req.query;
+  
+  if (id) {
+    // Get specific JSON entry
+    const jsonEntry = branchJsonStorage.find(entry => entry.id === parseInt(id));
+    if (!jsonEntry) {
+      return res.status(404).json({
+        message: "JSON store entry not found",
+        error: "NOT_FOUND"
+      });
+    }
+    
+    console.log("✅ Branch JSON store entry retrieved successfully");
+    res.json({
+      message: "Branch JSON store entry retrieved successfully",
+      data: jsonEntry
+    });
+  } else {
+    // Get all JSON entries
+    console.log("✅ Branch JSON store entries retrieved successfully");
+    res.json({
+      message: "Branch JSON store entries retrieved successfully",
+      totalRecords: branchJsonStorage.length,
+      data: branchJsonStorage
+    });
+  }
+});
+
+// Branch JSON Storage API - Update specific field in JSON
+app.put("/api/v1/branch/json-store/:id/update", (req, res) => {
+  console.log("📦 Branch JSON store update request received:", {
+    params: req.params,
+    body: req.body,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const { id } = req.params;
+    const { field_path, new_value, branch_index = 0 } = req.body;
+
+    const jsonEntry = branchJsonStorage.find(entry => entry.id === parseInt(id));
+    if (!jsonEntry) {
+      return res.status(404).json({
+        message: "JSON store entry not found",
+        error: "NOT_FOUND"
+      });
+    }
+
+    // Update the specific field in the JSON data
+    if (field_path && new_value !== undefined) {
+      // Simple field update (e.g., "data.data.0.status")
+      const pathParts = field_path.split('.');
+      let current = jsonEntry.data;
+      
+      for (let i = 0; i < pathParts.length - 1; i++) {
+        if (pathParts[i] === '0' || pathParts[i] === '1' || pathParts[i] === '2') {
+          // Array index
+          current = current[parseInt(pathParts[i])];
+        } else {
+          current = current[pathParts[i]];
+        }
+      }
+      
+      const lastKey = pathParts[pathParts.length - 1];
+      current[lastKey] = new_value;
+      
+      // Update timestamp
+      jsonEntry.updated_at = new Date().toISOString();
+    }
+
+    console.log("✅ Branch JSON store update successful:", id);
+    res.json({
+      message: "Branch JSON store updated successfully",
+      data: jsonEntry
+    });
+  } catch (err) {
+    console.error("❌ Error in branch JSON store update:", err);
+    res.status(500).json({
+      message: "Error updating branch JSON store",
+      error: err.message
+    });
+  }
+});
+
+// Branch JSON Storage API - Delete JSON entry
+app.delete("/api/v1/branch/json-store/:id", (req, res) => {
+  console.log("📦 Branch JSON store delete request received:", {
+    params: req.params,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const { id } = req.params;
+    const existingIndex = branchJsonStorage.findIndex(entry => entry.id === parseInt(id));
+
+    if (existingIndex === -1) {
+      return res.status(404).json({
+        message: "JSON store entry not found",
+        error: "NOT_FOUND"
+      });
+    }
+
+    const deletedEntry = branchJsonStorage.splice(existingIndex, 1)[0];
+    console.log("✅ Branch JSON store entry deleted successfully:", deletedEntry.id);
+
+    res.json({
+      message: "Branch JSON store entry deleted successfully",
+      data: deletedEntry
+    });
+  } catch (err) {
+    console.error("❌ Error in branch JSON store delete:", err);
+    res.status(500).json({
+      message: "Error deleting branch JSON store entry",
+      error: err.message
+    });
+  }
+});
+
+// Branch API - Get all branches from database
+app.get("/api/v1/dataManagement/get-branch", async (req, res) => {
+  console.log("🏢 Get branches request received:", {
+    query: req.query,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const { pageNo = 1, itemPerPage = 10, status } = req.query;
+    
+    // Build where clause for filtering
+    let whereClause = {};
+    if (status && status !== '-1') {
+      whereClause.status = status;
+    }
+
+    // Get total count
+    const totalRecords = await prisma.branch.count({ where: whereClause });
+
+    // Get paginated data
+    const startIndex = (pageNo - 1) * itemPerPage;
+    const branches = await prisma.branch.findMany({
+      where: whereClause,
+      orderBy: { id: 'desc' },
+      skip: startIndex,
+      take: parseInt(itemPerPage)
+    });
+
+    // Transform data to match expected format
+    const transformedBranches = branches.map(branch => ({
+      branch_uuid: branch.branchUuid,
+      branch_name: branch.branchName,
+      branch_code: branch.branchCode,
+      branch_email: branch.branchEmail,
+      branch_logo: branch.branchLogo,
+      description: branch.description,
+      branch_phone_no: branch.branchPhoneNo,
+      branch_mobile_no: branch.branchMobileNo,
+      status: branch.status,
+      created_by_uuid: branch.createdByUuid,
+      created_by_name: branch.createdByName,
+      modified_by_uuid: branch.modifiedByUuid,
+      modified_by_name: branch.modifiedByName,
+      create_ts: branch.createTs,
+      insert_ts: branch.insertTs
+    }));
+
+    console.log("✅ Branches retrieved from database successfully");
+    res.json({
+      message: "All Branch",
+      totalRecords: totalRecords,
+      currentRecords: transformedBranches.length,
+      data: transformedBranches
+    });
+  } catch (err) {
+    console.error("❌ Error retrieving branches from database:", err);
+    res.status(500).json({
+      message: "Error retrieving branches",
+      error: err.message
+    });
+  }
+});
+
+// Branch API - Get single branch by UUID
+app.get("/api/v1/dataManagement/get-single-branch", async (req, res) => {
+  console.log("🏢 Get single branch request received:", {
+    query: req.query,
+    uuid: req.query.uuid,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const { uuid } = req.query;
+    if (!uuid) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Branch UUID is required", 
+        error: "MISSING_UUID" 
+      });
+    }
+
+    const branch = await prisma.branch.findUnique({
+      where: { branchUuid: uuid }
+    });
+
+    if (!branch) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Branch not found", 
+        error: "BRANCH_NOT_FOUND" 
+      });
+    }
+
+    // Transform data to match expected format
+    const transformedBranch = {
+      branch_uuid: branch.branchUuid,
+      branch_name: branch.branchName,
+      branch_code: branch.branchCode,
+      branch_email: branch.branchEmail,
+      branch_logo: branch.branchLogo,
+      description: branch.description,
+      branch_phone_no: branch.branchPhoneNo,
+      branch_mobile_no: branch.branchMobileNo,
+      status: branch.status,
+      created_by_uuid: branch.createdByUuid,
+      created_by_name: branch.createdByName,
+      modified_by_uuid: branch.modifiedByUuid,
+      modified_by_name: branch.modifiedByName,
+      create_ts: branch.createTs,
+      insert_ts: branch.insertTs
+    };
+
+    console.log("✅ Single branch retrieved from database successfully");
+    res.json({ 
+      success: true, 
+      message: "Branch retrieved successfully", 
+      data: transformedBranch 
+    });
+  } catch (err) {
+    console.error("❌ Error retrieving single branch from database:", err);
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving branch",
+      error: err.message
+    });
+  }
+});
+
+// Branch API - Upsert branch (create or update)
+app.post("/api/v1/dataManagement/upsert-branch", async (req, res) => {
+  console.log("🏢 Upsert branch request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      branch_uuid,
+      branch_name,
+      branch_code,
+      branch_email,
+      branch_logo,
+      description,
+      branch_phone_no,
+      branch_mobile_no,
+      status
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Sakshi Jadhav";
+
+    let resultBranch;
+    let isUpdate = false;
+
+    if (branch_uuid) {
+      // Try to update existing branch
+      try {
+        resultBranch = await prisma.branch.update({
+          where: { branchUuid: branch_uuid },
+          data: {
+            branchName: branch_name,
+            branchCode: branch_code,
+            branchEmail: branch_email,
+            branchLogo: branch_logo,
+            description: description,
+            branchPhoneNo: branch_phone_no,
+            branchMobileNo: branch_mobile_no,
+            status: status || "ACTIVE",
+            modifiedByUuid: adminUuid,
+            modifiedByName: adminName,
+            insertTs: new Date(),
+            updatedAt: new Date()
+          }
+        });
+        isUpdate = true;
+        console.log("✅ Branch updated in database successfully:", resultBranch.branchUuid);
+      } catch (updateError) {
+        if (updateError.code === 'P2025') {
+          // Record not found, will create new one
+          console.log("⚠️ Branch UUID provided but not found, creating new branch");
+        } else {
+          throw updateError;
+        }
+      }
+    }
+
+    if (!isUpdate) {
+      // Create new branch
+      resultBranch = await prisma.branch.create({
+        data: {
+          branchUuid: branch_uuid || undefined, // Let Prisma generate UUID if not provided
+          branchName: branch_name || "NOVA SCOTIA",
+          branchCode: branch_code || "NS-001",
+          branchEmail: branch_email || "info@novascotia.nwimmigration.ca",
+          branchLogo: branch_logo || null,
+          description: description || "Nova Scotia Branch",
+          branchPhoneNo: branch_phone_no || "1 647 404 6682",
+          branchMobileNo: branch_mobile_no || "1 647 403 6682",
+          status: status || "ACTIVE",
+          createdByUuid: adminUuid,
+          createdByName: adminName,
+          modifiedByUuid: adminUuid,
+          modifiedByName: adminName,
+          createTs: new Date(),
+          insertTs: new Date()
+        }
+      });
+      console.log("✅ Branch created in database successfully:", resultBranch.branchUuid);
+    }
+
+    // Transform result to match expected format
+    const transformedResult = {
+      branch_uuid: resultBranch.branchUuid,
+      branch_name: resultBranch.branchName,
+      branch_code: resultBranch.branchCode,
+      branch_email: resultBranch.branchEmail,
+      branch_logo: resultBranch.branchLogo,
+      description: resultBranch.description,
+      branch_phone_no: resultBranch.branchPhoneNo,
+      branch_mobile_no: resultBranch.branchMobileNo,
+      status: resultBranch.status,
+      created_by_uuid: resultBranch.createdByUuid,
+      created_by_name: resultBranch.createdByName,
+      modified_by_uuid: resultBranch.modifiedByUuid,
+      modified_by_name: resultBranch.modifiedByName,
+      create_ts: resultBranch.createTs,
+      insert_ts: resultBranch.insertTs
+    };
+
+    console.log("✅ Branch upsert response sent successfully");
+    res.status(isUpdate ? 200 : 201).json({
+      message: isUpdate ? "Branch updated successfully." : "Branch created successfully.",
+      data: transformedResult
+    });
+  } catch (err) {
+    console.error("❌ Error in branch upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating branch",
+      error: err.message
+    });
+  }
+});
+
+// Branch API - Get branches for user form (alternative endpoint)
+app.get("/api/v1/user/get-branch", async (req, res) => {
+  console.log("🏢 Get branches for user request received:", {
+    query: req.query,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const { pageNo = 1, itemPerPage = 20 } = req.query;
+    
+    // Get paginated data
+    const startIndex = (pageNo - 1) * itemPerPage;
+    const branches = await prisma.branch.findMany({
+      where: { status: "ACTIVE" },
+      orderBy: { id: 'desc' },
+      skip: startIndex,
+      take: parseInt(itemPerPage)
+    });
+
+    const totalRecords = await prisma.branch.count({ where: { status: "ACTIVE" } });
+
+    // Transform data to match expected format for user form
+    const transformedBranches = branches.map((branch, index) => ({
+      branch_id: startIndex + index + 1,
+      branch_uuid: branch.branchUuid,
+      branch_name: branch.branchName,
+      branch_code: branch.branchCode,
+      branch_phone_no: branch.branchPhoneNo,
+      branch_mobile_no: branch.branchMobileNo,
+      branch_logo: branch.branchLogo,
+      branch_email: branch.branchEmail,
+      description: branch.description,
+      branch_address_line1: null,
+      branch_address_line2: null,
+      branch_address_state: null,
+      branch_address_city: null,
+      branch_address_district: null,
+      branch_address_country: null,
+      branch_address_pincode: null,
+      status: branch.status,
+      created_by_uuid: branch.createdByUuid,
+      created_by_name: branch.createdByName,
+      modified_by_uuid: branch.modifiedByUuid,
+      modified_by_name: branch.modifiedByName,
+      create_ts: branch.createTs,
+      insert_ts: branch.insertTs
+    }));
+
+    console.log("✅ Branches for user form retrieved from database successfully");
+    res.json({
+      message: "All Branch",
+      totalRecords: totalRecords,
+      currentRecords: transformedBranches.length,
+      data: transformedBranches
+    });
+  } catch (err) {
+    console.error("❌ Error retrieving branches for user form:", err);
+    res.status(500).json({
+      message: "Error retrieving branches",
+      error: err.message
+    });
+  }
+});
+
+// Company Configuration API - Get company outlet environment variables
+app.get("/api/v1/company/outlet-env", (req, res) => {
+  console.log("🏢 Company outlet environment request received:", {
+    query: req.query,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { pageNo = 1, itemPerPage = 100, status, env_key, master_company_outlet } = req.query;
+  
+  let filteredData = [...companyConfigStorage];
+
+  // Filter by status if provided
+  if (status && status !== '-1') {
+    filteredData = filteredData.filter(item => item.status === status);
+  }
+
+  // Filter by env_key if provided
+  if (env_key) {
+    filteredData = filteredData.filter(item => 
+      item.env_key.toLowerCase().includes(env_key.toLowerCase())
+    );
+  }
+
+  // Filter by master_company_outlet if provided
+  if (master_company_outlet) {
+    filteredData = filteredData.filter(item => 
+      item.master_company_outlet === master_company_outlet
+    );
+  }
+
+  // Sort by ID descending (like in the image)
+  filteredData.sort((a, b) => b.id - a.id);
+
+  // Apply pagination
+  const startIndex = (pageNo - 1) * itemPerPage;
+  const endIndex = startIndex + parseInt(itemPerPage);
+  const paginatedData = filteredData.slice(startIndex, endIndex);
+
+  console.log("✅ Company outlet environment response sent successfully");
+  res.json({
+    message: "Company outlet environment variables retrieved successfully",
+    totalRecords: filteredData.length,
+    currentRecords: paginatedData.length,
+    data: paginatedData
+  });
+});
+
+// Company Configuration API - Get single company outlet environment variable
+app.get("/api/v1/company/outlet-env/:id", (req, res) => {
+  console.log("🏢 Single company outlet environment request received:", {
+    params: req.params,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { id } = req.params;
+  const configItem = companyConfigStorage.find(item => item.id === parseInt(id));
+
+  if (!configItem) {
+    return res.status(404).json({
+      message: "Company outlet environment variable not found",
+      error: "NOT_FOUND"
+    });
+  }
+
+  console.log("✅ Single company outlet environment response sent successfully");
+  res.json({
+    message: "Company outlet environment variable retrieved successfully",
+    data: configItem
+  });
+});
+
+// Company Configuration API - Create or update company outlet environment variable
+app.post("/api/v1/company/outlet-env", (req, res) => {
+  console.log("🏢 Company outlet environment upsert request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      id,
+      company_outlet_env,
+      master_company_outlet,
+      env_name,
+      env_key,
+      env_value,
+      value_datatype,
+      is_encrypted,
+      status
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Sakshi Jadhav";
+
+    let resultConfig;
+    let isUpdate = false;
+
+    if (id) {
+      // Update existing configuration
+      const existingIndex = companyConfigStorage.findIndex(item => item.id === parseInt(id));
+      if (existingIndex !== -1) {
+        const existingConfig = companyConfigStorage[existingIndex];
+        resultConfig = {
+          ...existingConfig,
+          company_outlet_env: company_outlet_env || existingConfig.company_outlet_env,
+          master_company_outlet: master_company_outlet || existingConfig.master_company_outlet,
+          env_name: env_name || existingConfig.env_name,
+          env_key: env_key || existingConfig.env_key,
+          env_value: env_value || existingConfig.env_value,
+          value_datatype: value_datatype || existingConfig.value_datatype,
+          is_encrypted: is_encrypted !== undefined ? is_encrypted : existingConfig.is_encrypted,
+          status: status || existingConfig.status,
+          modified_by_uuid: adminUuid,
+          modified_by_name: adminName,
+          insert_ts: new Date().toISOString()
+        };
+        companyConfigStorage[existingIndex] = resultConfig;
+        isUpdate = true;
+        console.log("✅ Company outlet environment updated successfully:", resultConfig.id);
+      } else {
+        console.log("⚠️ Configuration ID provided but not found, creating new configuration");
+      }
+    }
+
+    if (!isUpdate) {
+      // Create new configuration
+      const newId = Math.max(...companyConfigStorage.map(item => item.id)) + 1;
+      resultConfig = {
+        id: newId,
+        company_outlet_env: company_outlet_env || generateUUID(),
+        master_company_outlet: master_company_outlet || "m1a2b3c4-5678-9def-0123-456789abcdef",
+        env_name: env_name || "New Configuration",
+        env_key: env_key || "NEW_CONFIG_KEY",
+        env_value: env_value || "",
+        value_datatype: value_datatype || "STRING",
+        is_encrypted: is_encrypted !== undefined ? is_encrypted : 0,
+        status: status || "ACTIVE",
+        created_by_uuid: adminUuid,
+        created_by_name: adminName,
+        modified_by_uuid: adminUuid,
+        modified_by_name: adminName,
+        create_ts: new Date().toISOString(),
+        insert_ts: new Date().toISOString()
+      };
+      companyConfigStorage.push(resultConfig);
+      console.log("✅ Company outlet environment created successfully:", resultConfig.id);
+    }
+
+    console.log("✅ Company outlet environment upsert response sent successfully");
+    res.status(isUpdate ? 200 : 201).json({
+      message: isUpdate ? "Company outlet environment updated successfully." : "Company outlet environment created successfully.",
+      data: resultConfig
+    });
+  } catch (err) {
+    console.error("❌ Error in company outlet environment upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating company outlet environment",
+      error: err.message
+    });
+  }
+});
+
+// Company Configuration API - Delete company outlet environment variable
+app.delete("/api/v1/company/outlet-env/:id", (req, res) => {
+  console.log("🏢 Company outlet environment delete request received:", {
+    params: req.params,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const { id } = req.params;
+    const existingIndex = companyConfigStorage.findIndex(item => item.id === parseInt(id));
+
+    if (existingIndex === -1) {
+      return res.status(404).json({
+        message: "Company outlet environment variable not found",
+        error: "NOT_FOUND"
+      });
+    }
+
+    const deletedConfig = companyConfigStorage.splice(existingIndex, 1)[0];
+    console.log("✅ Company outlet environment deleted successfully:", deletedConfig.id);
+
+    res.json({
+      message: "Company outlet environment variable deleted successfully",
+      data: deletedConfig
+    });
+  } catch (err) {
+    console.error("❌ Error in company outlet environment delete:", err);
+    res.status(500).json({
+      message: "Error deleting company outlet environment",
+      error: err.message
+    });
+  }
+});
+
+// Customer API - Upsert customer endpoint
+app.post("/api/v1/customer/upsert-customer", (req, res) => {
+  console.log("👥 Customer upsert request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      customer_fact_uuid,
+      customer_code,
+      branch_name,
+      branch_uuid,
+      customer_name,
+      form_of_business,
+      tax_zone,
+      mailing_address,
+      unit_or_suite,
+      city,
+      province_or_state,
+      postal_code,
+      country,
+      language,
+      producer,
+      marketer,
+      branch,
+      assigned_to,
+      csr,
+      status,
+      referral_code,
+      customer_first_name,
+      customer_last_name,
+      customer_sex,
+      customer_phone_number,
+      customer_email,
+      customer_dob,
+      customer_place_of_birth,
+      customer_country_of_birth,
+      customer_address_line1,
+      customer_address_line2,
+      customer_address_landmark,
+      customer_address_city,
+      customer_address_state_or_province,
+      customer_address_country,
+      customer_address_postal_code,
+      citizenship,
+      status_in_country,
+      current_country_of_residence,
+      previous_country_of_residence,
+      height,
+      color_of_eyes,
+      passport_details,
+      national_identity_details,
+      marriage_information,
+      education_level,
+      work_history_details,
+      travel_history_in_canada,
+      native_language,
+      ilets_overall_score,
+      ilets_reading,
+      ilets_listening,
+      ilets_speaking,
+      ilets_writing,
+      additional_family_information,
+      customer_father_details,
+      customer_mother_details,
+      customer_personal_history,
+      membership_or_association,
+      additional_education_details,
+      relatives_in_canada,
+      relative_details_and_status,
+      asignee_uuid,
+      asignee_name,
+      residency_expiry_date,
+      educational_details,
+      relative_in_canada
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Umesh Yadav";
+
+    // Generate UUIDs if not provided
+    const newCustomerFactUuid = customer_fact_uuid || generateUUID();
+    const newCustomerPersonalInfoUuid = generateUUID();
+    const newCustomerCode = customer_code || generateCustomerCode();
+
+    // Default passport details
+    const defaultPassportDetails = passport_details || {
+      "passport_number": "",
+      "country_of_issue": "",
+      "issue_date": "",
+      "expiry_date": "",
+      "valid_in_canada_from": "",
+      "valid_in_canada_to": ""
+    };
+
+    // Default national identity details
+    const defaultNationalIdentityDetails = national_identity_details || {
+      "national_identity_document": "",
+      "document_number": "",
+      "country_of_issue": "",
+      "issue_date": "",
+      "expiry_date": ""
+    };
+
+    // Default marriage information
+    const defaultMarriageInformation = marriage_information || {
+      "current_status": "SINGLE",
+      "date_of_marriage": "",
+      "previously_married": "NO",
+      "date_of_previous_marriage": "",
+      "any_children_from_previous_marriage": "NO",
+      "date_of_divoced": "",
+      "date_of_separation": ""
+    };
+
+    // Default customer father details
+    const defaultCustomerFatherDetails = customer_father_details || {
+      "first_name": "",
+      "last_name": "",
+      "dob": "",
+      "place_of_birth": "",
+      "country_of_birth": "",
+      "date_of_death": ""
+    };
+
+    // Default customer mother details
+    const defaultCustomerMotherDetails = customer_mother_details || {
+      "first_name": "",
+      "last_name": "",
+      "dob": "",
+      "place_of_birth": "",
+      "country_of_birth": "",
+      "date_of_death": ""
+    };
+
+    // Default membership or association
+    const defaultMembershipOrAssociation = membership_or_association || {
+      "country_name": "",
+      "membership": []
+    };
+
+    // Mock response structure matching the exact format provided
+    const resultCustomer = {
+      "customer_prospect_details_id": Math.floor(Math.random() * 1000) + 1,
+      "customer_prospect_details_unique_id": Math.floor(Math.random() * 100) + 1,
+      "customer_fact_uuid": newCustomerFactUuid,
+      "customer_code": newCustomerCode,
+      "branch_name": branch_name || "",
+      "branch_uuid": branch_uuid || "",
+      "customer_name": customer_name || "undefined",
+      "form_of_business": form_of_business || null,
+      "tax_zone": tax_zone || null,
+      "mailing_address": mailing_address || null,
+      "unit_or_suite": unit_or_suite || null,
+      "city": city || null,
+      "province_or_state": province_or_state || null,
+      "postal_code": postal_code || null,
+      "country": country || null,
+      "language": language || null,
+      "producer": producer || null,
+      "marketer": marketer || null,
+      "branch": branch || null,
+      "assigned_to": assigned_to || null,
+      "csr": csr || null,
+      "status": status || "ACTIVE",
+      "created_by_uuid": adminUuid,
+      "created_by_name": adminName,
+      "modified_by_uuid": adminUuid,
+      "modified_by_name": adminName,
+      "customer_personal_information_id": Math.floor(Math.random() * 1000) + 1,
+      "customer_personal_information_unique_id": Math.floor(Math.random() * 100) + 1,
+      "customer_personal_information_uuid": newCustomerPersonalInfoUuid,
+      "referral_code": referral_code || generateReferralCode(),
+      "customer_first_name": customer_first_name || "DF",
+      "customer_last_name": customer_last_name || "DF",
+      "customer_sex": customer_sex || "",
+      "customer_phone_number": customer_phone_number || "",
+      "customer_email": customer_email || "AD@GH.BJKII",
+      "customer_dob": customer_dob || "2024-02-07T18:30:00.000Z",
+      "customer_place_of_birth": customer_place_of_birth || "",
+      "customer_country_of_birth": customer_country_of_birth || "",
+      "customer_address_line1": customer_address_line1 || "",
+      "customer_address_line2": customer_address_line2 || "",
+      "customer_address_landmark": customer_address_landmark || "",
+      "customer_address_city": customer_address_city || "",
+      "customer_address_state_or_province": customer_address_state_or_province || "",
+      "customer_address_country": customer_address_country || "",
+      "customer_address_postal_code": customer_address_postal_code || "",
+      "citizenship": citizenship || "",
+      "status_in_country": status_in_country || "",
+      "current_country_of_residence": current_country_of_residence || "",
+      "previous_country_of_residence": previous_country_of_residence || "",
+      "height": height || "",
+      "color_of_eyes": color_of_eyes || "",
+      "passport_details": defaultPassportDetails,
+      "national_identity_details": defaultNationalIdentityDetails,
+      "marriage_information": defaultMarriageInformation,
+      "education_level": education_level || null,
+      "work_history_details": work_history_details || [],
+      "travel_history_in_canada": travel_history_in_canada || [],
+      "native_language": native_language || "",
+      "ilets_overall_score": ilets_overall_score || "",
+      "ilets_reading": ilets_reading || "",
+      "ilets_listening": ilets_listening || "",
+      "ilets_speaking": ilets_speaking || "",
+      "ilets_writing": ilets_writing || "",
+      "additional_family_information": additional_family_information || [],
+      "customer_father_details": defaultCustomerFatherDetails,
+      "customer_mother_details": defaultCustomerMotherDetails,
+      "customer_personal_history": customer_personal_history || [],
+      "membership_or_association": defaultMembershipOrAssociation,
+      "additional_education_details": additional_education_details || [],
+      "relatives_in_canada": relatives_in_canada || null,
+      "relative_details_and_status": relative_details_and_status || [],
+      "asignee_uuid": asignee_uuid || null,
+      "asignee_name": asignee_name || null,
+      "residency_expiry_date": residency_expiry_date || "",
+      "educational_details": educational_details || [],
+      "relative_in_canada": relative_in_canada || "NO"
+    };
+
+    console.log("✅ Customer upsert response sent successfully");
+    res.status(200).json({
+      message: "Customer has been updated successfully.",
+      data: resultCustomer
+    });
+  } catch (err) {
+    console.error("❌ Error in customer upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating customer",
+      error: err.message
+    });
+  }
+});
+
+// Helper function to generate customer code
+function generateCustomerCode() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 10; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+// Helper function to generate referral code
+function generateReferralCode() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 6; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+// Lead API - Auth upsert lead endpoint
+app.post("/api/v1/lead/auth-upsert-lead", (req, res) => {
+  console.log("👤 Lead auth upsert request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      lead_uuid,
+      first_name,
+      last_name,
+      email,
+      phone,
+      business_name,
+      service_type,
+      service_sub_type,
+      status,
+      assigned_to,
+      notes,
+      source,
+      priority
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Sakshi Jadhav";
+
+    // Generate UUID if not provided
+    const newLeadUuid = lead_uuid || generateUUID();
+
+    // Mock response structure for lead upsert
+    const resultLead = {
+      lead_id: Math.floor(Math.random() * 1000) + 1,
+      lead_uuid: newLeadUuid,
+      first_name: first_name || "",
+      last_name: last_name || "",
+      full_name: `${first_name || ''} ${last_name || ''}`.trim(),
+      email: email || "",
+      phone: phone || "",
+      business_name: business_name || "",
+      service_type: service_type || "GENERAL",
+      service_sub_type: service_sub_type || "",
+      status: status || "NEW",
+      assigned_to: assigned_to || null,
+      assigned_to_name: assigned_to ? "Assigned User" : null,
+      notes: notes || "",
+      source: source || "WEBSITE",
+      priority: priority || "MEDIUM",
+      created_by_uuid: adminUuid,
+      created_by_name: adminName,
+      modified_by_uuid: adminUuid,
+      modified_by_name: adminName,
+      create_ts: new Date().toISOString(),
+      insert_ts: new Date().toISOString()
+    };
+
+    console.log("✅ Lead auth upsert response sent successfully");
+    res.status(201).json({
+      message: "Lead created successfully.",
+      data: resultLead
+    });
+  } catch (err) {
+    console.error("❌ Error in lead auth upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating lead",
+      error: err.message
+    });
+  }
+});
+
+// Lead API - Alternative endpoint for typo handling
+app.post("/api/v1/lead/uth-upsert-lead", (req, res) => {
+  console.log("👤 Lead auth upsert request (typo endpoint) received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      lead_uuid,
+      first_name,
+      last_name,
+      email,
+      phone,
+      business_name,
+      service_type,
+      service_sub_type,
+      status,
+      assigned_to,
+      notes,
+      source,
+      priority
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Sakshi Jadhav";
+
+    // Generate UUID if not provided
+    const newLeadUuid = lead_uuid || generateUUID();
+
+    // Mock response structure for lead upsert
+    const resultLead = {
+      lead_id: Math.floor(Math.random() * 1000) + 1,
+      lead_uuid: newLeadUuid,
+      first_name: first_name || "",
+      last_name: last_name || "",
+      full_name: `${first_name || ''} ${last_name || ''}`.trim(),
+      email: email || "",
+      phone: phone || "",
+      business_name: business_name || "",
+      service_type: service_type || "GENERAL",
+      service_sub_type: service_sub_type || "",
+      status: status || "NEW",
+      assigned_to: assigned_to || null,
+      assigned_to_name: assigned_to ? "Assigned User" : null,
+      notes: notes || "",
+      source: source || "WEBSITE",
+      priority: priority || "MEDIUM",
+      created_by_uuid: adminUuid,
+      created_by_name: adminName,
+      modified_by_uuid: adminUuid,
+      modified_by_name: adminName,
+      create_ts: new Date().toISOString(),
+      insert_ts: new Date().toISOString()
+    };
+
+    console.log("✅ Lead auth upsert response sent successfully (typo endpoint)");
+    res.status(201).json({
+      message: "Lead created successfully.",
+      data: resultLead
+    });
+  } catch (err) {
+    console.error("❌ Error in lead auth upsert (typo endpoint):", err);
+    res.status(500).json({
+      message: "Error creating/updating lead",
+      error: err.message
+    });
+  }
+});
+
+// Template API - Edit template endpoint
+app.post("/api/v1/template/edit-template", (req, res) => {
+  console.log("📝 Template edit request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      templates_uuid,
+      template_code,
+      template_category,
+      template_name,
+      table_name_or_dynamic_view_code,
+      call_type,
+      column,
+      template_subject,
+      track_changes,
+      body,
+      status
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Umesh Yadav";
+
+    // Generate UUID and template code if not provided
+    const newTemplatesUuid = templates_uuid || generateUUID();
+    const newTemplateCode = template_code || generateTemplateCode();
+
+    // Mock response structure matching the exact format provided
+    const resultTemplate = {
+      template_code: newTemplateCode,
+      template_category: template_category || "SMS",
+      template_name: template_name || "Default Template",
+      table_name_or_dynamic_view_code: table_name_or_dynamic_view_code || "latest_accn_account_receivable_trust",
+      call_type: call_type || "TABLE",
+      column: column || "",
+      template_subject: template_subject || "Default Subject",
+      track_changes: track_changes || "@@track_changes",
+      body: body || "<p>Default template body</p>",
+      status: status || "ACTIVE",
+      templates_uuid: newTemplatesUuid,
+      created_by_uuid: adminUuid,
+      created_by_name: adminName,
+      modified_by_uuid: adminUuid,
+      modified_by_name: adminName,
+      create_ts: new Date().toLocaleString('en-US', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false 
+      }).replace(/(\d+)\/(\d+)\/(\d+),?\s*(\d+):(\d+):(\d+)/, '$3-$1-$2 $4:$5:$6')
+    };
+
+    console.log("✅ Template edit response sent successfully");
+    res.status(201).json({
+      message: "Templates has been created successfully.",
+      data: resultTemplate
+    });
+  } catch (err) {
+    console.error("❌ Error in template edit:", err);
+    res.status(500).json({
+      message: "Error creating/updating template",
+      error: err.message
+    });
+  }
+});
+
+// Workflow API - Upsert workflow basic endpoint
+app.post("/api/v1/workflow/upsert-workflow-basic", (req, res) => {
+  console.log("🔄 Workflow basic upsert request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      workflow_uuid,
+      workflow_name,
+      workflow_description,
+      table_name,
+      trigger_event,
+      trigger_condition,
+      status,
+      is_active,
+      priority
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Sakshi Jadhav";
+
+    // Generate UUID if not provided
+    const newWorkflowUuid = workflow_uuid || generateUUID();
+
+    // Mock response structure for workflow basic
+    const resultWorkflowBasic = {
+      workflow_id: Math.floor(Math.random() * 1000) + 1,
+      workflow_unique_id: Math.floor(Math.random() * 100) + 1,
+      workflow_uuid: newWorkflowUuid,
+      workflow_name: workflow_name || "Default Workflow",
+      workflow_description: workflow_description || "Automated workflow process",
+      table_name: table_name || "latest_task_module_wise",
+      trigger_event: trigger_event || "INSERT",
+      trigger_condition: trigger_condition || "status = 'PENDING'",
+      status: status || "ACTIVE",
+      is_active: is_active !== undefined ? is_active : true,
+      priority: priority || 1,
+      created_by_uuid: adminUuid,
+      created_by_name: adminName,
+      modified_by_uuid: adminUuid,
+      modified_by_name: adminName,
+      create_ts: new Date().toISOString(),
+      insert_ts: new Date().toISOString()
+    };
+
+    console.log("✅ Workflow basic upsert response sent successfully");
+    res.status(201).json({
+      message: "Workflow basic created successfully.",
+      data: resultWorkflowBasic
+    });
+  } catch (err) {
+    console.error("❌ Error in workflow basic upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating workflow basic",
+      error: err.message
+    });
+  }
+});
+
+// Workflow API - Get API endpoints endpoint
+app.get("/api/v1/workflow/get-apis-endpoints", (req, res) => {
+  console.log("🔗 Workflow API endpoints request received:", {
+    query: req.query,
+    method_type: req.query.method_type,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { method_type } = req.query;
+
+  // Comprehensive list of API endpoints organized by module
+  const apiEndpoints = {
+    "accounting": [
+      "/api/v1/accounting/edit-account-payment-accounts-receivable",
+      "/api/v1/accounting/edit-account-invoice-payment-transaction-items",
+      "/api/v1/accounting/edit-account-company-charts-of-accounts",
+      "/api/v1/accounting/edit-account-company-gl-accounts",
+      "/api/v1/accounting/edit-account-company-information",
+      "/api/v1/accounting/edit-account-company-onboarding",
+      "/api/v1/accounting/edit-account-invoice",
+      "/api/v1/accounting/edit-accn-transaction-report",
+      "/api/v1/accounting/edit-account-invoice-template",
+      "/api/v1/accounting/edit-account-transaction-type",
+      "/api/v1/accounting/edit-account-transaction-description",
+      "/api/v1/accounting/edit-account-create-bill",
+      "/api/v1/accounting/edit-account-bill-payment-transaction-items",
+      "/api/v1/accounting/edit-account-bill-template",
+      "/api/v1/accounting/edit-account-create-payment",
+      "/api/v1/accounting/edit-account-bank-account",
+      "/api/v1/accounting/edit-account-cheque",
+      "/api/v1/accounting/edit-account-vendor",
+      "/api/v1/accounting/edit-account-system-gl-account"
+    ],
+    "analytics": [],
+    "approval": [
+      "/api/v1/approval/insert-approval",
+      "/api/v1/approval/handle-approval",
+      "/api/v1/approval/insert-approval-count"
+    ],
+    "authentication": [
+      "/api/v1/authentication/user-verification",
+      "/api/v1/authentication/login",
+      "/api/v1/authentication/validate-otp-get-token",
+      "/api/v1/authentication/forget-password",
+      "/api/v1/authentication/logout"
+    ],
+    "comment": [
+      "/api/v1/comment/upsert-comment"
+    ],
+    "companyInformation": [
+      "/api/v1/companyInformation/upsert-company-information",
+      "/api/v1/companyInformation/upsert-environment-configuration"
+    ],
+    "conversation": [
+      "/api/v1/conversation/upsert-messages"
+    ],
+    "customer": [
+      "/api/v1/customer/upsert-customer",
+      "/api/v1/customer/edit-customer-prospact-details",
+      "/api/v1/customer/check-customer-prospact-details-customer-code",
+      "/api/v1/customer/edit-customer-social",
+      "/api/v1/customer/edit-document",
+      "/api/v1/customer/edit-customer-pr",
+      "/api/v1/customer/upsert-customer-service",
+      "/api/v1/customer/upsert-customer-automation",
+      "/api/v1/customer/upsert-customer-invoice"
+    ],
+    "dataManagement": [
+      "/api/v1/dataManagement/upsert-branch",
+      "/api/v1/dataManagement/upsert-zone"
+    ],
+    "formula": [
+      "/api/v1/formula/upsert-formula"
+    ],
+    "general": [
+      "/api/v1/general/send-grid-email",
+      "/api/v1/general/upload-files",
+      "/api/v1/general/download-files",
+      "/api/v1/general/microsoftgraph/search",
+      "/api/v1/general/microsoftgraph/fetchUnreadEmails",
+      "/api/v1/general/microsoftgraph/send-email",
+      "/api/v1/general/approval/status-approval",
+      "/api/v1/general/base64-to-buffer",
+      "/api/v1/general/generate-dynamic-sql",
+      "/api/v1/general/file-explorer",
+      "/api/v1/general/file-move",
+      "/api/v1/general/file-rename-folder",
+      "/api/v1/general/file-rename",
+      "/api/v1/general/upsert-country-state"
+    ],
+    "history": [
+      "/api/v1/history/upsert-history",
+      "/api/v1/history/upsert-email-history"
+    ],
+    "lead": [
+      "/api/v1/lead/upsert-lead",
+      "/api/v1/lead/auth-upsert-lead",
+      "/api/v1/lead/create-opportunity",
+      "/api/v1/lead/edit-study",
+      "/api/v1/lead/lead-reports",
+      "/api/v1/lead/lead-suggestion",
+      "/api/v1/lead/sign-document",
+      "/api/v1/lead/signature-history",
+      "/api/v1/lead/generate-signed-document",
+      "/api/v1/lead/sign-document-webhook",
+      "/api/v1/lead/lead-signature",
+      "/api/v1/lead/retainer",
+      "/api/v1/lead/create-retainer-pdf-document",
+      "/api/v1/lead/signature-customer-webhook",
+      "/api/v1/lead/fetch-graphs-from-lead-data",
+      "/api/v1/lead/extract-lead-with-genai"
+    ],
+    "questionnaire": [
+      "/api/v1/questionnaire/upsert-questionnaire",
+      "/api/v1/questionnaire/upsert-question",
+      "/api/v1/questionnaire/upsert-answer",
+      "/api/v1/questionnaire/upsert-questions-options",
+      "/api/v1/questionnaire/duplicate-questionnaire"
+    ],
+    "security": [
+      "/api/v1/security/upsert-roles",
+      "/api/v1/security/upsert-role-module-content-access-permission",
+      "/api/v1/security/upsert-role-group"
+    ],
+    "services": [
+      "/api/v1/services/create-services"
+    ],
+    "tasks": [
+      "/api/v1/tasks/upsert-user-taskboard",
+      "/api/v1/tasks/create-task-module-wise"
+    ],
+    "template": [
+      "/api/v1/template/edit-template",
+      "/api/v1/template/render-template",
+      "/api/v1/template/upsert-sql-view-or-columns",
+      "/api/v1/template/create-document-template"
+    ],
+    "user": [
+      "/api/v1/user/upsert-user",
+      "/api/v1/user/update-profile",
+      "/api/v1/user/change-user-role"
+    ],
+    "workflow": [
+      "/api/v1/workflow/upsert-workflow-basic",
+      "/api/v1/workflow/upsert-workflow-condition",
+      "/api/v1/workflow/upsert-workflow-action",
+      "/api/v1/workflow/upsert-workflow-action-email",
+      "/api/v1/workflow/upsert-workflow-action-message",
+      "/api/v1/workflow/workflow-initiate"
+    ]
+  };
+
+  console.log("✅ API endpoints response sent successfully");
+  res.json({
+    message: "All api endpoints",
+    data: apiEndpoints
+  });
+});
+
+// Customer API - Upsert customer automation endpoint
+app.post("/api/v1/customer/upsert-customer-automation", (req, res) => {
+  console.log("🤖 Customer automation upsert request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      customer_automation_uuid,
+      customer_fact_uuid,
+      sub_module_uuid,
+      automation_type,
+      status
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Umesh Yadav";
+
+    // Generate UUID if not provided
+    const newCustomerAutomationUuid = customer_automation_uuid || generateUUID();
+
+    // Mock response structure matching the production API
+    const resultCustomerAutomation = {
+      customer_automation_id: 1,
+      customer_automation_unique_id: 1,
+      customer_automation_uuid: newCustomerAutomationUuid,
+      customer_fact_uuid: customer_fact_uuid || null,
+      sub_module_uuid: sub_module_uuid || null,
+      automation_type: automation_type || "MANUAL",
+      status: status || "ACTIVE",
+      created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+      created_by_name: "Ramesh",
+      modified_by_uuid: adminUuid,
+      modified_by_name: adminName,
+      create_ts: "2025-06-28 16:49:11",
+      insert_ts: new Date().toISOString()
+    };
+
+    console.log("✅ Customer automation upsert response sent successfully");
+    res.status(200).json({
+      message: "Customer Automation has been updated successfully.",
+      data: resultCustomerAutomation
+    });
+  } catch (err) {
+    console.error("❌ Error in customer automation upsert:", err);
+    res.status(500).json({
+      message: "Error creating/updating customer automation",
+      error: err.message
+    });
+  }
+});
+
+// Approval API - Insert approval count endpoint
+app.post("/api/v1/approval/insert-approval-count", (req, res) => {
+  console.log("📋 Insert approval count request received:", {
+    body: req.body,
+    headers: req.headers,
+    origin: req.get("origin"),
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      approval_count_uuid,
+      table_name,
+      link_table,
+      link_column,
+      approval_hierarchy,
+      status,
+      approval_raise_status,
+      previous_status,
+      next_status
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Sakshi Jadhav";
+
+    // Generate UUID if not provided
+    const newApprovalCountUuid = approval_count_uuid || generateUUID();
+
+    // Mock response structure based on typical approval count response
+    const resultApprovalCount = {
+      approval_count_id: Math.floor(Math.random() * 1000) + 1,
+      approval_count_unique_id: Math.floor(Math.random() * 100) + 1,
+      approval_count_uuid: newApprovalCountUuid,
+      table_name: table_name || "latest_task_module_wise",
+      level: approval_hierarchy ? approval_hierarchy.length.toString() : "1",
+      approval_hierarchy: approval_hierarchy || [["EMPLOYEE"]],
+      approval_raise_status: approval_raise_status || "PENDING",
+      previous_status: previous_status || "DRAFT",
+      next_status: next_status || "APPROVED",
+      status: status || "ACTIVE",
+      created_by_uuid: adminUuid,
+      created_by_name: adminName,
+      modified_by_uuid: adminUuid,
+      modified_by_name: adminName,
+      create_ts: new Date().toISOString(),
+      insert_ts: new Date().toISOString()
+    };
+
+    console.log("✅ Approval count inserted successfully:", resultApprovalCount.approval_count_uuid);
+    res.status(201).json({
+      message: "Approval count created successfully.",
+      data: resultApprovalCount
+    });
+  } catch (err) {
+    console.error("❌ Error in approval count insert:", err);
+    res.status(500).json({
+      message: "Error creating approval count",
+      error: err.message
+    });
+  }
+});
+
+// General API - Get table description endpoint
+app.get("/api/v1/general/get-table-description", (req, res) => {
+  console.log("📊 General table description request received:", {
+    query: req.query,
+    table_name: req.query.table_name,
+    timestamp: new Date().toISOString(),
+  });
+
+  const { table_name } = req.query;
+
+  if (!table_name) {
+    return res.status(400).json({
+      message: "Table name is required",
+      error: "MISSING_TABLE_NAME"
+    });
+  }
+
+  // Mock table description based on table name
+  let tableDescription = {
+    message: `Table description : ${table_name}`,
+    currentRecords: 0,
+    data: []
+  };
+
+  // Provide different mock data based on table name
+  switch (table_name) {
+    case "latest_user":
+      tableDescription = {
+        message: `Table description : ${table_name}`,
+        currentRecords: 16,
+        data: [
+          "`user_fact_id`",
+          "`user_uuid`",
+          "`email`",
+          "`status`",
+          "`created_by_uuid`",
+          "`created_by_name`",
+          "`create_ts`",
+          "`insert_ts`",
+          "`user_dim_id`",
+          "`role_uuid`",
+          "`role_value`",
+          "`user_profile_id`",
+          "`first_name`",
+          "`last_name`",
+          "`full_name`",
+          "`personal_email`"
+        ]
+      };
+      break;
+    case "latest_approval_count":
+      tableDescription = {
+        message: `Table description : ${table_name}`,
+        currentRecords: 16,
+        data: [
+          "`approval_count_id`",
+          "`approval_count_unique_id`",
+          "`approval_count_uuid`",
+          "`table_name`",
+          "`level`",
+          "`approval_hierarchy`",
+          "`approval_raise_status`",
+          "`previous_status`",
+          "`next_status`",
+          "`status`",
+          "`created_by_uuid`",
+          "`created_by_name`",
+          "`modified_by_uuid`",
+          "`modified_by_name`",
+          "`create_ts`",
+          "`insert_ts`"
+        ]
+      };
+      break;
+    case "latest_task_module_wise":
+      tableDescription = {
+        message: `Table description : ${table_name}`,
+        currentRecords: 12,
+        data: [
+          "`task_id`",
+          "`task_uuid`",
+          "`task_name`",
+          "`task_description`",
+          "`task_status`",
+          "`priority`",
+          "`assigned_to_uuid`",
+          "`assigned_to_name`",
+          "`status`",
+          "`created_by_uuid`",
+          "`created_by_name`",
+          "`create_ts`"
+        ]
+      };
+      break;
+    case "latest_branch":
+      tableDescription = {
+        message: `Table description : ${table_name}`,
+        currentRecords: 14,
+        data: [
+          "`branch_id`",
+          "`branch_uuid`",
+          "`branch_name`",
+          "`branch_code`",
+          "`branch_email`",
+          "`branch_logo`",
+          "`description`",
+          "`branch_phone_no`",
+          "`branch_mobile_no`",
+          "`status`",
+          "`created_by_uuid`",
+          "`created_by_name`",
+          "`create_ts`",
+          "`insert_ts`"
+        ]
+      };
+      break;
+    case "latest_role_group":
+      tableDescription = {
+        message: `Table description : ${table_name}`,
+        currentRecords: 7,
+        data: [
+          "`role_group_id`",
+          "`role_group_unique_id`",
+          "`role_group_uuid`",
+          "`role_group`",
+          "`status`",
+          "`created_by_uuid`",
+          "`create_ts`"
+        ]
+      };
+      break;
+    case "latest_leads":
+      tableDescription = {
+        message: `Table description : ${table_name}`,
+        currentRecords: 25,
+        data: [
+          "`leads_uuid`",
+          "`referral_code`",
+          "`leads_code`",
+          "`terms_and_condition`",
+          "`branch_name`",
+          "`branch_uuid`",
+          "`service_type`",
+          "`service_sub_type`",
+          "`applicant_first_name`",
+          "`applicant_last_name`",
+          "`nationality`",
+          "`country`",
+          "`state_or_province`",
+          "`country_of_residence`",
+          "`status_in_country`",
+          "`unique_token_no`",
+          "`submitted_on`",
+          "`user_roles`",
+          "`current_residential_address`",
+          "`primary_language`",
+          "`english_exam_type`",
+          "`Date_of_IELTS_exam`",
+          "`overall_IELTS_score`",
+          "`status`",
+          "`create_ts`"
+        ]
+      };
+      break;
+    case "latest_customer_pr":
+      tableDescription = {
+        message: `Table description : ${table_name}`,
+        currentRecords: 18,
+        data: [
+          "`customer_fact_id`",
+          "`customer_uuid`",
+          "`customer_name`",
+          "`customer_email`",
+          "`customer_phone`",
+          "`customer_address`",
+          "`customer_type`",
+          "`service_type`",
+          "`status`",
+          "`assigned_to_uuid`",
+          "`assigned_to_name`",
+          "`created_by_uuid`",
+          "`created_by_name`",
+          "`modified_by_uuid`",
+          "`modified_by_name`",
+          "`create_ts`",
+          "`insert_ts`",
+          "`update_ts`"
+        ]
+      };
+      break;
+    default:
+      tableDescription = {
+        message: `Table description : ${table_name}`,
+        currentRecords: 5,
+        data: [
+          "`id`",
+          "`name`",
+          "`description`",
+          "`status`",
+          "`created_at`"
+        ]
+      };
+  }
+
+  console.log("✅ Table description response sent successfully for:", table_name);
+  res.json(tableDescription);
 });
 
 // Approval API - Get approval count endpoint

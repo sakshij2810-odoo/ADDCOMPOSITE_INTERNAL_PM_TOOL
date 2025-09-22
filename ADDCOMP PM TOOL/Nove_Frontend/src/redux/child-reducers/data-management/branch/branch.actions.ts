@@ -37,7 +37,7 @@ export const upsertSingleBranchWithCallbackAsync = createAsyncThunkPostWrapper<I
         // thunkAPI.dispatch(openLoadingDialog(axios_Loading_messages.upload))
         const { insert_ts, create_ts, ...restPayload } = payload
         const response = await axios_base_api.post(server_base_endpoints.data_management.upsert_branch, restPayload)
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 201) {
             onSuccess(true, response.data.data)
             thunkAPI.dispatch(openSnackbarDialog({
                 variant: "success",

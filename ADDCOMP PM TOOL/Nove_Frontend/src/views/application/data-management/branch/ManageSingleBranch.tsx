@@ -32,7 +32,20 @@ const ManageSingleBranch: React.FC<{}> = () => {
         handleChange,
         handleSubmit
     } = useFormik({
-        initialValues: singleQuestionnaireInfo,
+        initialValues: singleQuestionnaireInfo || {
+            branch_name: '',
+            branch_email: '',
+            branch_phone_no: '',
+            description: '',
+            address_line_1: '',
+            address_line_2: '',
+            city: '',
+            district: '',
+            state_or_province: '',
+            country: '',
+            postal_code: '',
+            status: 'ACTIVE'
+        },
         validate: values => {
             let errors: any = {}
             if (!values.branch_name) {
@@ -61,7 +74,16 @@ const ManageSingleBranch: React.FC<{}> = () => {
 
 
     useEffect(() => {
-        setValues(singleQuestionnaireInfo)
+        if (singleQuestionnaireInfo) {
+            // Convert null values to empty strings to prevent React warnings
+            const sanitizedValues = Object.fromEntries(
+                Object.entries(singleQuestionnaireInfo).map(([key, value]) => [
+                    key, 
+                    value === null ? '' : value
+                ])
+            );
+            setValues(sanitizedValues);
+        }
     }, [singleQuestionnaireInfo])
 
     useEffect(() => {
