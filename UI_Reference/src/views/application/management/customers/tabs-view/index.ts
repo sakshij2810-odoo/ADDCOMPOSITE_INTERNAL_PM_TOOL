@@ -1,5 +1,0 @@
-export * from "./CustomerBasicDetails/CustomerBasicDetailsForm"
-export * from "./DocumentsChecklist"
-export * from "./InvoicesAndPayments"
-export * from "./CustomerRetainerAgreementsTable"
-export * from "./CustomerServices"

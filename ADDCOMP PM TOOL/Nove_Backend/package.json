@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run dev:auth\" \"npm run dev:user\" \"npm run dev:project\" \"npm run dev:task\" \"npm run dev:company\" \"npm run dev:leads\" \"npm run dev:analytics\"",
-    "dev:auth": "cd microservices/auth-service && PORT=3001 node simple-server.js",
+    "dev:auth": "cd microservices/auth-service && PORT=3001 node simple-server-with-db.js",
     "dev:user": "cd microservices/user-service && PORT=3002 node simple-server.js",
     "dev:project": "cd microservices/project-service && PORT=3003 node simple-server.js",
     "dev:task": "cd microservices/task-service && PORT=3004 node simple-server.js",
@@ -25,5 +25,13 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "@types/pg": "^8.15.5",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3"
   }
 }

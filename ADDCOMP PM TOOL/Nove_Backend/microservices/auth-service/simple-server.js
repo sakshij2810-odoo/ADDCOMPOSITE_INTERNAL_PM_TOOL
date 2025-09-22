@@ -5,7 +5,16 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
+
+// Import database services
+const UserService = require("../../shared/database/services/UserService");
+const CompanyService = require("../../shared/database/services/CompanyService");
+const ConversationService = require("../../shared/database/services/ConversationService");
+const LeadsService = require("../../shared/database/services/LeadsService");
+const AnalyticsService = require("../../shared/database/services/AnalyticsService");
 
 const app = express();
 const server = createServer(app);
