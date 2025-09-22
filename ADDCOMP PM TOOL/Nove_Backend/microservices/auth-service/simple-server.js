@@ -5,7 +5,11 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const { PrismaClient } = require("@prisma/client");
 require("dotenv").config();
+
+// Initialize Prisma client
+const prisma = new PrismaClient();
 
 const app = express();
 const server = createServer(app);
@@ -87,7 +91,7 @@ app.get("/api/v1/authentication/status", (req, res) => {
 });
 
 // User API endpoints
-app.get("/api/v1/user/get-user", (req, res) => {
+app.get("/api/v1/user/get-user", async (req, res) => {
   console.log("👤 Get user request received:", {
     query: req.query,
     headers: req.headers,
@@ -97,8 +101,21 @@ app.get("/api/v1/user/get-user", (req, res) => {
 
   const { status, user_uuid } = req.query;
 
-  // Mock user data matching the UI_Reference response format
-  const userData = {
+  try {
+    // Fetch users from PostgreSQL database
+    const users = await prisma.user.findMany({
+      where: {
+        ...(status && { status }),
+        ...(user_uuid && { userUuid: user_uuid }),
+      },
+      take: 10, // Limit results
+    });
+
+    console.log(`📊 Found ${users.length} users in database`);
+
+    if (users.length === 0) {
+      // Return mock data if no users found in database
+      const mockUserData = {
     user_fact_id: 40,
     user_uuid: user_uuid || "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
     email: "sakshi.jadhav@addcomposites.com",
@@ -1126,13 +1143,90 @@ app.get("/api/v1/user/get-user", (req, res) => {
     ],
   };
 
-  console.log("✅ User data response sent successfully");
-  res.json({
-    message: "All User",
-    totalRecords: 1,
-    currentRecords: 1,
-    data: [userData],
-  });
+      console.log("✅ Mock user data response sent successfully");
+      res.json({
+        message: "All User",
+        totalRecords: 1,
+        currentRecords: 1,
+        data: [mockUserData],
+      });
+    } else {
+      // Transform database users to match API format
+      const transformedUsers = users.map(user => ({
+        user_fact_id: user.userFactId,
+        user_uuid: user.userUuid,
+        email: user.email,
+        status: user.status,
+        created_by_uuid: user.createdByUuid,
+        created_by_name: user.createdByName,
+        create_ts: user.createTs,
+        insert_ts: user.insertTs,
+        user_dim_id: user.userDimId,
+        role_uuid: user.roleUuid,
+        role_value: user.roleValue,
+        user_profile_id: user.userProfileId,
+        first_name: user.firstName,
+        last_name: user.lastName,
+        full_name: user.name,
+        personal_email: user.personalEmail,
+        job_title: user.jobTitle,
+        user_type: user.userType,
+        assigned_phone_number: user.assignedPhoneNumber,
+        shared_email: user.sharedEmail,
+        mobile: user.mobile,
+        home_phone: user.homePhone,
+        linkedin_profile: user.linkedinProfile,
+        hire_date: user.hireDate,
+        last_day_at_work: user.lastDayAtWork,
+        department: user.department,
+        fax: user.fax,
+        date_of_birth: user.dateOfBirth,
+        mother_maiden_name: user.motherMaidenName,
+        photo: user.photo,
+        signature: user.signature,
+        street_address: user.streetAddress,
+        unit_or_suite: user.unitOrSuite,
+        city: user.city,
+        csr: user.csr,
+        csr_code: user.csrCode,
+        marketer: user.marketer,
+        marketer_code: user.marketerCode,
+        producer_one: user.producerOne,
+        producer_one_code: user.producerOneCode,
+        producer_two: user.producerTwo,
+        producer_two_code: user.producerTwoCode,
+        producer_three: user.producerThree,
+        producer_three_code: user.producerThreeCode,
+        branch_code: user.branchCode,
+        province_or_state: user.provinceOrState,
+        postal_code: user.postalCode,
+        country: user.country,
+        languages_known: user.languagesKnown,
+        documents: user.documents,
+        branch_name: user.branchName,
+        branch_uuid: user.branchUuid,
+        referral_code: user.referralCode,
+        module_security: [] // Add security modules if needed
+      }));
+
+      console.log("✅ Database user data response sent successfully");
+      res.json({
+        message: "All User",
+        totalRecords: users.length,
+        currentRecords: users.length,
+        data: transformedUsers,
+      });
+    }
+  } catch (error) {
+    console.error("❌ Error fetching users from database:", error);
+    res.status(500).json({
+      success: false,
+      error: {
+        code: "DATABASE_ERROR",
+        message: "Failed to fetch users from database",
+      },
+    });
+  }
 });
 
 // Conversation API endpoints
@@ -1819,6 +1913,350 @@ app.get("/api/v1/template/get-templates", (req, res) => {
         insert_ts: "2025-06-13T08:52:28.000Z"
       }
     ]
+  });
+});
+
+// Questionnaire API - Get questionnaire endpoint
+app.get("/api/v1/questionnaire/get-questionnaire", (req, res) => {
+  console.log("📋 Questionnaire request received:", {
+    query: req.query,
+    status: req.query.status,
+    from_date: req.query.from_date,
+    to_date: req.query.to_date,
+    pageNo: req.query.pageNo,
+    itemPerPage: req.query.itemPerPage,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Mock questionnaire data - matches Nova World Group API structure exactly
+  res.json({
+    message: "Questionnaire: ",
+    totalRecords: 1,
+    currentRecords: 1,
+    data: [
+      {
+        questionnaire_id: 9,
+        questionnaire_uuid: "51cd7bc5-c688-4b49-ab99-5ed889e52c6c",
+        questionnaire_name: "Test Doc",
+        question_per_page: 10,
+        description: "26 aug, 2025",
+        comment: "test",
+        status: "ACTIVE",
+        created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        created_by_name: "Ramesh",
+        modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        modified_by_name: "Ramesh",
+        create_ts: "2025-08-26T16:35:47.000Z",
+        insert_ts: "2025-08-26T16:36:22.000Z"
+      }
+    ]
+  });
+});
+
+// Lead API - Get NOC codes endpoint
+app.get("/api/v1/lead/get-noc_codes", (req, res) => {
+  console.log("🏷️ NOC codes request received:", {
+    query: req.query,
+    from_date: req.query.from_date,
+    to_date: req.query.to_date,
+    pageNo: req.query.pageNo,
+    itemPerPage: req.query.itemPerPage,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Mock NOC codes data - matches Nova World Group API structure exactly
+  res.json({
+    message: " unit_groups",
+    totalRecords: 0,
+    currentRecords: 0,
+    data: []
+  });
+});
+
+// Tasks API - Get task module-wise endpoint
+app.get("/api/v1/tasks/get-task-module-wise", (req, res) => {
+  console.log("📋 Task module-wise request received:", {
+    query: req.query,
+    from_date: req.query.from_date,
+    to_date: req.query.to_date,
+    pageNo: req.query.pageNo,
+    itemPerPage: req.query.itemPerPage,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Mock task module-wise data - matches Nova World Group API structure exactly
+  res.json({
+    message: "Task module wise Records fetched successfully!",
+    totalRecords: 0,
+    currentRecords: 0,
+    data: []
+  });
+});
+
+// Lead API - Get leads endpoint
+app.get("/api/v1/lead/get-leads", (req, res) => {
+  console.log("👥 Leads request received:", {
+    query: req.query,
+    from_date: req.query.from_date,
+    to_date: req.query.to_date,
+    pageNo: req.query.pageNo,
+    itemPerPage: req.query.itemPerPage,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Mock leads data - simplified version matching Nova World Group API structure
+  res.json({
+    message: "All leads",
+    currentRecords: 3,
+    data: [
+      {
+        leads_uuid: "8ac7caad-69c9-4314-9222-00b4706814ae",
+        referral_code: "NW-44",
+        leads_code: "GBL250812180008939",
+        terms_and_condition: 1,
+        branch_name: "NOVA SCOTIA",
+        branch_uuid: "91b78ebf-8ba7-45f8-baf4-051053aa8c47",
+        service_type: "WORK_PERMIT",
+        service_sub_type: null,
+        applicant_first_name: "Jatin",
+        applicant_last_name: "Kuamr",
+        nationality: "India",
+        country: "",
+        state_or_province: "",
+        country_of_residence: "Canada",
+        status_in_country: "STUDY",
+        applicant_date_of_birth: "1997-08-11T00:00:00.000Z",
+        age: 28,
+        applicant_sex: "MALE",
+        contact_number: "1234567890",
+        email: "jatin@edgenroots.net",
+        marital_status: "NEVER_MARRIED_OR_SINGLE",
+        education: [
+          {
+            to: "2024-08-25T18:30:00.000Z",
+            from: "2022-08-25T18:30:00.000Z",
+            country: "canada",
+            qualification: "TWO_YEAR_PROGRAM",
+            is_eca_approved: 1,
+            marks_percentage: "90",
+            school_or_university: "lucknow university"
+          }
+        ],
+        work_history: [
+          {
+            to: "2018-09-30",
+            from: "2015-10-01",
+            country: "India ",
+            duration: 2,
+            designation: "",
+            company_name: "Gray sea Medicare pvt. ltd. ",
+            noc_job_code: "95102",
+            noc_job_uuid: "7626173c-1132-11f0-a003-0e525aef9233",
+            location_type: "ON_SITE",
+            noc_job_title: "Labourers in chemical products processing and utilities",
+            company_location: "Rajasthan ",
+            employement_type: "FULL_TIME",
+            currently_working: false
+          }
+        ],
+        english_language_test_type: "IELTS",
+        english_test_result_less_than_two_years: "YES",
+        english_ability_speaking: 10,
+        english_ability_reading: 10,
+        english_ability_writing: 10,
+        english_ability_listening: 10,
+        english_ability_total_points: 136,
+        applicant_crs_points: {
+          total: 483,
+          core_human_capital_factor: {
+            age: 110,
+            subtotal: 408,
+            level_of_education: 98,
+            official_languages: {
+              first_official_language: 136,
+              second_official_language: 0
+            },
+            canadian_work_experience: 64,
+            official_languages_subtotal: 136
+          }
+        },
+        leads_source: "OTHER",
+        total: 483,
+        funds_available: "25001-50000",
+        prior_travel_history: "YES",
+        country_code: "+1",
+        no_work_experience: 0,
+        asignee_uuid: "b0c3fe31-5b09-419c-a180-1b1906ab4b6e",
+        asignee_email: "kamal@edgenroots.net",
+        asignee_name: "Kamal Admin",
+        time_to_contact: "9:00 am to 12:00pm",
+        assigned_to_id: "44",
+        status: "ACTIVE",
+        created_by_uuid: null,
+        created_by_name: "",
+        modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+        modified_by_name: "Umesh Yadav",
+        create_ts: "2025-08-12T18:00:09.000Z",
+        insert_ts: "2025-09-18T16:45:25.000Z"
+      },
+      {
+        leads_uuid: "26dae147-56b4-4e00-abe0-7e1220a305aa",
+        referral_code: null,
+        leads_code: "GBL250905082807721",
+        terms_and_condition: null,
+        branch_name: "NOVA SCOTIA",
+        branch_uuid: "91b786bf-49f8-b8a7-ba14-051053aa8c47",
+        service_type: "PR",
+        service_sub_type: "Permanent Residence",
+        applicant_first_name: "Akshay",
+        applicant_last_name: "Dubey",
+        nationality: "India",
+        country: "Canada",
+        state_or_province: "Nova Scotia",
+        applicant_date_of_birth: "1989-07-29T00:00:00.000Z",
+        age: null,
+        applicant_sex: null,
+        contact_number: "1234567890",
+        email: "akshay@gmail.com",
+        marital_status: "MARRIED",
+        education: [],
+        work_history: [],
+        english_language_test_type: null,
+        english_test_result_less_than_two_years: null,
+        english_ability_speaking: null,
+        english_ability_reading: null,
+        english_ability_writing: null,
+        english_ability_listening: null,
+        english_ability_total_points: null,
+        applicant_crs_points: null,
+        leads_source: null,
+        total: null,
+        funds_available: null,
+        prior_travel_history: null,
+        country_code: null,
+        no_work_experience: null,
+        asignee_uuid: null,
+        asignee_email: null,
+        asignee_name: null,
+        time_to_contact: null,
+        assigned_to_id: null,
+        status: "ACTIVE",
+        created_by_uuid: null,
+        created_by_name: "Ramesh",
+        modified_by_uuid: null,
+        modified_by_name: null,
+        create_ts: "2025-09-05T08:28:07.000Z",
+        insert_ts: "2025-09-05T08:28:48.000Z"
+      },
+      {
+        leads_uuid: "0e0c367d-078a-4651-b1a1-e71b8384dd73",
+        referral_code: "UME2556",
+        leads_code: "GBL250812160806684",
+        terms_and_condition: 1,
+        branch_name: "NOVA SCOTIA",
+        branch_uuid: "91b78ebf-8ba7-45f8-baf4-051053aa8c47",
+        service_type: "",
+        service_sub_type: null,
+        applicant_first_name: "Umesh",
+        applicant_last_name: "Yadav",
+        nationality: "India",
+        country: "",
+        state_or_province: "",
+        country_of_residence: "Canada",
+        status_in_country: "STUDY",
+        applicant_date_of_birth: "1997-08-11T00:00:00.000Z",
+        age: 28,
+        applicant_sex: "MALE",
+        contact_number: "1234567890",
+        email: "umesh@edgenroots.net",
+        marital_status: "MARRIED",
+        education: [
+          {
+            to: "2019-05-30T18:30:00.000Z",
+            from: "2015-07-31T18:30:00.000Z",
+            country: "INDIA",
+            qualification: "BECHELOR_DEGREE_OR_THREE_OR_MORE_YEAR_PROGRAM",
+            marks_percentage: "80",
+            school_or_university: "I.K. Gujral Punjab Technical University Jalandhar"
+          }
+        ],
+        work_history: [],
+        english_language_test_type: "IELTS",
+        english_test_result_less_than_two_years: "YES",
+        english_ability_speaking: 10,
+        english_ability_reading: 10,
+        english_ability_writing: 10,
+        english_ability_listening: 10,
+        english_ability_total_points: 128,
+        applicant_crs_points: {
+          total: 387,
+          core_human_capital_factor: {
+            age: 100,
+            subtotal: 362,
+            level_of_education: 112,
+            official_languages: {
+              first_official_language: 128,
+              second_official_language: 22
+            },
+            canadian_work_experience: 0,
+            official_languages_subtotal: 150
+          }
+        },
+        leads_source: "GOOGLE",
+        total: 387,
+        funds_available: "25001-50000",
+        prior_travel_history: "NO",
+        country_code: "+1",
+        no_work_experience: 1,
+        asignee_uuid: null,
+        asignee_email: null,
+        asignee_name: null,
+        time_to_contact: null,
+        assigned_to_id: "44",
+        status: "ACTIVE",
+        created_by_uuid: "b0c3fe31-5b09-419c-a180-1b1906ab4b6e",
+        created_by_name: "Kamal Admin",
+        modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+        modified_by_name: "Umesh Yadav",
+        create_ts: "2025-08-12T16:08:06.000Z",
+        insert_ts: "2025-08-26T15:18:20.000Z"
+      }
+    ]
+  });
+});
+
+// Customer API - Get customer endpoint
+app.get("/api/v1/customer/get-customer", (req, res) => {
+  console.log("👤 Customer request received:", {
+    query: req.query,
+    from_date: req.query.from_date,
+    to_date: req.query.to_date,
+    pageNo: req.query.pageNo,
+    itemPerPage: req.query.itemPerPage,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Mock customer data - matches Nova World Group API structure exactly
+  res.json({
+    message: "Customers",
+    totalRecords: 0,
+    currentRecords: 0,
+    data: []
+  });
+});
+
+// General API - File explorer endpoint
+app.post("/api/v1/general/file-explorer", (req, res) => {
+  console.log("📁 File explorer request received:", {
+    body: req.body,
+    headers: req.headers,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Mock file explorer response - placeholder structure
+  res.json({
+    success: true,
+    data: []
   });
 });
 
