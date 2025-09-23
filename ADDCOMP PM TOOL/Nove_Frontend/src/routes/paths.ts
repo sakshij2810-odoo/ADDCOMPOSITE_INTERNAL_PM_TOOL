@@ -153,13 +153,13 @@ export const main_app_routes = {
     // Existing routes (keeping for backward compatibility)
     leads: {
       root: `${ROOTS.MAIN}/leads`,
-      // docucments: `${ROOTS.MAIN}/leads/documents`
+      // documents: `${ROOTS.MAIN}/leads/documents`
     },
     chats: `${ROOTS.MAIN}/chats`,
-    documents_and_services: `${ROOTS.MAIN}/documnets-and-services`,
+    documents_and_services: `${ROOTS.MAIN}/documents-and-services`,
     programs: {
       root: `${ROOTS.MAIN}/programs`,
-      crsDraws: `${ROOTS.MAIN}/programs/crs-drwas`,
+      crsDraws: `${ROOTS.MAIN}/programs/crs-draws`,
       nocCodes: `${ROOTS.MAIN}/programs/noc-codes`,
       studyProgram: `${ROOTS.MAIN}/programs/study-program`,
     },
@@ -377,13 +377,13 @@ export const paths = {
     },
     leads: {
       leads: `${ROOTS.DASHBOARD}/leads`,
-      crsDraws: `${ROOTS.DASHBOARD}/leads/crs-drwas`,
+      crsDraws: `${ROOTS.DASHBOARD}/leads/crs-draws`,
       nocCodes: `${ROOTS.DASHBOARD}/leads/noc-codes`,
       studyProgram: `${ROOTS.DASHBOARD}/leads/study-program`,
     },
     programs: {
       programs: `${ROOTS.DASHBOARD}/programs`,
-      crsDraws: `${ROOTS.DASHBOARD}/programs/crs-drwas`,
+      crsDraws: `${ROOTS.DASHBOARD}/programs/crs-draws`,
       nocCodes: `${ROOTS.DASHBOARD}/programs/noc-codes`,
       studyProgram: `${ROOTS.DASHBOARD}/programs/study-program`,
     },

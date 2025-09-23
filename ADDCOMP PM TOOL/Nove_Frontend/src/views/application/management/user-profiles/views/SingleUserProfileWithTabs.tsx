@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { main_app_routes } from 'src/routes/paths';
@@ -22,7 +23,16 @@ import { AccountChangePassword } from 'src/sections/account/account-change-passw
 // ];
 
 const SingleUserProfileWithTabs = () => {
-  // const tabs = useTabs('general');
+  // Extract the uuid from the URL parameters
+  const { uuid } = useParams<{ uuid: string }>();
+  
+  // Log the uuid to verify it's being captured
+  React.useEffect(() => {
+    if (uuid) {
+      console.log('User UUID from URL:', uuid);
+      // Here you would typically fetch user data based on this UUID
+    }
+  }, [uuid]);
 
   return (
     <DashboardContent>
@@ -50,7 +60,7 @@ const SingleUserProfileWithTabs = () => {
         links={[{ name: 'Users', href: main_app_routes.app.users.root }, { name: 'Account' }]}
         sx={{ mb: { xs: 3, md: 5 } }}
       />
-      <AccountTabsView />
+      <AccountTabsView uuid={uuid} />
     </DashboardContent>
   );
 };

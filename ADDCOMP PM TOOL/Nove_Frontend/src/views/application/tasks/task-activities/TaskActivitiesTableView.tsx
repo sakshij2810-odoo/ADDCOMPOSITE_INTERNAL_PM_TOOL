@@ -59,7 +59,7 @@ const TaskActivitiesTableView = () => {
     });
 
     const fetchList = () => {
-        dispatch(fetchRecordCountAsync("latest_crs_draws"))
+        dispatch(fetchRecordCountAsync("latest_task_module_wise"))
         dispatch(
             fetchMultipleTaskActivitiesWithArgsAsync({
                 queryParams: {

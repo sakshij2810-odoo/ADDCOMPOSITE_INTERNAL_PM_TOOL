@@ -210,7 +210,271 @@ let branchesStorage = [
 ];
 
 // In-memory storage for users (for demo purposes)
-let usersStorage = [];
+let usersStorage = [
+  {
+    user_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    first_name: "Sakshi",
+    last_name: "Jadhav",
+    email: "sakshi.jadhav@addcomposites.com",
+    personal_email: "sakshi.jadhav@addcomposites.com",
+    job_title: "Software Developer",
+    user_type: "EMPLOYEE",
+    assigned_phone_number: "+1-555-0123",
+    shared_email: null,
+    mobile: "+1-555-0123",
+    home_phone: null,
+    linkedin_profile: null,
+    hire_date: "2024-01-15",
+    last_day_at_work: null,
+    department: "Engineering",
+    fax: null,
+    date_of_birth: "1995-05-15",
+    mother_maiden_name: null,
+    photo: null,
+    signature: null,
+    street_address: "123 Main St",
+    unit_or_suite: "Apt 4B",
+    city: "Toronto",
+    province_or_state: "Ontario",
+    postal_code: "M5V 3A8",
+    country: "Canada",
+    languages_known: ["English", "Hindi"],
+    documents: null,
+    branch_uuid: "91b78ebf-8ba7-45f8-baf4-051053aa8c47",
+    branch_name: "NOVA SCOTIA",
+    status: "ACTIVE",
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Sakshi Jadhav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Sakshi Jadhav",
+    insert_ts: "2025-09-23T05:30:00.000Z",
+    module_security: [
+      {
+        role_module_id: 1567,
+        role_module_unique_id: 8,
+        role_module_uuid: "9bf1d3ce-d851-4d96-8901-e77abe79fee3",
+        module_uuid: "dfaf7756-1362-459a-8560-d7827d1f352c",
+        role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+        show_module: 1,
+        view_access: 1,
+        edit_access: 1,
+        send_sms: 0,
+        send_mail: 0,
+        send_whatsapp: 0,
+        send_call: 0,
+        filter_values: {
+          and: {
+            user_uuid: ["*"],
+            branch_uuid: ["*"],
+          },
+        },
+        status: "ACTIVE",
+        created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        created_by_name: "Ramesh",
+        modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        modified_by_name: "Ramesh",
+        create_ts: null,
+        insert_ts: "2025-08-19T22:28:13.000Z",
+        module_name: "Users",
+        submodule_name: "Users",
+        table_name: "latest_user",
+        module_key: "USERS|USERS|LATEST_USER",
+      },
+      {
+        role_module_id: 1568,
+        role_module_unique_id: 9,
+        role_module_uuid: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+        module_uuid: "b2c3d4e5-f6g7-8901-2345-678901bcdefg",
+        role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+        show_module: 1,
+        view_access: 1,
+        edit_access: 1,
+        send_sms: 0,
+        send_mail: 0,
+        send_whatsapp: 0,
+        send_call: 0,
+        filter_values: {
+          and: {
+            user_uuid: ["*"],
+            branch_uuid: ["*"],
+          },
+        },
+        status: "ACTIVE",
+        created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        created_by_name: "Ramesh",
+        modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        modified_by_name: "Ramesh",
+        create_ts: null,
+        insert_ts: "2025-08-19T22:28:13.000Z",
+        module_name: "CRS DRAWS",
+        submodule_name: "CRS DRAWS",
+        table_name: "latest_crs_draws",
+        module_key: "CRS DRAWS|CRS DRAWS|LATEST_CRS_DRAWS",
+      },
+      {
+        role_module_id: 1569,
+        role_module_unique_id: 10,
+        role_module_uuid: "c2d3e4f5-g6h7-8901-2345-678901cdefgh",
+        module_uuid: "d3e4f5g6-h7i8-9012-3456-789012defghi",
+        role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+        show_module: 1,
+        view_access: 1,
+        edit_access: 1,
+        send_sms: 0,
+        send_mail: 0,
+        send_whatsapp: 0,
+        send_call: 0,
+        filter_values: {
+          and: {
+            user_uuid: ["*"],
+            branch_uuid: ["*"],
+          },
+        },
+        status: "ACTIVE",
+        created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        created_by_name: "Ramesh",
+        modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        modified_by_name: "Ramesh",
+        create_ts: null,
+        insert_ts: "2025-08-19T22:28:13.000Z",
+        module_name: "NOC CODE",
+        submodule_name: "NOC CODE",
+        table_name: "latest_noc_codes",
+        module_key: "NOC CODE|NOC CODE|LATEST_NOC_CODES",
+      },
+      {
+        role_module_id: 1570,
+        role_module_unique_id: 11,
+        role_module_uuid: "e3f4g5h6-i7j8-9012-3456-789012efghij",
+        module_uuid: "f4g5h6i7-j8k9-0123-4567-890123fghijk",
+        role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+        show_module: 1,
+        view_access: 1,
+        edit_access: 1,
+        send_sms: 0,
+        send_mail: 0,
+        send_whatsapp: 0,
+        send_call: 0,
+        filter_values: {
+          and: {
+            user_uuid: ["*"],
+            branch_uuid: ["*"],
+          },
+        },
+        status: "ACTIVE",
+        created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        created_by_name: "Ramesh",
+        modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        modified_by_name: "Ramesh",
+        create_ts: null,
+        insert_ts: "2025-08-19T22:28:13.000Z",
+        module_name: "STUDY PROGRAM",
+        submodule_name: "STUDY PROGRAM",
+        table_name: "latest_study_program",
+        module_key: "STUDY PROGRAM|STUDY PROGRAM|LATEST_STUDY_PROGRAM",
+      },
+      {
+        role_module_id: 1571,
+        role_module_unique_id: 12,
+        role_module_uuid: "f5g6h7i8-j9k0-1234-5678-901234ghijkl",
+        module_uuid: "g6h7i8j9-k0l1-2345-6789-012345hijklm",
+        role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+        show_module: 1,
+        view_access: 1,
+        edit_access: 1,
+        send_sms: 0,
+        send_mail: 0,
+        send_whatsapp: 0,
+        send_call: 0,
+        filter_values: {
+          and: {
+            user_uuid: ["*"],
+            branch_uuid: ["*"],
+          },
+        },
+        status: "ACTIVE",
+        created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        created_by_name: "Ramesh",
+        modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        modified_by_name: "Ramesh",
+        create_ts: null,
+        insert_ts: "2025-08-19T22:28:13.000Z",
+        module_name: "QUESTIONNAIRE",
+        submodule_name: "QUESTIONNAIRE",
+        table_name: "latest_questionnaire",
+        module_key: "QUESTIONNAIRE|QUESTIONNAIRE|LATEST_QUESTIONNAIRE",
+      },
+      {
+        role_module_id: 1572,
+        role_module_unique_id: 13,
+        role_module_uuid: "h6i7j8k9-l0m1-3456-7890-123456ijklmn",
+        module_uuid: "i7j8k9l0-m1n2-4567-8901-234567jklmno",
+        role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+        show_module: 1,
+        view_access: 1,
+        edit_access: 1,
+        send_sms: 0,
+        send_mail: 0,
+        send_whatsapp: 0,
+        send_call: 0,
+        filter_values: {
+          and: {
+            user_uuid: ["*"],
+            branch_uuid: ["*"],
+          },
+        },
+        status: "ACTIVE",
+        created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        created_by_name: "Ramesh",
+        modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+        modified_by_name: "Ramesh",
+        create_ts: null,
+        insert_ts: "2025-08-19T22:28:13.000Z",
+        module_name: "SERVICE",
+        submodule_name: "SERVICE",
+        table_name: "latest_services",
+        module_key: "SERVICE|SERVICE|LATEST_SERVICES",
+      }
+    ]
+  }
+];
+
+// In-memory storage for questionnaires (for demo purposes)
+let questionnairesStorage = [
+  {
+    questionnaire_id: 9,
+    questionnaire_uuid: "51cd7bc5-c688-4b49-ab99-5ed889e52c6c",
+    questionnaire_name: "Test Doc",
+    question_per_page: 10,
+    description: "26 aug, 2025",
+    comment: "test",
+    status: "ACTIVE",
+    created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+    created_by_name: "Ramesh",
+    modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+    modified_by_name: "Ramesh",
+    create_ts: "2025-08-26T16:35:47.000Z",
+    insert_ts: "2025-08-26T16:36:22.000Z"
+  }
+];
+
+// In-memory storage for questions (for demo purposes)
+let questionsStorage = [
+  {
+    questionnaire_uuid: "51cd7bc5-c688-4b49-ab99-5ed889e52c6c",
+    questionnaire_name: "Test Doc",
+    question: "Sample question",
+    question_type: "TEXT",
+    status: "ACTIVE",
+    is_required: false,
+    created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    created_by_name: "Umesh Yadav",
+    modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+    modified_by_name: "Umesh Yadav",
+    questions_uuid: "f729c5f3-6d9a-4836-8f31-8c9d54aacfe9",
+    create_ts: "2025-09-23T09:55:38.000Z"
+  }
+];
 
 // In-memory storage for role groups (for demo purposes)
 let roleGroupsStorage = [
@@ -335,6 +599,90 @@ app.get("/api/v1/authentication/status", (req, res) => {
   });
 });
 
+// Company Information API - Upsert endpoint
+app.post("/api/v1/companyInformation/upsert-company-information", (req, res) => {
+  console.log("🏢 Company information upsert request received:", {
+    body: req.body,
+    headers: req.headers,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      company_name,
+      phone,
+      telephone,
+      fax,
+      default_language,
+      unit_or_suite,
+      city,
+      province_or_state,
+      postal_code,
+      country,
+      default_tax_region,
+      pst_or_gst_or_vat_number,
+      bahamas_premium_tax,
+      accounts_email,
+      cl_email,
+      pl_email,
+      address
+    } = req.body;
+
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Sakshi Jadhav";
+
+    console.log("✅ Company information updated successfully");
+
+    res.status(200).json({
+      message: "Company Information updated successfully.",
+      data: {
+        company_information_id: 25,
+        company_information_unique_id: 1,
+        company_uuid: "f259059b-2fa0-4448-a2a7-193192ca6eac",
+        company_name: company_name || "Nova World Immigration Services Incorporated",
+        company_title: null,
+        company_description: null,
+        address: address || null,
+        unit_or_suite: unit_or_suite || "4A",
+        city: city || "Mississauga",
+        province_or_state: province_or_state || "Ontario",
+        postal_code: postal_code || "L4T1G3",
+        country: country || "Canada",
+        phone: phone || " 1 647 404 6682",
+        telephone: telephone || " 1 647 403 6682",
+        fax: fax || "",
+        default_language: default_language || "ENGLISH",
+        email: null,
+        accounts_email: accounts_email || "info@nwimmigration.ca",
+        cl_email: cl_email || null,
+        pl_email: pl_email || null,
+        default_tax_region: default_tax_region || "ON",
+        pst_or_gst_or_vat_number: pst_or_gst_or_vat_number || null,
+        bahamas_premium_tax: bahamas_premium_tax || null,
+        logo: "company_information/Nova_Worlds_Private_Limited/logoNova_Worlds_Private_Limited2025-01-29_05-06-32.png",
+        fav_icon: "company_information/Nova_Worlds_Private_Limited/nova_app_logoNova_Worlds_Private_Limited2025-01-29_04-36-50.png",
+        adsense_header_code: null,
+        about: null,
+        status: "ACTIVE",
+        created_by_uuid: "77c189b1-403e-4ebc-a6cf-4a35fbbc0937",
+        created_by_name: "Kamal",
+        modified_by_uuid: adminUuid,
+        modified_by_name: adminName,
+        create_ts: "2025-01-06T09:09:02.000Z",
+        insert_ts: new Date().toISOString(),
+        preview_logo: "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/logoNova_Worlds_Private_Limited2025-01-29_05-06-32.png",
+        preview_fav_icon: "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/nova_app_logoNova_Worlds_Private_Limited2025-01-29_04-36-50.png"
+      }
+    });
+  } catch (err) {
+    console.error("❌ Error updating company information:", err);
+    res.status(500).json({ 
+      message: "Error updating company information", 
+      error: err.message 
+    });
+  }
+});
+
 // User API endpoints
 app.get("/api/v1/user/get-user", async (req, res) => {
   console.log("👤 Get user request received:", {
@@ -347,16 +695,21 @@ app.get("/api/v1/user/get-user", async (req, res) => {
   const { status, user_uuid } = req.query;
 
   try {
-    // Fetch users from PostgreSQL database
-    const dbUsers = await prisma.user.findMany({
-      where: {
-        ...(status && { status }),
-        ...(user_uuid && { userUuid: user_uuid }),
-      },
-      take: 10, // Limit results
-    });
-
-    console.log(`📊 Found ${dbUsers.length} users in database`);
+    // Try to fetch users from PostgreSQL database
+    let dbUsers = [];
+    try {
+      dbUsers = await prisma.user.findMany({
+        where: {
+          ...(status && { status }),
+          ...(user_uuid && { userUuid: user_uuid }),
+        },
+        take: 10, // Limit results
+      });
+      console.log(`📊 Found ${dbUsers.length} users in database`);
+    } catch (dbError) {
+      console.log(`⚠️ Database not available, using storage data only: ${dbError.message}`);
+      dbUsers = []; // Use empty array when database is unavailable
+    }
 
     // Get users from our in-memory storage
     let storageUsers = usersStorage;
@@ -428,11 +781,68 @@ app.get("/api/v1/user/get-user", async (req, res) => {
       branch_name: user.branch_name,
       branch_uuid: user.branch_uuid,
       referral_code: null,
-      module_security: []
+      module_security: user.module_security || []
     }));
 
-    // Combine database users and storage users
-    const allUsers = [...dbUsers, ...transformedStorageUsers];
+    // Combine database users and storage users, prioritizing storage users for module_security
+    const allUsers = [...dbUsers];
+    
+    // For each database user, check if they exist in storage and add module_security
+    allUsers.forEach(dbUser => {
+      const storageUser = usersStorage.find(storageUser => storageUser.user_uuid === dbUser.user_uuid);
+      if (storageUser && storageUser.module_security) {
+        console.log(`📊 Adding module_security to user ${dbUser.user_uuid}: ${storageUser.module_security.length} modules`);
+        dbUser.module_security = storageUser.module_security;
+      } else if (dbUser.user_uuid === "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f") {
+        // Hardcode module_security for the test user
+        console.log(`📊 Adding hardcoded module_security to test user ${dbUser.user_uuid}`);
+        dbUser.module_security = [
+          {
+            role_module_id: 1567,
+            role_module_unique_id: 8,
+            role_module_uuid: "9bf1d3ce-d851-4d96-8901-e77abe79fee3",
+            module_uuid: "dfaf7756-1362-459a-8560-d7827d1f352c",
+            role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+            show_module: 1,
+            view_access: 1,
+            edit_access: 1,
+            send_sms: 0,
+            send_mail: 0,
+            send_whatsapp: 0,
+            send_call: 0,
+            filter_values: {
+              and: {
+                user_uuid: ["*"],
+                branch_uuid: ["*"],
+              },
+            },
+            status: "ACTIVE",
+            created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+            created_by_name: "Ramesh",
+            modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+            modified_by_name: "Ramesh",
+            create_ts: null,
+            insert_ts: "2025-08-19T22:28:13.000Z",
+            module_name: "Users",
+            submodule_name: "Users",
+            table_name: "latest_user",
+            module_key: "USERS|USERS|LATEST_USER",
+          }
+        ];
+      } else {
+        console.log(`📊 No module_security found for user ${dbUser.user_uuid}`);
+        dbUser.module_security = [];
+      }
+    });
+    
+    // Add any storage users that don't exist in database
+    transformedStorageUsers.forEach(storageUser => {
+      const existingUserIndex = allUsers.findIndex(dbUser => dbUser.user_uuid === storageUser.user_uuid);
+      if (existingUserIndex < 0) {
+        console.log(`📊 Adding new storage user ${storageUser.user_uuid}`);
+        allUsers.push(storageUser);
+      }
+    });
 
     console.log(`📊 Total users (DB + Storage): ${allUsers.length}`);
 
@@ -1529,7 +1939,115 @@ app.get("/api/v1/user/get-user", async (req, res) => {
         branch_name: user.branchName || user.branch_name,
         branch_uuid: user.branchUuid || user.branch_uuid,
         referral_code: user.referralCode || user.referral_code,
-        module_security: [] // Add security modules if needed
+        module_security: (() => {
+          // Check if user exists in storage and use their module_security
+          const storageUser = usersStorage.find(storageUser => storageUser.user_uuid === user.userUuid || storageUser.user_uuid === user.user_uuid);
+          if (storageUser && storageUser.module_security) {
+            console.log(`📊 Adding module_security to database user ${user.userUuid || user.user_uuid}: ${storageUser.module_security.length} modules`);
+            return storageUser.module_security;
+          } else if (user.userUuid === "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f" || user.user_uuid === "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f") {
+            // Hardcode module_security for the test user
+            console.log(`📊 Adding hardcoded module_security to test user ${user.userUuid || user.user_uuid}`);
+            return [
+              {
+                role_module_id: 1567,
+                role_module_unique_id: 8,
+                role_module_uuid: "9bf1d3ce-d851-4d96-8901-e77abe79fee3",
+                module_uuid: "dfaf7756-1362-459a-8560-d7827d1f352c",
+                role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+                show_module: 1,
+                view_access: 1,
+                edit_access: 1,
+                send_sms: 0,
+                send_mail: 0,
+                send_whatsapp: 0,
+                send_call: 0,
+                filter_values: {
+                  and: {
+                    user_uuid: ["*"],
+                    branch_uuid: ["*"],
+                  },
+                },
+                status: "ACTIVE",
+                created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+                created_by_name: "Ramesh",
+                modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+                modified_by_name: "Ramesh",
+                create_ts: null,
+                insert_ts: "2025-08-19T22:28:13.000Z",
+                module_name: "Users",
+                submodule_name: "Users",
+                table_name: "latest_user",
+                module_key: "USERS|USERS|LATEST_USER",
+              },
+              {
+                role_module_id: 1571,
+                role_module_unique_id: 12,
+                role_module_uuid: "f5g6h7i8-j9k0-1234-5678-901234ghijkl",
+                module_uuid: "g6h7i8j9-k0l1-2345-6789-012345hijklm",
+                role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+                show_module: 1,
+                view_access: 1,
+                edit_access: 1,
+                send_sms: 0,
+                send_mail: 0,
+                send_whatsapp: 0,
+                send_call: 0,
+                filter_values: {
+                  and: {
+                    user_uuid: ["*"],
+                    branch_uuid: ["*"],
+                  },
+                },
+                status: "ACTIVE",
+                created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+                created_by_name: "Ramesh",
+                modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+                modified_by_name: "Ramesh",
+                create_ts: null,
+                insert_ts: "2025-08-19T22:28:13.000Z",
+                module_name: "QUESTIONNAIRE",
+                submodule_name: "QUESTIONNAIRE",
+                table_name: "latest_questionnaire",
+                module_key: "QUESTIONNAIRE|QUESTIONNAIRE|LATEST_QUESTIONNAIRE",
+              },
+              {
+                role_module_id: 1572,
+                role_module_unique_id: 13,
+                role_module_uuid: "h6i7j8k9-l0m1-3456-7890-123456ijklmn",
+                module_uuid: "i7j8k9l0-m1n2-4567-8901-234567jklmno",
+                role_uuid: "1a2209e9-21f7-4448-b144-611bd39c8517",
+                show_module: 1,
+                view_access: 1,
+                edit_access: 1,
+                send_sms: 0,
+                send_mail: 0,
+                send_whatsapp: 0,
+                send_call: 0,
+                filter_values: {
+                  and: {
+                    user_uuid: ["*"],
+                    branch_uuid: ["*"],
+                  },
+                },
+                status: "ACTIVE",
+                created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+                created_by_name: "Ramesh",
+                modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+                modified_by_name: "Ramesh",
+                create_ts: null,
+                insert_ts: "2025-08-19T22:28:13.000Z",
+                module_name: "SERVICE",
+                submodule_name: "SERVICE",
+                table_name: "latest_services",
+                module_key: "SERVICE|SERVICE|LATEST_SERVICES",
+              }
+            ];
+          } else {
+            console.log(`📊 No module_security found for database user ${user.userUuid || user.user_uuid}`);
+            return [];
+          }
+        })()
       }));
 
       console.log("✅ Database user data response sent successfully");
@@ -2028,6 +2546,248 @@ app.post("/api/v1/user/upsert-user", (req, res) => {
     console.error("❌ Error in user upsert:", err);
     res.status(500).json({ 
       message: "Error creating/updating user", 
+      error: err.message 
+    });
+  }
+});
+
+// User API - Update Profile endpoint
+app.post("/api/v1/user/update-profile", async (req, res) => {
+  console.log("👤 User update profile request received:", {
+    body: req.body,
+    headers: req.headers,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    // Destructure all fields from request body
+    const {
+      user_uuid,
+      first_name,
+      last_name,
+      email,
+      personal_email,
+      job_title,
+      user_type,
+      assigned_phone_number,
+      shared_email,
+      mobile,
+      home_phone,
+      linkedin_profile,
+      hire_date,
+      last_day_at_work,
+      department,
+      fax,
+      date_of_birth,
+      mother_maiden_name,
+      photo,
+      signature,
+      street_address,
+      unit_or_suite,
+      city,
+      province_or_state,
+      postal_code,
+      country,
+      languages_known,
+      documents,
+      branch_uuid,
+      status
+    } = req.body;
+
+    // Mock created/modified user data (replace with actual logged-in user context)
+    const adminUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const adminName = "Umesh Yadav";
+
+    // Find branch name from branch_uuid
+    const branch = branchesStorage.find(b => b.branch_uuid === branch_uuid);
+    const branchName = branch ? branch.branch_name : "HEAD OFFICE - MISSISSAUGA";
+
+    // Find existing user by UUID in storage first
+    let existingUserIndex = usersStorage.findIndex(user => user.user_uuid === user_uuid);
+    let existingUser = null;
+    let isFromDatabase = false;
+    
+    if (existingUserIndex !== -1) {
+      existingUser = usersStorage[existingUserIndex];
+    } else {
+      // Check database if not found in storage
+      try {
+        const dbUser = await prisma.user.findUnique({
+          where: { userUuid: user_uuid }
+        });
+        
+        if (dbUser) {
+          // Convert database user to storage format
+          existingUser = {
+            user_uuid: dbUser.userUuid,
+            first_name: dbUser.firstName,
+            last_name: dbUser.lastName,
+            email: dbUser.email,
+            personal_email: dbUser.email,
+            job_title: dbUser.position,
+            user_type: null,
+            assigned_phone_number: dbUser.phone,
+            shared_email: null,
+            mobile: null,
+            home_phone: null,
+            linkedin_profile: null,
+            hire_date: null,
+            last_day_at_work: null,
+            department: dbUser.department,
+            fax: null,
+            date_of_birth: null,
+            mother_maiden_name: null,
+            photo: dbUser.avatarUrl,
+            signature: null,
+            street_address: null,
+            unit_or_suite: null,
+            city: null,
+            province_or_state: null,
+            postal_code: null,
+            country: null,
+            languages_known: null,
+            documents: null,
+            branch_uuid: "91b78ebf-8ba7-45f8-baf4-051053aa8c47", // Default branch
+            branch_name: "NOVA SCOTIA",
+            status: dbUser.status || "ACTIVE",
+            created_by_uuid: dbUser.createdByUuid,
+            created_by_name: dbUser.createdByName,
+            modified_by_uuid: dbUser.createdByUuid,
+            modified_by_name: dbUser.createdByName,
+            insert_ts: dbUser.createdAt
+          };
+          isFromDatabase = true;
+          // Add to storage for future updates
+          existingUserIndex = usersStorage.length;
+          usersStorage.push(existingUser);
+        }
+      } catch (dbError) {
+        console.error("❌ Database error:", dbError);
+      }
+    }
+    
+    if (existingUser) {
+      // Update existing user
+      const updatedUser = {
+        user_uuid: existingUser.user_uuid,
+        first_name: first_name || existingUser.first_name,
+        last_name: last_name || existingUser.last_name,
+        email: email || existingUser.email,
+        personal_email: personal_email || existingUser.personal_email,
+        job_title: job_title || existingUser.job_title,
+        user_type: user_type || existingUser.user_type,
+        assigned_phone_number: assigned_phone_number || existingUser.assigned_phone_number,
+        shared_email: shared_email || existingUser.shared_email,
+        mobile: mobile || existingUser.mobile,
+        home_phone: home_phone || existingUser.home_phone,
+        linkedin_profile: linkedin_profile || existingUser.linkedin_profile,
+        hire_date: hire_date || existingUser.hire_date,
+        last_day_at_work: last_day_at_work || existingUser.last_day_at_work,
+        department: department || existingUser.department,
+        fax: fax || existingUser.fax,
+        date_of_birth: date_of_birth || existingUser.date_of_birth,
+        mother_maiden_name: mother_maiden_name || existingUser.mother_maiden_name,
+        photo: photo || existingUser.photo,
+        signature: signature || existingUser.signature,
+        street_address: street_address || existingUser.street_address,
+        unit_or_suite: unit_or_suite || existingUser.unit_or_suite,
+        city: city || existingUser.city,
+        province_or_state: province_or_state || existingUser.province_or_state,
+        postal_code: postal_code || existingUser.postal_code,
+        country: country || existingUser.country,
+        languages_known: languages_known || existingUser.languages_known,
+        documents: documents || existingUser.documents,
+        branch_uuid: branch_uuid || existingUser.branch_uuid,
+        branch_name: branchName || existingUser.branch_name,
+        status: status || existingUser.status,
+        created_by_uuid: existingUser.created_by_uuid,
+        created_by_name: existingUser.created_by_name,
+        modified_by_uuid: adminUuid,
+        modified_by_name: adminName,
+        insert_ts: new Date().toISOString()
+      };
+      
+      // Update the user in storage
+      usersStorage[existingUserIndex] = updatedUser;
+      
+      console.log("✅ User profile updated successfully:", updatedUser.user_uuid);
+
+      // Return response in the expected format
+      res.status(200).json({
+        message: "User Profile created successfully.",
+        data: {
+          user_fact_id: existingUserIndex + 1000,
+          user_fact_unique_id: existingUserIndex + 16,
+          user_uuid: updatedUser.user_uuid,
+          email: updatedUser.email,
+          status: updatedUser.status,
+          created_by_uuid: updatedUser.created_by_uuid,
+          created_by_name: updatedUser.created_by_name,
+          create_ts: updatedUser.insert_ts,
+          insert_ts: updatedUser.insert_ts,
+          user_dim_id: existingUserIndex + 1000,
+          user_dim_unique_id: existingUserIndex + 16,
+          user_password: "$2b$10$NJrbrR/PGGb9LF0Px1oSp.rJtF.kWS1bMKB693ZT6q.upUYC3Ak6q", // Mock hashed password
+          role_uuid: "0e9f19f5-5bfc-4a36-b16a-37a821eafa16",
+          role_value: "ABBC",
+          user_profile_id: existingUserIndex + 1000,
+          user_profile_unique_id: existingUserIndex + 16,
+          first_name: updatedUser.first_name,
+          last_name: updatedUser.last_name,
+          full_name: `${updatedUser.first_name} ${updatedUser.last_name || ""}`.trim(),
+          personal_email: updatedUser.personal_email,
+          job_title: updatedUser.job_title,
+          user_type: updatedUser.user_type,
+          assigned_phone_number: updatedUser.assigned_phone_number,
+          shared_email: updatedUser.shared_email,
+          mobile: updatedUser.mobile,
+          home_phone: updatedUser.home_phone,
+          linkedin_profile: updatedUser.linkedin_profile,
+          hire_date: updatedUser.hire_date,
+          last_day_at_work: updatedUser.last_day_at_work,
+          department: updatedUser.department,
+          fax: updatedUser.fax,
+          date_of_birth: updatedUser.date_of_birth,
+          mother_maiden_name: updatedUser.mother_maiden_name,
+          photo: updatedUser.photo,
+          signature: updatedUser.signature,
+          street_address: updatedUser.street_address,
+          unit_or_suite: updatedUser.unit_or_suite,
+          city: updatedUser.city,
+          csr: null,
+          csr_code: null,
+          marketer: null,
+          marketer_code: null,
+          producer_one: null,
+          producer_one_code: null,
+          producer_two: null,
+          producer_two_code: null,
+          producer_three: null,
+          producer_three_code: null,
+          branch_code: null,
+          province_or_state: updatedUser.province_or_state,
+          postal_code: updatedUser.postal_code,
+          country: updatedUser.country,
+          languages_known: updatedUser.languages_known,
+          documents: updatedUser.documents,
+          branch_name: updatedUser.branch_name,
+          branch_uuid: updatedUser.branch_uuid,
+          referral_code: `NW-${existingUserIndex + 45}`,
+          modified_by_uuid: updatedUser.modified_by_uuid,
+          modified_by_name: updatedUser.modified_by_name
+        }
+      });
+    } else {
+      // User not found
+      res.status(404).json({
+        message: "User not found",
+        error: "User with the provided UUID does not exist"
+      });
+    }
+  } catch (err) {
+    console.error("❌ Error updating user profile:", err);
+    res.status(500).json({ 
+      message: "Error updating user profile", 
       error: err.message 
     });
   }
@@ -2872,6 +3632,18 @@ app.get("/api/v1/general/get-record-counts", (req, res) => {
       break;
     case "latest_branch":
       count = branchesStorage.length;
+      break;
+    case "latest_task_module_wise":
+      count = 2; // Mock task count
+      break;
+    case "latest_questionnaire":
+      count = 1; // Mock questionnaire count
+      break;
+    case "latest_services":
+      count = 3; // Mock services count
+      break;
+    case "latest_noc_codes":
+      count = 510; // Mock NOC codes count
       break;
     default:
       count = 0;
@@ -5470,6 +6242,8 @@ app.get("/api/v1/workflow/get-apis-endpoints", (req, res) => {
     ],
     "questionnaire": [
       "/api/v1/questionnaire/upsert-questionnaire",
+      "/api/v1/questionnaire/get-questionnaire",
+      "/api/v1/questionnaire/get-question",
       "/api/v1/questionnaire/upsert-question",
       "/api/v1/questionnaire/upsert-answer",
       "/api/v1/questionnaire/upsert-questions-options",
@@ -6180,29 +6954,319 @@ app.get("/api/v1/questionnaire/get-questionnaire", (req, res) => {
     timestamp: new Date().toISOString(),
   });
 
-  // Mock questionnaire data - matches Nova World Group API structure exactly
+  // Get questionnaires from storage
+  let filteredQuestionnaires = questionnairesStorage;
+
+  // Filter by status if provided
+  if (req.query.status && req.query.status !== '-1') {
+    filteredQuestionnaires = questionnairesStorage.filter(q => q.status === req.query.status);
+  }
+
+  res.json({
+    message: "Questionnaire: ",
+    totalRecords: filteredQuestionnaires.length,
+    currentRecords: filteredQuestionnaires.length,
+    data: filteredQuestionnaires
+  });
+});
+
+// Questionnaire API - Upsert questionnaire endpoint
+app.post("/api/v1/questionnaire/upsert-questionnaire", (req, res) => {
+  console.log("📋 Upsert questionnaire request received:", {
+    body: req.body,
+    timestamp: new Date().toISOString(),
+  });
+
+  const {
+    questionnaire_uuid,
+    questionnaire_name,
+    question_per_page,
+    description,
+    comment,
+    status
+  } = req.body;
+
+  // Find existing questionnaire or create new one
+  let questionnaireIndex = questionnairesStorage.findIndex(q => q.questionnaire_uuid === questionnaire_uuid);
+  let questionnaire;
+
+  if (questionnaireIndex !== -1) {
+    // Update existing questionnaire
+    questionnaire = {
+      ...questionnairesStorage[questionnaireIndex],
+      questionnaire_name: questionnaire_name || questionnairesStorage[questionnaireIndex].questionnaire_name,
+      question_per_page: question_per_page || questionnairesStorage[questionnaireIndex].question_per_page,
+      description: description || questionnairesStorage[questionnaireIndex].description,
+      comment: comment || questionnairesStorage[questionnaireIndex].comment,
+      status: status || questionnairesStorage[questionnaireIndex].status,
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      insert_ts: new Date().toISOString()
+    };
+    questionnairesStorage[questionnaireIndex] = questionnaire;
+    console.log("✅ Questionnaire updated in storage:", questionnaire.questionnaire_uuid);
+  } else {
+    // Create new questionnaire
+    questionnaire = {
+      questionnaire_id: questionnairesStorage.length + 1,
+      questionnaire_uuid: questionnaire_uuid || "51cd7bc5-c688-4b49-ab99-5ed889e52c6c",
+      questionnaire_name: questionnaire_name || "Test Doc",
+      question_per_page: question_per_page || 10,
+      description: description || "26 aug, 2025",
+      comment: comment || "test pro",
+      status: status || "ACTIVE",
+      created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
+      created_by_name: "Ramesh",
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      create_ts: "2025-08-26T16:35:47.000Z",
+      insert_ts: new Date().toISOString()
+    };
+    questionnairesStorage.push(questionnaire);
+    console.log("✅ New questionnaire added to storage:", questionnaire.questionnaire_uuid);
+  }
+
+  // Return the updated questionnaire
+  res.json({
+    message: "Questionnaire updated successfully.",
+    data: questionnaire
+  });
+});
+
+// Questionnaire API - Upsert question endpoint
+app.post("/api/v1/questionnaire/upsert-question", (req, res) => {
+  console.log("❓ Upsert question request received:", {
+    body: req.body,
+    timestamp: new Date().toISOString(),
+  });
+
+  const {
+    questionnaire_uuid,
+    questionnaire_name,
+    question,
+    question_type,
+    status,
+    is_required,
+    questions_uuid
+  } = req.body;
+
+  // Find existing question or create new one
+  let questionIndex = questionsStorage.findIndex(q => q.questions_uuid === questions_uuid);
+  let questionData;
+
+  if (questionIndex !== -1) {
+    // Update existing question
+    questionData = {
+      ...questionsStorage[questionIndex],
+      questionnaire_uuid: questionnaire_uuid || questionsStorage[questionIndex].questionnaire_uuid,
+      questionnaire_name: questionnaire_name || questionsStorage[questionIndex].questionnaire_name,
+      question: question || questionsStorage[questionIndex].question,
+      question_type: question_type || questionsStorage[questionIndex].question_type,
+      status: status || questionsStorage[questionIndex].status,
+      is_required: is_required !== undefined ? is_required : questionsStorage[questionIndex].is_required,
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav"
+    };
+    questionsStorage[questionIndex] = questionData;
+    console.log("✅ Question updated in storage:", questionData.questions_uuid);
+  } else {
+    // Create new question
+    questionData = {
+      questionnaire_uuid: questionnaire_uuid || "51cd7bc5-c688-4b49-ab99-5ed889e52c6c",
+      questionnaire_name: questionnaire_name || "Test 1",
+      question: question || "a",
+      question_type: question_type || "TEXT",
+      status: status || "ACTIVE",
+      is_required: is_required !== undefined ? is_required : false,
+      created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      created_by_name: "Umesh Yadav",
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      questions_uuid: questions_uuid || "f729c5f3-6d9a-4836-8f31-8c9d54aacfe9",
+      create_ts: new Date().toISOString().replace('T', ' ').substring(0, 19)
+    };
+    questionsStorage.push(questionData);
+    console.log("✅ New question added to storage:", questionData.questions_uuid);
+  }
+
+  // Return the updated question
+  res.json({
+    message: "Question created successfully.",
+    data: questionData
+  });
+});
+
+// Questionnaire API - Get question endpoint
+app.get("/api/v1/questionnaire/get-question", (req, res) => {
+  console.log("❓ Get question request received:", {
+    query: req.query,
+    status: req.query.status,
+    questionnaire_uuid: req.query.questionnaire_uuid,
+    pageNo: req.query.pageNo,
+    itemPerPage: req.query.itemPerPage,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Mock response - matches the expected format exactly
   res.json({
     message: "Questionnaire: ",
     totalRecords: 1,
     currentRecords: 1,
     data: [
       {
-        questionnaire_id: 9,
-        questionnaire_uuid: "51cd7bc5-c688-4b49-ab99-5ed889e52c6c",
+        questionnaire_id: 10,
+        questionnaire_uuid: req.query.questionnaire_uuid || "51cd7bc5-c688-4b49-ab99-5ed889e52c6c",
         questionnaire_name: "Test Doc",
         question_per_page: 10,
         description: "26 aug, 2025",
-        comment: "test",
-        status: "ACTIVE",
+        comment: "test pro",
+        status: req.query.status || "ACTIVE",
         created_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
         created_by_name: "Ramesh",
-        modified_by_uuid: "77f492f7-5701-4386-8abc-3bcb55efa918",
-        modified_by_name: "Ramesh",
+        modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+        modified_by_name: "Umesh Yadav",
         create_ts: "2025-08-26T16:35:47.000Z",
-        insert_ts: "2025-08-26T16:36:22.000Z"
+        insert_ts: "2025-09-23T09:36:04.000Z"
       }
     ]
   });
+});
+
+// Services API - Get services endpoint
+app.get("/api/v1/services/get-services", (req, res) => {
+  console.log("🔧 Services request received:", {
+    query: req.query,
+    status: req.query.status,
+    from_date: req.query.from_date,
+    to_date: req.query.to_date,
+    pageNo: req.query.pageNo,
+    itemPerPage: req.query.itemPerPage,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Mock services data - matches Nova World Group API structure exactly
+  res.json({
+    message: "Services: ",
+    totalRecords: 3,
+    currentRecords: 3,
+    data: [
+      {
+        service_id: 1,
+        service_uuid: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+        service_name: "Immigration Consultation",
+        service_type: "CONSULTATION",
+        services_type: "CONSULTATION",
+        services_sub_type: "Basic Consultation",
+        description: "Professional immigration consultation services",
+        price: 150.00,
+        duration_hours: 2,
+        status: "ACTIVE",
+        created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+        created_by_name: "Sakshi Jadhav",
+        modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+        modified_by_name: "Sakshi Jadhav",
+        create_ts: "2025-09-23T10:00:00.000Z",
+        insert_ts: "2025-09-23T10:00:00.000Z"
+      },
+      {
+        service_id: 2,
+        service_uuid: "b2c3d4e5-f6g7-8901-2345-678901bcdefg",
+        service_name: "Document Review",
+        service_type: "DOCUMENT_REVIEW",
+        services_type: "DOCUMENT_REVIEW",
+        services_sub_type: "Standard Review",
+        description: "Comprehensive document review and verification",
+        price: 75.00,
+        duration_hours: 1,
+        status: "ACTIVE",
+        created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+        created_by_name: "Sakshi Jadhav",
+        modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+        modified_by_name: "Sakshi Jadhav",
+        create_ts: "2025-09-23T10:15:00.000Z",
+        insert_ts: "2025-09-23T10:15:00.000Z"
+      },
+      {
+        service_id: 3,
+        service_uuid: "c3d4e5f6-g7h8-9012-3456-789012cdefgh",
+        service_name: "Application Processing",
+        service_type: "PROCESSING",
+        services_type: "PROCESSING",
+        services_sub_type: "Express Processing",
+        description: "Complete application processing and submission",
+        price: 300.00,
+        duration_hours: 4,
+        status: "INACTIVE",
+        created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+        created_by_name: "Sakshi Jadhav",
+        modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+        modified_by_name: "Sakshi Jadhav",
+        create_ts: "2025-09-23T10:30:00.000Z",
+        insert_ts: "2025-09-23T10:30:00.000Z"
+      }
+    ]
+  });
+});
+
+// Create Services endpoint
+app.post("/api/v1/services/create-services", (req, res) => {
+  console.log("🔧 Create Services request received:", {
+    body: req.body,
+    timestamp: new Date().toISOString(),
+  });
+
+  try {
+    const {
+      services_type,
+      services_sub_type,
+      country,
+      state_or_province,
+      questionnaire_name,
+      questionnaire_uuid,
+      status = "ACTIVE",
+      service_details = [],
+      created_by_uuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      created_by_name = "Umesh Yadav"
+    } = req.body;
+
+    // Generate UUID for the new service
+    const services_uuid = generateUUID();
+    const create_ts = new Date().toISOString();
+
+    // Create the service object
+    const newService = {
+      services_type,
+      services_sub_type,
+      country,
+      state_or_province,
+      questionnaire_name,
+      questionnaire_uuid,
+      status,
+      service_details,
+      created_by_uuid,
+      created_by_name,
+      modified_by_uuid: created_by_uuid,
+      modified_by_name: created_by_name,
+      services_uuid,
+      create_ts,
+      insert_ts: create_ts
+    };
+
+    // Log the created service
+    console.log("✅ Service created successfully:", newService);
+
+    res.json({
+      message: "Service created successfully",
+      data: newService
+    });
+
+  } catch (error) {
+    console.error("❌ Error creating service:", error);
+    res.status(500).json({
+      message: "Error creating service",
+      error: error.message
+    });
+  }
 });
 
 // Lead API - Get NOC codes endpoint
@@ -6217,11 +7281,71 @@ app.get("/api/v1/lead/get-noc_codes", (req, res) => {
   });
 
   // Mock NOC codes data - matches Nova World Group API structure exactly
+  const mockNocCodes = [
+    {
+      noc_codes_uuid: "1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6",
+      noc_codes_groups_title: "Senior managers - construction, transportation, production and utilities",
+      noc_unit_groups_code: "0001",
+      status: "ACTIVE",
+      created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      created_by_name: "Umesh Yadav",
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      create_ts: "2025-09-23 08:15:00"
+    },
+    {
+      noc_codes_uuid: "2b3c4d5e-6f7g-8h9i-0j1k-l2m3n4o5p6q7",
+      noc_codes_groups_title: "Senior managers - trade, broadcasting and other services",
+      noc_unit_groups_code: "0002",
+      status: "ACTIVE",
+      created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      created_by_name: "Umesh Yadav",
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      create_ts: "2025-09-23 08:15:00"
+    },
+    {
+      noc_codes_uuid: "3c4d5e6f-7g8h-9i0j-1k2l-m3n4o5p6q7r8",
+      noc_codes_groups_title: "Financial managers",
+      noc_unit_groups_code: "0003",
+      status: "ACTIVE",
+      created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      created_by_name: "Umesh Yadav",
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      create_ts: "2025-09-23 08:15:00"
+    },
+    {
+      noc_codes_uuid: "4d5e6f7g-8h9i-0j1k-2l3m-n4o5p6q7r8s9",
+      noc_codes_groups_title: "Human resources managers",
+      noc_unit_groups_code: "0004",
+      status: "ACTIVE",
+      created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      created_by_name: "Umesh Yadav",
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      create_ts: "2025-09-23 08:15:00"
+    },
+    {
+      noc_codes_uuid: "5e6f7g8h-9i0j-1k2l-3m4n-o5p6q7r8s9t0",
+      noc_codes_groups_title: "Purchasing managers",
+      noc_unit_groups_code: "0005",
+      status: "ACTIVE",
+      created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      created_by_name: "Umesh Yadav",
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      create_ts: "2025-09-23 08:15:00"
+    }
+  ];
+
+  console.log("✅ NOC codes data sent successfully:", mockNocCodes.length, "codes");
+
   res.json({
-    message: " unit_groups",
-    totalRecords: 0,
-    currentRecords: 0,
-    data: []
+    message: "NOC codes retrieved successfully",
+    totalRecords: mockNocCodes.length,
+    currentRecords: mockNocCodes.length,
+    data: mockNocCodes
   });
 });
 
@@ -6237,11 +7361,60 @@ app.get("/api/v1/tasks/get-task-module-wise", (req, res) => {
   });
 
   // Mock task module-wise data - matches Nova World Group API structure exactly
+  const mockTasks = [
+    {
+      task_module_wise_uuid: "76bf6719-6409-49be-8b14-311212121212",
+      task_module_wise_code: "X7Q0K5",
+      module_name: "Notes",
+      sub_module_name: "Notes",
+      module_reference_column: "customer_policy_id",
+      module_reference_code_or_id: "",
+      task_name: "abc",
+      task_priority: "Medium",
+      assigned_to_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      assigned_to_name: "Sakshi Jadhav",
+      created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      created_by_name: "Umesh Yadav",
+      task_type: "Notes",
+      status: "ACTIVE",
+      date_created: "9/23/2025",
+      due_date: "09/28/2025",
+      due_time: "12:01 AM",
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      create_ts: "2025-09-23 08:12:51"
+    },
+    {
+      task_module_wise_uuid: "dc2d4031-ef7c-493a-a219-9ca5224312d8",
+      task_module_wise_code: "OAWDT7",
+      module_name: "Notes",
+      sub_module_name: "Notes",
+      module_reference_column: "customer_policy_id",
+      module_reference_code_or_id: "",
+      task_name: "xyz",
+      task_priority: "High",
+      assigned_to_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      assigned_to_name: "Umesh Yadav",
+      created_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      created_by_name: "Umesh Yadav",
+      task_type: "Notes",
+      status: "ACTIVE",
+      date_created: "9/23/2025",
+      due_date: "09/30/2025",
+      due_time: "2:00 PM",
+      modified_by_uuid: "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f",
+      modified_by_name: "Umesh Yadav",
+      create_ts: "2025-09-23 08:12:48"
+    }
+  ];
+
+  console.log("✅ Task module wise data sent successfully:", mockTasks.length, "tasks");
+
   res.json({
     message: "Task module wise Records fetched successfully!",
-    totalRecords: 0,
-    currentRecords: 0,
-    data: []
+    totalRecords: mockTasks.length,
+    currentRecords: mockTasks.length,
+    data: mockTasks
   });
 });
 
@@ -6615,6 +7788,78 @@ app.post("/api/v1/authentication/login", (req, res) => {
         code: "INVALID_CREDENTIALS",
         message: "Invalid email or password",
       },
+    });
+  }
+});
+
+app.post("/api/v1/tasks/create-task-module-wise", (req, res) => {
+  console.log("📋 Create task module wise request received:", {
+    body: req.body,
+    headers: req.headers,
+    timestamp: new Date().toISOString()
+  });
+
+  try {
+    const {
+      module_name,
+      sub_module_name,
+      module_reference_column,
+      module_reference_code_or_id,
+      task_name,
+      task_priority,
+      assigned_to_uuid,
+      assigned_to_name,
+      task_type,
+      due_date,
+      due_time
+    } = req.body;
+
+    // Generate UUID for task
+    const taskModuleWiseUuid = crypto.randomUUID();
+    
+    // Generate task code (6 character random string)
+    const taskModuleWiseCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+    
+    // Get current user info from auth token or use defaults
+    const currentUserUuid = "0522b6ac-3ec7-4a6f-92b0-f6becd6e346f";
+    const currentUserName = "Umesh Yadav";
+    
+    // Create task data
+    const taskData = {
+      module_name: module_name || "Notes",
+      sub_module_name: sub_module_name || "Notes",
+      module_reference_column: module_reference_column || "customer_policy_id",
+      module_reference_code_or_id: module_reference_code_or_id || "",
+      task_name: task_name || "xyz",
+      task_priority: task_priority || "Medium",
+      assigned_to_uuid: assigned_to_uuid || currentUserUuid,
+      assigned_to_name: assigned_to_name || currentUserName,
+      created_by_uuid: currentUserUuid,
+      created_by_name: currentUserName,
+      task_type: task_type || "Notes",
+      status: "ACTIVE",
+      date_created: new Date().toLocaleDateString("en-US"),
+      due_date: due_date || "09/28/2025",
+      due_time: due_time || "12:01 AM",
+      modified_by_uuid: currentUserUuid,
+      modified_by_name: currentUserName,
+      task_module_wise_uuid: taskModuleWiseUuid,
+      task_module_wise_code: taskModuleWiseCode,
+      create_ts: new Date().toISOString().replace("T", " ").substring(0, 19)
+    };
+
+    console.log("✅ Task module wise created successfully:", taskData);
+
+    res.status(200).json({
+      message: "Task module wise created successfully",
+      data: taskData
+    });
+
+  } catch (error) {
+    console.error("❌ Error creating task module wise:", error);
+    res.status(500).json({
+      message: "Error creating task module wise",
+      error: error.message
     });
   }
 });

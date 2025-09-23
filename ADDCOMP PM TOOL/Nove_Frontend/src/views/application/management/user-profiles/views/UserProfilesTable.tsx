@@ -125,7 +125,7 @@ const UserProfilesTable = () => {
                 width: '90px',
                 isFirstColumnSticky: true,
                 onRowCellRender: (value, row: IUserProfile) =>
-                    <StandardTableActions onEditClick={() => router.push(`${main_app_routes.app.users}/manage/${row.user_uuid}`)} />
+                    <StandardTableActions onEditClick={() => router.push(`${main_app_routes.app.users.root}/manage/${row.user_uuid}`)} />
                 ,
             },
             {

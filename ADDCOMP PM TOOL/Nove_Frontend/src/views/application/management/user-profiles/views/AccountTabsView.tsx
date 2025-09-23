@@ -9,7 +9,11 @@ const TABS = [
   { value: 'security', label: 'Security' },
 ];
 
-export default function AccountTabsView() {
+interface AccountTabsViewProps {
+  uuid?: string;
+}
+
+export default function AccountTabsView({ uuid }: AccountTabsViewProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentTab = searchParams.get('tab') || 'general';
 
@@ -18,6 +22,14 @@ export default function AccountTabsView() {
       setSearchParams({ tab: 'general' });
     }
   }, [searchParams, setSearchParams]);
+
+  // Log the uuid to verify it's being passed
+  useEffect(() => {
+    if (uuid) {
+      console.log('UUID received in AccountTabsView:', uuid);
+      // Here you would typically fetch user data based on this UUID
+    }
+  }, [uuid]);
 
   const handleTabChange = (_: any, value: string) => {
     setSearchParams({ tab: value });
@@ -30,7 +42,7 @@ export default function AccountTabsView() {
           <Tab key={tab.value} value={tab.value} label={tab.label} />
         ))}
       </Tabs>
-      {currentTab === 'general' && <AccountGeneralnformation />}
+      {currentTab === 'general' && <AccountGeneralnformation uuid={uuid} />}
       {currentTab === 'security' && <AccountChangePassword />}
     </>
   );

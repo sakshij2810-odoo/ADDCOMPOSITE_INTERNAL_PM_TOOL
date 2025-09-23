@@ -90,11 +90,9 @@ export const dashboardNavMenuData: INavbarMenu[] = [
         path: paths.dashboard.programs.programs,
         icon: ICONS.kanban,
         allowFullAccess: true,
-        modules: [MODULE_KEYS.NOC_CODES, MODULE_KEYS.CRS_DRAWS, MODULE_KEYS.STUDY_PROGRAM],
+        modules: [MODULE_KEYS.NOC_CODES],
         children: [
-          { title: 'CRS Draws', path: paths.dashboard.programs.crsDraws, allowFullAccess: true, modules: [MODULE_KEYS.CRS_DRAWS] },
           { title: 'NOC Codes', path: paths.dashboard.programs.nocCodes, allowFullAccess: true, modules: [MODULE_KEYS.NOC_CODES] },
-          { title: 'Study Program', path: paths.dashboard.programs.studyProgram, allowFullAccess: true, modules: [MODULE_KEYS.STUDY_PROGRAM] },
         ],
       },
     ],

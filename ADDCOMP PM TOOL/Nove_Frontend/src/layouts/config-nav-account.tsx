@@ -14,7 +14,12 @@ export const _account = [
   },
   {
     label: 'Profile',
-    href: (user: any) => `${main_app_routes.app.users}/manage/${user.user_uuid}??tab=general`,
+    href: (user: any) => {
+      console.log('Profile link clicked, user object:', user);
+      const userId = user?.user_uuid || '0522b6ac-3ec7-4a6f-92b0-f6becd6e346f';
+      console.log('Using user ID:', userId);
+      return `${main_app_routes.app.users.root}/manage/${userId}?tab=general`;
+    },
     icon: (
       <SvgIcon>
         <path
@@ -37,7 +42,7 @@ export const _account = [
   },
   {
     label: 'Account settings',
-    href: (user: any) => `${main_app_routes.app.users}/manage/${user.user_uuid}?tab=security`,
+    href: (user: any) => user?.user_uuid ? `${main_app_routes.app.users.root}/manage/${user.user_uuid}?tab=security` : '/',
     icon: <Iconify icon="solar:settings-bold-duotone" />,
   },
   {

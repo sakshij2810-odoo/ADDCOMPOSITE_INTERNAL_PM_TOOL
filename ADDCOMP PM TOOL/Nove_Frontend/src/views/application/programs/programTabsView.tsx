@@ -6,31 +6,17 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { main_app_routes } from 'src/routes/paths';
 
-import CRSDrawTableView from './crs-draws/CRSDrawTableView';
 import NOCCodesTableView from './noc-codes/NOCCodesTableView';
-import StudyProgramsTableView from './study-program/StudyProgramsTableView';
 import { useSearchParams } from 'react-router-dom';
 import { ITab, useTabsSecurity } from 'src/security/hooks/useTabsSecurity';
 import { MODULE_KEYS } from 'src/constants/enums';
 
 const TABS: ITab[] = [
   {
-    value: 'CRS_DRAWS',
-    label: 'CRS Draws',
-    icon: <Iconify icon="solar:document-bold" width={24} />,
-    module: MODULE_KEYS.CRS_DRAWS
-  },
-  {
     value: 'NOC_CODES',
     label: 'NOC Codes',
     icon: <Iconify icon="solar:file-bold" width={24} />,
     module: MODULE_KEYS.NOC_CODES
-  },
-  {
-    value: 'STUDY_PROGRAMS',
-    label: 'Study Programs',
-    icon: <Iconify icon="solar:bookmark-bold" width={24} />,
-    module: MODULE_KEYS.STUDY_PROGRAM
   },
 ];
 
@@ -56,12 +42,7 @@ const ProgramTabsView = () => {
         links={[
           { name: 'Programs', href: main_app_routes.app.programs.root },
           {
-            name:
-              tabs.value === 'CRS_DRAWS'
-                ? 'CRS Draws'
-                : tabs.value === 'NOC_CODES'
-                  ? 'NOC Codes'
-                  : 'Study Programs',
+            name: 'NOC Codes',
           },
         ]}
         sx={{ mb: { xs: 3, md: 5 } }}
@@ -89,11 +70,7 @@ const ProgramTabsView = () => {
         </Box>
       </Card>
 
-      {tabs.value === 'CRS_DRAWS' && <CRSDrawTableView />}
-
-      {tabs.value === 'NOC_CODES' && <NOCCodesTableView />}
-
-      {tabs.value === 'STUDY_PROGRAMS' && <StudyProgramsTableView />}
+      <NOCCodesTableView />
     </DashboardContent>
   );
 };

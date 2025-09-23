@@ -156,6 +156,7 @@ export const appNavbarMenuData: INavbarMenu[] = [
         title: 'Services/Document Checklists',
         path: main_app_routes.app.documents_and_services,
         icon: ICONS.course,
+        allowFullAccess: true,
         modules: [
           MODULE_KEYS.QUESTIONS,
           MODULE_KEYS.QUESTIONS_OPTIONS,
@@ -179,12 +180,14 @@ export const appNavbarMenuData: INavbarMenu[] = [
         title: 'Programs',
         path: main_app_routes.app.programs.root,
         icon: ICONS.kanban,
+        allowFullAccess: true,
         modules: [MODULE_KEYS.NOC_CODES, MODULE_KEYS.CRS_DRAWS, MODULE_KEYS.STUDY_PROGRAM],
       },
       {
         title: 'Tasks',
         path: main_app_routes.app.tasks.root,
         icon: ICONS.course,
+        allowFullAccess: true,
         modules: [MODULE_KEYS.TASKBOARD],
         children: [
           {
@@ -245,18 +248,21 @@ export const appNavbarMenuData: INavbarMenu[] = [
         title: 'Company Info',
         path: main_app_routes.app.company,
         icon: ICONS.banking,
+        allowFullAccess: true,
         modules: [MODULE_KEYS.COMPANY_INFORMATION],
       },
       {
         title: 'Branch Office',
         path: main_app_routes.app.management.branch,
         icon: ICONS.course,
+        allowFullAccess: true,
         modules: [MODULE_KEYS.BRANCH],
       },
       {
         title: 'Users and staff',
         path: main_app_routes.app.users.root,
         icon: ICONS.user,
+        allowFullAccess: true,
         modules: [MODULE_KEYS.USERS],
       },
 
@@ -264,21 +270,25 @@ export const appNavbarMenuData: INavbarMenu[] = [
         title: 'Security',
         path: main_app_routes.app.security.root,
         icon: ICONS.lock,
+        allowFullAccess: true,
         modules: [MODULE_KEYS.SECURITY, MODULE_KEYS.ROLE_GROUP],
         children: [
           {
             title: 'Security',
             path: main_app_routes.app.security.securityGroups,
+            allowFullAccess: true,
             modules: [MODULE_KEYS.SECURITY],
           },
           {
             title: 'Role Groups',
             path: main_app_routes.app.security.roleGroups,
+            allowFullAccess: true,
             modules: [MODULE_KEYS.ROLE_GROUP],
           },
           {
             title: 'Approvals',
             path: main_app_routes.app.security.approvals,
+            allowFullAccess: true,
             modules: [MODULE_KEYS.SECURITY],
           },
         ],
@@ -287,6 +297,7 @@ export const appNavbarMenuData: INavbarMenu[] = [
         title: 'Settings',
         path: main_app_routes.app.settings.root,
         icon: ICONS.course,
+        allowFullAccess: true,
         modules: [
           MODULE_KEYS.SETTING_CUSTOMER_AUTOMATION,
           MODULE_KEYS.SETTING_TEMPLATE,
@@ -296,17 +307,20 @@ export const appNavbarMenuData: INavbarMenu[] = [
           {
             title: 'Customer Management',
             path: main_app_routes.app.settings.customerManagement,
+            allowFullAccess: true,
             modules: [MODULE_KEYS.SETTING_CUSTOMER_AUTOMATION],
           },
           // { title: 'Documents', path: main_app_routes.app.leads.docucments, modules: [MODULE_KEYS.LEADS] },
           {
             title: 'Automation',
             path: main_app_routes.app.settings.automation,
+            allowFullAccess: true,
             modules: [MODULE_KEYS.SETTING_AUTOMATION],
           },
           {
             title: 'Templates',
             path: main_app_routes.app.settings.templates,
+            allowFullAccess: true,
             modules: [MODULE_KEYS.SETTING_CUSTOMER_AUTOMATION],
           },
         ],
