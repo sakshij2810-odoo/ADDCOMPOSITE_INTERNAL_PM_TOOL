@@ -4,14 +4,15 @@
   "description": "AI-Powered Project Management Platform - Microservices Backend",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run dev:auth\" \"npm run dev:user\" \"npm run dev:project\" \"npm run dev:task\" \"npm run dev:company\" \"npm run dev:leads\" \"npm run dev:analytics\"",
-    "dev:auth": "cd microservices/auth-service && PORT=3001 node simple-server-with-db.js",
-    "dev:user": "cd microservices/user-service && PORT=3002 node simple-server.js",
-    "dev:project": "cd microservices/project-service && PORT=3003 node simple-server.js",
-    "dev:task": "cd microservices/task-service && PORT=3004 node simple-server.js",
-    "dev:company": "cd microservices/company-information-service && PORT=3005 node simple-server.js",
-    "dev:leads": "cd microservices/leads-service && PORT=3006 node simple-server.js",
-    "dev:analytics": "cd microservices/analytics-service && PORT=3007 node simple-server.js",
+    "dev": "concurrently \"npm run dev:gateway\" \"npm run dev:auth\" \"npm run dev:user\" \"npm run dev:project\" \"npm run dev:task\" \"npm run dev:company\" \"npm run dev:leads\" \"npm run dev:analytics\"",
+    "dev:gateway": "PORT=3000 node simple-api-gateway-with-socket.js",
+    "dev:auth": "cd microservices/auth-service && AUTH_SERVICE_PORT=3001 DOTENV_CONFIG_PATH=../../.env node -r dotenv/config working-auth-server.js",
+    "dev:user": "cd microservices/user-service && USER_SERVICE_PORT=3002 DOTENV_CONFIG_PATH=../../.env node -r dotenv/config working-user-server.js",
+    "dev:project": "cd microservices/project-service && PROJECT_SERVICE_PORT=3003 DOTENV_CONFIG_PATH=../../.env node -r dotenv/config working-project-server.js",
+    "dev:task": "cd microservices/task-service && TASK_SERVICE_PORT=3004 DOTENV_CONFIG_PATH=../../.env node -r dotenv/config working-task-server.js",
+    "dev:company": "cd microservices/company-information-service && COMPANY_SERVICE_PORT=3005 DOTENV_CONFIG_PATH=../../.env node -r dotenv/config enhanced-company-server.js",
+    "dev:leads": "cd microservices/leads-service && LEADS_SERVICE_PORT=3006 DOTENV_CONFIG_PATH=../../.env node -r dotenv/config simple-server.js",
+    "dev:analytics": "cd microservices/analytics-service && ANALYTICS_SERVICE_PORT=3007 DOTENV_CONFIG_PATH=../../.env node -r dotenv/config simple-server.js",
     "start": "npm run dev"
   },
   "keywords": [
@@ -19,7 +20,7 @@
     "project-management",
     "ai-powered",
     "google-integration",
-    "nova-world-group"
+    "addcomposites-oy"
   ],
   "author": "Sakshi Jadhav",
   "license": "MIT",
@@ -29,9 +30,14 @@
   "dependencies": {
     "@prisma/client": "^6.16.2",
     "@types/pg": "^8.15.5",
+    "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "http-proxy-middleware": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "socket.io": "^4.8.1"
   }
 }

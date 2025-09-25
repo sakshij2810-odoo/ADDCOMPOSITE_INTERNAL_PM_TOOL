@@ -30,6 +30,11 @@ export const AccountGeneralnformation = () => {
     (storeState: IStoreState) => storeState.management.userProfiles.single_user_profile
   );
 
+  console.log('🔍 [FRONTEND] AccountGeneralnformation component loaded');
+  console.log('🔍 [FRONTEND] UUID from params:', uuid);
+  console.log('🔍 [FRONTEND] Single user info:', singleUserInfo);
+  console.log('🔍 [FRONTEND] Loading state:', loading);
+
   const {
     values,
     errors,

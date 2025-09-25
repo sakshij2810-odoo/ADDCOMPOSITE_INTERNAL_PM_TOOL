@@ -60,6 +60,7 @@ export const main_app_routes = {
       templates: `${ROOTS.MAIN}/tasks/templates`,
       bulkEdit: `${ROOTS.MAIN}/tasks/bulk-edit`,
       taskActivities: `${ROOTS.MAIN}/tasks/task-activities`,
+      management: `${ROOTS.MAIN}/tasks/management`,
     },
     // Resource Management routes
     resources: {
@@ -238,6 +239,8 @@ export const paths = {
     jwt: {
       signIn: `${ROOTS.AUTH}/jwt/sign-in`,
       signUp: `${ROOTS.AUTH}/jwt/sign-up`,
+      forgotPassword: `${ROOTS.AUTH}/jwt/forgot-password`,
+      resetPassword: `${ROOTS.AUTH}/jwt/reset-password`,
     },
     firebase: {
       signIn: `${ROOTS.AUTH}/firebase/sign-in`,
@@ -296,6 +299,19 @@ export const paths = {
         analytics: `${ROOTS.MAIN}/projects/:id/analytics`,
         settings: `${ROOTS.MAIN}/projects/:id/settings`,
         archive: `${ROOTS.MAIN}/projects/:id/archive`,
+      },
+      // Task Management routes
+      tasks: {
+        root: `${ROOTS.MAIN}/tasks`,
+        create: `${ROOTS.MAIN}/tasks/create`,
+        detail: `${ROOTS.MAIN}/tasks/:id`,
+        edit: `${ROOTS.MAIN}/tasks/:id/edit`,
+        board: `${ROOTS.MAIN}/tasks/board`,
+        calendar: `${ROOTS.MAIN}/tasks/calendar`,
+        templates: `${ROOTS.MAIN}/tasks/templates`,
+        bulkEdit: `${ROOTS.MAIN}/tasks/bulk-edit`,
+        taskActivities: `${ROOTS.MAIN}/tasks/task-activities`,
+        management: `${ROOTS.MAIN}/tasks/management`,
       },
       // Resource Management routes
       resources: {

@@ -74,25 +74,29 @@ export const appNavbarMenuData: INavbarMenu[] = [
         allowFullAccess: true,
         modules: [],
       },
-      {
-        title: 'Leads',
-        path: main_app_routes.app.leads.root,
-        icon: ICONS.course,
-        modules: [MODULE_KEYS.LEADS],
-        // children: [
-        //     { title: 'Leads', path: main_app_routes.app.leads.root, modules: [MODULE_KEYS.LEADS] },
-        //     // { title: 'Documents', path: main_app_routes.app.leads.docucments, modules: [MODULE_KEYS.LEADS] },
-        // ],
-      },
+      // {
+      //   title: 'Leads',
+      //   path: main_app_routes.app.leads.root,
+      //   icon: ICONS.course,
+      //   modules: [MODULE_KEYS.LEADS],
+
+      // },
+
+      // {
+      //   title: 'Customers',
+      //   path: main_app_routes.app.customers,
+      //   icon: ICONS.user,
+
+      //   modules: [MODULE_KEYS.CUSTOMERS],
+      // },
 
       {
-        title: 'Customers',
-        path: main_app_routes.app.customers,
-        icon: ICONS.user,
-
-        modules: [MODULE_KEYS.CUSTOMERS],
+        title: 'Chats',
+        path: main_app_routes.app.chats,
+        icon: ICONS.chat,
+        allowFullAccess: true,
+        modules: [MODULE_KEYS.CONVERSATION],
       },
-
       {
         title: 'File Manager',
         path: main_app_routes.app.fileManager,
@@ -102,84 +106,48 @@ export const appNavbarMenuData: INavbarMenu[] = [
       },
 
       {
-        title: 'Chats',
-        path: main_app_routes.app.chats,
-        icon: ICONS.chat,
-        modules: [MODULE_KEYS.CONVERSATION],
-      },
-      {
-        title: 'Projects',
-        path: main_app_routes.app.projects.root,
-        icon: ICONS.projects,
-        allowFullAccess: true,
-        modules: [],
-      },
-      {
-        title: 'Resources',
-        path: main_app_routes.app.resources.root,
-        icon: ICONS.resources,
-        allowFullAccess: true,
-        modules: [],
-      },
-      {
         title: 'Analytics',
         path: main_app_routes.app.analytics.root,
         icon: ICONS.analytics,
         allowFullAccess: true,
         modules: [],
       },
-      {
-        title: 'Reports',
-        path: main_app_routes.app.reports.root,
-        icon: ICONS.reports,
-        allowFullAccess: true,
-        modules: [],
-      },
+
       // {
       //   title: 'Customers',
       //   path: main_app_routes.app.customers,
       //   icon: ICONS.user,
       //   modules: [MODULE_KEYS.CUSTOMERS],
       // },
-      // {
-      //   title: 'File Manager',
-      //   path: main_app_routes.app.fileManager,
-      //   icon: ICONS.folder,
-      //   modules: [MODULE_KEYS.CUSTOMERS],
-      // },
     ],
   },
   {
-    subheader: 'Programs/Service Management',
+    subheader: 'Project Management',
     items: [
-      {
-        title: 'Services/Document Checklists',
-        path: main_app_routes.app.documents_and_services,
-        icon: ICONS.course,
-        modules: [
-          MODULE_KEYS.QUESTIONS,
-          MODULE_KEYS.QUESTIONS_OPTIONS,
-          MODULE_KEYS.ANSWERS,
-          MODULE_KEYS.SERVICE,
-        ],
-        // children: [
-        //     { title: 'Document Checklist', path: main_app_routes.app.questionnaire.root, modules: [MODULE_KEYS.SECURITY] },
-        //     // { title: 'Questions', path: main_app_routes.app.questionnaire.questions, modules: [MODULE_KEYS.SECURITY] },
-        //     // { title: 'Answers', path: main_app_routes.app.questionnaire.answers, modules: [MODULE_KEYS.SECURITY] },
-        //     // { title: 'Question Options', path: main_app_routes.app.questionnaire.questionOptions, modules: [MODULE_KEYS.SECURITY] },
-        // ],
-      },
       // {
-      //     title: 'Services',
-      //     path: main_app_routes.app.services,
-      //     icon: ICONS.job,
-      //     modules: [MODULE_KEYS.COMPANY_INFORMATION]
+      //   title: 'Services/Document Checklists',
+      //   path: main_app_routes.app.documents_and_services,
+      //   icon: ICONS.course,
+      //   modules: [
+      //     MODULE_KEYS.QUESTIONS,
+      //     MODULE_KEYS.QUESTIONS_OPTIONS,
+      //     MODULE_KEYS.ANSWERS,
+      //     MODULE_KEYS.SERVICE,
+      //   ],
+      // },
+
+      // {
+      //   title: 'Programs',
+      //   path: main_app_routes.app.programs.root,
+      //   icon: ICONS.kanban,
+      //   modules: [MODULE_KEYS.NOC_CODES, MODULE_KEYS.CRS_DRAWS, MODULE_KEYS.STUDY_PROGRAM],
       // },
       {
-        title: 'Programs',
-        path: main_app_routes.app.programs.root,
-        icon: ICONS.kanban,
-        modules: [MODULE_KEYS.NOC_CODES, MODULE_KEYS.CRS_DRAWS, MODULE_KEYS.STUDY_PROGRAM],
+        title: 'Projects',
+        path: main_app_routes.app.projects.root,
+        icon: ICONS.projects,
+        allowFullAccess: true,
+        modules: [],
       },
       {
         title: 'Tasks',
@@ -195,47 +163,6 @@ export const appNavbarMenuData: INavbarMenu[] = [
           },
         ],
       },
-      // {
-      //     title: 'Branch Office',
-      //     path: main_app_routes.app.management.branch,
-      //     icon: ICONS.course,
-      //     modules: [MODULE_KEYS.BRANCH],
-      // },
-      // {
-      //     title: 'Settings',
-      //     path: main_app_routes.app.settings.customerManagement,
-      //     icon: ICONS.course,
-      //     modules: [MODULE_KEYS.LEADS],
-      //     children: [
-      //         { title: 'Customer Management', path: main_app_routes.app.settings.customerManagement, modules: [MODULE_KEYS.LEADS] },
-      //         // { title: 'Documents', path: main_app_routes.app.leads.docucments, modules: [MODULE_KEYS.LEADS] },
-      //     ],
-      // },
-      // {
-      //     title: 'Company',
-      //     path: main_app_routes.app.company,
-      //     icon: ICONS.banking,
-      //     modules: [MODULE_KEYS.COMPANY_INFORMATION]
-      // },
-      // {
-      //     title: 'Users',
-      //     path: main_app_routes.app.users,
-      //     icon: ICONS.user,
-      //     modules: [MODULE_KEYS.USERS]
-      // },
-
-      // {
-      //     title: 'Security',
-      //     path: main_app_routes.app.security.root,
-      //     icon: ICONS.lock,
-      //     modules: [MODULE_KEYS.SECURITY],
-      //     children: [
-      //         { title: 'Security', path: main_app_routes.app.security.securityGroups, modules: [MODULE_KEYS.SECURITY] },
-      //         { title: 'Role Groups', path: main_app_routes.app.security.roleGroups, modules: [MODULE_KEYS.SECURITY] },
-      //         { title: 'Approvals', path: main_app_routes.app.security.approvals, modules: [MODULE_KEYS.SECURITY] },
-
-      //     ],
-      // },
     ],
   },
   {
@@ -276,41 +203,41 @@ export const appNavbarMenuData: INavbarMenu[] = [
             path: main_app_routes.app.security.roleGroups,
             modules: [MODULE_KEYS.ROLE_GROUP],
           },
-          {
-            title: 'Approvals',
-            path: main_app_routes.app.security.approvals,
-            modules: [MODULE_KEYS.SECURITY],
-          },
+          // {
+          //   title: 'Approvals',
+          //   path: main_app_routes.app.security.approvals,
+          //   modules: [MODULE_KEYS.SECURITY],
+          // },
         ],
       },
-      {
-        title: 'Settings',
-        path: main_app_routes.app.settings.root,
-        icon: ICONS.course,
-        modules: [
-          MODULE_KEYS.SETTING_CUSTOMER_AUTOMATION,
-          MODULE_KEYS.SETTING_TEMPLATE,
-          MODULE_KEYS.SETTING_AUTOMATION,
-        ],
-        children: [
-          {
-            title: 'Customer Management',
-            path: main_app_routes.app.settings.customerManagement,
-            modules: [MODULE_KEYS.SETTING_CUSTOMER_AUTOMATION],
-          },
-          // { title: 'Documents', path: main_app_routes.app.leads.docucments, modules: [MODULE_KEYS.LEADS] },
-          {
-            title: 'Automation',
-            path: main_app_routes.app.settings.automation,
-            modules: [MODULE_KEYS.SETTING_AUTOMATION],
-          },
-          {
-            title: 'Templates',
-            path: main_app_routes.app.settings.templates,
-            modules: [MODULE_KEYS.SETTING_CUSTOMER_AUTOMATION],
-          },
-        ],
-      },
+      // {
+      //   title: 'Settings',
+      //   path: main_app_routes.app.settings.root,
+      //   icon: ICONS.course,
+      //   modules: [
+      //     MODULE_KEYS.SETTING_CUSTOMER_AUTOMATION,
+      //     MODULE_KEYS.SETTING_TEMPLATE,
+      //     MODULE_KEYS.SETTING_AUTOMATION,
+      //   ],
+      //   children: [
+      //     {
+      //       title: 'Customer Management',
+      //       path: main_app_routes.app.settings.customerManagement,
+      //       modules: [MODULE_KEYS.SETTING_CUSTOMER_AUTOMATION],
+      //     },
+
+      //     {
+      //       title: 'Automation',
+      //       path: main_app_routes.app.settings.automation,
+      //       modules: [MODULE_KEYS.SETTING_AUTOMATION],
+      //     },
+      //     {
+      //       title: 'Templates',
+      //       path: main_app_routes.app.settings.templates,
+      //       modules: [MODULE_KEYS.SETTING_CUSTOMER_AUTOMATION],
+      //     },
+      //   ],
+      // },
     ],
   },
   {

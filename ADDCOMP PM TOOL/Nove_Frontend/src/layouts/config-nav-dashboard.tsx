@@ -39,25 +39,23 @@ const ICONS = {
   dashboard: icon('ic-dashboard'),
   parameter: icon('ic-parameter'),
   company: icon('ic:company'),
-  security: icon('solar:folder-security-bold')
+  security: icon('solar:folder-security-bold'),
 };
 
 // ----------------------------------------------------------------------
 
-
 export interface INavbarMenu {
-  subheader: string,
-  items: INavbarMenuItem[],
+  subheader: string;
+  items: INavbarMenuItem[];
 }
 
 export interface INavbarMenuItem {
-  title: string,
-  path: string,
-  icon?: React.ReactNode,
-  modules: string[],
-  allowFullAccess?: boolean,
-  children?: INavbarMenuItem[],
-
+  title: string;
+  path: string;
+  icon?: React.ReactNode;
+  modules: string[];
+  allowFullAccess?: boolean;
+  children?: INavbarMenuItem[];
 }
 
 export const dashboardNavMenuData: INavbarMenu[] = [
@@ -67,7 +65,13 @@ export const dashboardNavMenuData: INavbarMenu[] = [
   {
     subheader: 'Overview',
     items: [
-      { title: 'App', path: paths.dashboard.root, icon: ICONS.dashboard, allowFullAccess: true, modules: [] },
+      {
+        title: 'App',
+        path: paths.dashboard.root,
+        icon: ICONS.dashboard,
+        allowFullAccess: true,
+        modules: [],
+      },
       // { title: 'Ecommerce', path: paths.dashboard.general.ecommerce, icon: ICONS.ecommerce },
       // { title: 'Analytics', path: paths.dashboard.general.analytics, icon: ICONS.analytics },
       // { title: 'Banking', path: paths.dashboard.general.banking, icon: ICONS.banking },
@@ -92,9 +96,24 @@ export const dashboardNavMenuData: INavbarMenu[] = [
         allowFullAccess: true,
         modules: [MODULE_KEYS.NOC_CODES, MODULE_KEYS.CRS_DRAWS, MODULE_KEYS.STUDY_PROGRAM],
         children: [
-          { title: 'CRS Draws', path: paths.dashboard.programs.crsDraws, allowFullAccess: true, modules: [MODULE_KEYS.CRS_DRAWS] },
-          { title: 'NOC Codes', path: paths.dashboard.programs.nocCodes, allowFullAccess: true, modules: [MODULE_KEYS.NOC_CODES] },
-          { title: 'Study Program', path: paths.dashboard.programs.studyProgram, allowFullAccess: true, modules: [MODULE_KEYS.STUDY_PROGRAM] },
+          {
+            title: 'CRS Draws',
+            path: paths.dashboard.programs.crsDraws,
+            allowFullAccess: true,
+            modules: [MODULE_KEYS.CRS_DRAWS],
+          },
+          {
+            title: 'NOC Codes',
+            path: paths.dashboard.programs.nocCodes,
+            allowFullAccess: true,
+            modules: [MODULE_KEYS.NOC_CODES],
+          },
+          {
+            title: 'Study Program',
+            path: paths.dashboard.programs.studyProgram,
+            allowFullAccess: true,
+            modules: [MODULE_KEYS.STUDY_PROGRAM],
+          },
         ],
       },
     ],
@@ -109,19 +128,19 @@ export const dashboardNavMenuData: INavbarMenu[] = [
         title: 'Company',
         path: paths.dashboard.general.company,
         icon: ICONS.banking,
-        modules: [MODULE_KEYS.COMPANY_INFORMATION]
+        modules: [MODULE_KEYS.COMPANY_INFORMATION],
       },
       {
         title: 'Users',
         path: paths.dashboard.users,
         icon: ICONS.user,
-        modules: [MODULE_KEYS.USERS]
+        modules: [MODULE_KEYS.USERS],
       },
       {
         title: 'Customers',
         path: paths.dashboard.customers,
         icon: ICONS.product,
-        modules: [MODULE_KEYS.CUSTOMERS]
+        modules: [MODULE_KEYS.CUSTOMERS],
       },
       {
         title: 'Security',
@@ -129,10 +148,21 @@ export const dashboardNavMenuData: INavbarMenu[] = [
         icon: ICONS.lock,
         modules: [MODULE_KEYS.SECURITY],
         children: [
-          { title: 'Security', path: paths.dashboard.security.securityGroups, modules: [MODULE_KEYS.SECURITY] },
-          { title: 'Role Groups', path: paths.dashboard.security.roleGroups, modules: [MODULE_KEYS.SECURITY] },
-          { title: 'Approvals', path: paths.dashboard.security.approvals, modules: [MODULE_KEYS.SECURITY] },
-
+          {
+            title: 'Security',
+            path: paths.dashboard.security.securityGroups,
+            modules: [MODULE_KEYS.SECURITY],
+          },
+          {
+            title: 'Role Groups',
+            path: paths.dashboard.security.roleGroups,
+            modules: [MODULE_KEYS.SECURITY],
+          },
+          {
+            title: 'Approvals',
+            path: paths.dashboard.security.approvals,
+            modules: [MODULE_KEYS.SECURITY],
+          },
         ],
       },
       // {

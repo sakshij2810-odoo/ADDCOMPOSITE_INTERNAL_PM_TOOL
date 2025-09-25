@@ -81,11 +81,11 @@ app.get(
       currentRecords: 1,
       data: [
         {
-          company_name: "Nova World Immigration Services Incorporated",
+          company_name: "Addcomposites oy",
           preview_logo:
-            "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/logoNova_Worlds_Private_Limited2025-01-29_05-06-32.png",
+            "https://cdn.prod.website-files.com/65d8589d1d07ae7c06b4b253/65dc150bf8f7695a87422fa3_hdr-logo.png",
           preview_fav_icon:
-            "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/nova_app_logoNova_Worlds_Private_Limited2025-01-29_04-36-50.png",
+            "https://cdn.prod.website-files.com/65d8589d1d07ae7c06b4b253/65dc150bf8f7695a87422fa3_hdr-logo.png",
           company_title: null,
           company_description: null,
           adsense_header_code: null,
@@ -105,13 +105,14 @@ app.get("/api/v1/companyInformation/get-company-information", (req, res) => {
     currentRecords: 1,
     data: [
       {
-        company_name: "Nova World Immigration Services Incorporated",
+        company_name: "Addcomposites oy",
         preview_logo:
-          "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/logoNova_Worlds_Private_Limited2025-01-29_05-06-32.png",
+          "https://cdn.prod.website-files.com/65d8589d1d07ae7c06b4b253/65dc150bf8f7695a87422fa3_hdr-logo.png",
         preview_fav_icon:
-          "https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/nova_app_logoNova_Worlds_Private_Limited2025-01-29_04-36-50.png",
-        company_title: "Leading Immigration Services",
-        company_description: "Professional immigration consulting services",
+          "https://cdn.prod.website-files.com/65d8589d1d07ae7c06b4b253/65dc150bf8f7695a87422fa3_hdr-logo.png",
+        company_title: "Leading Composites Services",
+        company_description:
+          "Additive Manufacturing for Lightweight Structural Components",
         adsense_header_code: null,
         created_at: "2025-01-29T05:06:32.000Z",
         updated_at: "2025-01-29T05:06:32.000Z",
@@ -248,6 +249,84 @@ app.post(
     });
   }
 );
+
+// Get Record Counts
+app.get("/api/v1/general/get-record-counts", (req, res) => {
+  console.log("📊 Get record counts request received");
+  console.log("📊 Query params:", req.query);
+
+  const { table_name } = req.query;
+
+  if (!table_name) {
+    return res.status(400).json({
+      success: false,
+      error: {
+        code: "MISSING_REQUIRED_FIELD",
+        message: "table_name parameter is required",
+      },
+    });
+  }
+
+  // Mock record counts based on table name - return array format expected by frontend
+  let recordCounts = [];
+  let totalRecords = 0;
+
+  switch (table_name) {
+    case "latest_crs_draws":
+      recordCounts = [
+        { status: "ACTIVE", count: 0 },
+        { status: "DEAD", count: 0 },
+        { status: "OPPORTUNITY", count: 0 },
+      ];
+      totalRecords = 0;
+      break;
+    case "users":
+      recordCounts = [
+        { status: "ACTIVE", count: 8 },
+        { status: "INACTIVE", count: 0 },
+        { status: "PENDING", count: 0 },
+      ];
+      totalRecords = 8;
+      break;
+    case "task_module_wise":
+      recordCounts = [
+        { status: "ACTIVE", count: 4 },
+        { status: "PENDING", count: 0 },
+        { status: "COMPLETED", count: 0 },
+      ];
+      totalRecords = 4;
+      break;
+    case "projects":
+      recordCounts = [
+        { status: "ACTIVE", count: 0 },
+        { status: "COMPLETED", count: 0 },
+        { status: "CANCELLED", count: 0 },
+      ];
+      totalRecords = 0;
+      break;
+    case "leads":
+      recordCounts = [
+        { status: "ACTIVE", count: 0 },
+        { status: "CONVERTED", count: 0 },
+        { status: "LOST", count: 0 },
+      ];
+      totalRecords = 0;
+      break;
+    default:
+      recordCounts = [
+        { status: "ACTIVE", count: 0 },
+        { status: "INACTIVE", count: 0 },
+      ];
+      totalRecords = 0;
+  }
+
+  res.json({
+    success: true,
+    message: `Record counts for ${table_name} retrieved successfully`,
+    totalRecords: totalRecords,
+    data: recordCounts,
+  });
+});
 
 // 404 handler
 app.use("*", (req, res) => {

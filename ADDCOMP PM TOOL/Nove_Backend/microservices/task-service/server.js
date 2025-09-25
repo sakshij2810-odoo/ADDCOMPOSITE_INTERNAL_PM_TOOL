@@ -96,34 +96,6 @@ const mockTasks = [
   },
 ];
 
-// Mock daily tasks data
-const mockDailyTasks = [
-  {
-    id: "daily-task-1",
-    userId: "user-1",
-    taskId: "task-1",
-    date: new Date().toISOString(),
-    status: "IN_PROGRESS",
-    timeSpentPercentage: 25.5,
-    notes: "Working on JWT implementation",
-    startedAt: new Date().toISOString(),
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    task: mockTasks[0],
-  },
-  {
-    id: "daily-task-2",
-    userId: "user-4",
-    taskId: "task-2",
-    date: new Date().toISOString(),
-    status: "PENDING",
-    timeSpentPercentage: 0,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    task: mockTasks[1],
-  },
-];
-
 // Task routes
 app.get("/api/v1/tasks", (req, res) => {
   const { page = 1, limit = 10, projectId, assignedTo, status } = req.query;

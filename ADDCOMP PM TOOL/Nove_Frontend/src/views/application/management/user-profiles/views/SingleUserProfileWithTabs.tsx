@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { main_app_routes } from 'src/routes/paths';
@@ -23,6 +24,11 @@ import { AccountChangePassword } from 'src/sections/account/account-change-passw
 
 const SingleUserProfileWithTabs = () => {
   // const tabs = useTabs('general');
+  const params = useParams();
+
+  console.log('🔍 [FRONTEND] SingleUserProfileWithTabs component loaded');
+  console.log('🔍 [FRONTEND] URL params:', params);
+  console.log('🔍 [FRONTEND] Current location:', window.location.href);
 
   return (
     <DashboardContent>

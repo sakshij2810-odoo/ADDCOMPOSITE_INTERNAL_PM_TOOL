@@ -338,6 +338,41 @@ CREATE TABLE leads (
 );
 
 -- =============================================
+-- TASK MODULE TABLES
+-- =============================================
+
+-- Task module wise table
+CREATE TABLE task_module_wise (
+    task_module_wise_id SERIAL PRIMARY KEY,
+    task_module_wise_uuid UUID DEFAULT uuid_generate_v4() UNIQUE NOT NULL,
+    task_module_wise_code VARCHAR(50) UNIQUE NOT NULL,
+    module_name VARCHAR(255) NOT NULL,
+    sub_module_name VARCHAR(255) NOT NULL,
+    module_reference_column VARCHAR(255),
+    module_reference_code_or_id VARCHAR(255),
+    task_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    task_completed_date TIMESTAMP,
+    task_priority VARCHAR(50),
+    assigned_to_uuid UUID REFERENCES users(user_uuid),
+    assigned_to_name VARCHAR(255),
+    created_by_uuid UUID REFERENCES users(user_uuid),
+    created_by_name VARCHAR(255),
+    modified_by_uuid UUID REFERENCES users(user_uuid),
+    modified_by_name VARCHAR(255),
+    task_type VARCHAR(100) NOT NULL,
+    status VARCHAR(50) DEFAULT 'ACTIVE',
+    file_upload JSONB,
+    date_created VARCHAR(50),
+    due_date VARCHAR(50),
+    due_time VARCHAR(50),
+    date_completed VARCHAR(50),
+    time_completed VARCHAR(50),
+    create_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    insert_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =============================================
 -- ANALYTICS TABLES
 -- =============================================
 
@@ -375,6 +410,14 @@ CREATE INDEX idx_leads_created_ts ON leads(create_ts);
 CREATE INDEX idx_analytics_metric_name ON analytics_data(metric_name);
 CREATE INDEX idx_analytics_date_range ON analytics_data(date_from, date_to);
 
+-- Task module indexes
+CREATE INDEX idx_task_module_wise_uuid ON task_module_wise(task_module_wise_uuid);
+CREATE INDEX idx_task_module_wise_code ON task_module_wise(task_module_wise_code);
+CREATE INDEX idx_task_module_wise_assigned_to ON task_module_wise(assigned_to_uuid);
+CREATE INDEX idx_task_module_wise_status ON task_module_wise(status);
+CREATE INDEX idx_task_module_wise_module_name ON task_module_wise(module_name);
+CREATE INDEX idx_task_module_wise_created_ts ON task_module_wise(create_ts);
+
 -- =============================================
 -- SAMPLE DATA INSERTION
 -- =============================================
@@ -387,16 +430,16 @@ INSERT INTO user_roles (role_value, role_name, description, created_by_name) VAL
 
 -- Insert sample company information
 INSERT INTO company_information (company_name, preview_logo, preview_fav_icon, company_title, company_description) VALUES
-('Nova World Immigration Services Incorporated', 
- 'https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/logoNova_Worlds_Private_Limited2025-01-29_05-06-32.png',
- 'https://nova-app-test.s3.ca-central-1.amazonaws.com/company_information/Nova_Worlds_Private_Limited/nova_app_logoNova_Worlds_Private_Limited2025-01-29_04-36-50.png',
- 'Leading Immigration Services',
- 'Professional immigration consulting services');
+('Addcomposites oy', 
+ 'https://cdn.prod.website-files.com/65d8589d1d07ae7c06b4b253/65dc150bf8f7695a87422fa3_hdr-logo.png',
+ 'https://cdn.prod.website-files.com/65d8589d1d07ae7c06b4b253/65dc150bf8f7695a87422fa3_hdr-logo.png',
+ 'Leading Composites Services',
+ 'Additive Manufacturing for Lightweight Structural Components');
 
 -- Insert sample environment configuration
 INSERT INTO environment_configuration (environment, api_base_url, frontend_url, cors_origin) VALUES
 ('development', 'http://localhost:3001', 'http://localhost:8005', 'http://localhost:8005'),
-('production', 'https://api.novaworldgroup.ca', 'https://app.novaworldgroup.ca', 'https://app.novaworldgroup.ca');
+('production', '', '', '');
 
 -- Insert sample analytics data
 INSERT INTO analytics_data (metric_name, metric_value, growth_percentage, date_from, date_to) VALUES

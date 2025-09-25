@@ -13,6 +13,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { useParams, useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
+import { paths } from 'src/routes/paths';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -89,7 +90,7 @@ export function JwtSignInView() {
       <Box gap={1.5} display="flex" flexDirection="column">
         <Link
           component={RouterLink}
-          href="#"
+          href={paths.auth.jwt.forgotPassword}
           variant="body2"
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}
@@ -126,6 +127,12 @@ export function JwtSignInView() {
       >
         Sign in
       </LoadingButton>
+
+      <Box sx={{ textAlign: 'center' }}>
+        <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="body2" color="inherit">
+          Don't have an account? Sign up
+        </Link>
+      </Box>
     </Box>
   );
 

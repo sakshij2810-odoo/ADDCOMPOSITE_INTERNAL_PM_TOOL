@@ -14,3 +14,4 @@ export * from './data-management';
 export * from './messages';
 export * from './templates';
 export * from './tasks';
+export * from './projects';

@@ -26,7 +26,7 @@ import { IUserProfileState } from './child-reducers/user-profile';
 import { IBranchState } from './child-reducers/data-management';
 import { IAutomationState } from './child-reducers/settings/automation/automation.types';
 import { ICommonState } from './child-reducers/common';
-import { ITaskActivityState } from './child-reducers';
+import { ITaskActivityState, IProjectActivityState } from './child-reducers';
 
 export interface ISearchQueryParams {
   status?: string;
@@ -97,6 +97,9 @@ export interface IStoreState {
   };
   tasks: {
     taskActivities: ITaskActivityState;
+  };
+  projects: {
+    projectActivities: IProjectActivityState;
   };
 }
 

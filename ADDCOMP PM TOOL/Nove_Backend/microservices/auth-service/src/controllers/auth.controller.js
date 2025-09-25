@@ -38,7 +38,7 @@ const userVerification = async (req, res) => {
 
     // Verify the code (in a real implementation, you'd check against stored verification code)
     // For now, we'll just check if the user is active
-    if (!user.isActive) {
+    if (user.status !== "ACTIVE") {
       return res
         .status(400)
         .json(
@@ -54,18 +54,20 @@ const userVerification = async (req, res) => {
     const token = generateToken(user);
 
     // Update last login
-    await updateLastLogin(user.id);
+    await updateLastLogin(user.user_uuid);
 
     logger.info(`User verified successfully: ${user.email}`);
 
     res.json(
       createApiResponse(true, {
         user: {
-          id: user.id,
+          id: user.user_uuid,
           email: user.email,
-          name: user.name,
-          role: user.role,
-          isActive: user.isActive,
+          name: user.full_name || `${user.first_name} ${user.last_name}`,
+          role: user.role_value,
+          isActive: user.status === "ACTIVE",
+          department: user.department,
+          branch: user.branch_name,
         },
         token,
       })
@@ -104,14 +106,14 @@ const login = async (req, res) => {
         if (!user) {
           // Create new user
           user = await createUser({
-            googleId: payload.sub,
             email: payload.email,
-            name: payload.name,
-            firstName: payload.given_name,
-            lastName: payload.family_name,
-            avatarUrl: payload.picture,
-            role: UserRole.EMPLOYEE,
-            isActive: true,
+            password_hash: "google_oauth_user", // Placeholder for Google OAuth users
+            first_name: payload.given_name,
+            last_name: payload.family_name,
+            full_name: payload.name,
+            role_value: "EMPLOYEE",
+            status: "ACTIVE",
+            created_by_name: "Google OAuth",
           });
         }
       } catch (error) {
@@ -145,9 +147,27 @@ const login = async (req, res) => {
           );
       }
 
-      // In a real implementation, you'd verify the password hash
-      // For now, we'll just check if the user exists and is active
-      if (!user.isActive) {
+      // Verify password hash
+      const { comparePassword } = require("../services/auth.service");
+      const isValidPassword = await comparePassword(
+        password,
+        user.password_hash
+      );
+
+      if (!isValidPassword) {
+        return res
+          .status(401)
+          .json(
+            createApiResponse(
+              false,
+              null,
+              createApiError("INVALID_CREDENTIALS", "Invalid email or password")
+            )
+          );
+      }
+
+      // Check if user is active
+      if (user.status !== "ACTIVE") {
         return res
           .status(401)
           .json(
@@ -189,19 +209,20 @@ const login = async (req, res) => {
     const token = generateToken(user);
 
     // Update last login
-    await updateLastLogin(user.id);
+    await updateLastLogin(user.user_uuid);
 
     logger.info(`User logged in successfully: ${user.email}`);
 
     res.json(
       createApiResponse(true, {
         user: {
-          id: user.id,
+          id: user.user_uuid,
           email: user.email,
-          name: user.name,
-          role: user.role,
-          isActive: user.isActive,
-          avatarUrl: user.avatarUrl,
+          name: user.full_name || `${user.first_name} ${user.last_name}`,
+          role: user.role_value,
+          isActive: user.status === "ACTIVE",
+          department: user.department,
+          branch: user.branch_name,
         },
         token,
       })

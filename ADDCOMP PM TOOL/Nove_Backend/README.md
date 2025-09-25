@@ -34,7 +34,7 @@ Nove_Backend/
 
 - **Human Resource Optimization**: AI-powered daily task generation (max 3 tasks per day)
 - **Google Ecosystem Integration**: Drive, Calendar, Chat, Meet
-- **Nova World Group API Integration**: Seamless integration with existing systems
+- **Addcomposites oy API Integration**: Seamless integration with existing systems
 - **Microservices Architecture**: Scalable, maintainable, and fault-tolerant
 - **Real-time Updates**: WebSocket-based notifications
 - **Time Tracking**: Percentage-based time tracking for profitability analysis
@@ -47,7 +47,7 @@ Nove_Backend/
 - **API Gateway**: Kong
 - **Service Discovery**: Consul
 - **Message Queue**: Redis Pub/Sub
-- **Authentication**: Google OAuth 2.0 + Nova World Group Auth
+- **Authentication**: Google OAuth 2.0 + Addcomposites oy Auth
 - **Containerization**: Docker + Kubernetes
 - **Cloud**: Google Cloud Platform
 

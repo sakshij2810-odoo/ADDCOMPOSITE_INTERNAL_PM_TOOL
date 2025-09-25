@@ -58,13 +58,14 @@ export const server_base_endpoints = {
     download_files: '/general/download-files',
     get_country_state: '/general/get-country-state',
     get_table_or_column_name: '/general/get-table-or-column-name',
-    get_process: "/general/get-process"
+    get_process: '/general/get-process',
   },
   auth: {
     sign_in: '/authentication/login',
-    sign_up: '/authentication/sign-up',
+    sign_up: '/authentication/signup',
     validate_otp: '/authentication/validate-otp-get-token',
-    forget_password: '/authentication/forget-password',
+    forget_password: '/authentication/forgot-password',
+    reset_password: '/authentication/reset-password',
   },
   users: {
     get_users: '/user/get-user',
@@ -87,9 +88,9 @@ export const server_base_endpoints = {
       generate_signed_document: '/lead/generate-signed-document',
       get_retainer_agreement: '/lead/get-retainer',
       upsert_retainer_agreement: '/lead/retainer',
-      regenerate_ai_report_summary: "/lead/fetch-graphs-from-lead-data",
-      get_ai_report_summary: "/lead/get-lead-graph-data",
-      extract_lead_with_genai: "/lead/extract-lead-with-genai",
+      regenerate_ai_report_summary: '/lead/fetch-graphs-from-lead-data',
+      get_ai_report_summary: '/lead/get-lead-graph-data',
+      extract_lead_with_genai: '/lead/extract-lead-with-genai',
     },
     crs_draws: {
       upsert_crs_draws: '/lead/edit-crs_draws',
@@ -115,10 +116,11 @@ export const server_base_endpoints = {
     company: {
       upsert_company_private_info: '/companyInformation/upsert-company-information',
       get_company_private_info: '/companyInformation/get-company-information',
+      get_public_company_information: '/companyInformation/get-public-company-information',
     },
   },
   security: {
-    get_roles: '/security/get-roles',
+    get_roles: '/security/get-user-roles',
     upsert_roles: '/security/upsert-roles',
     get_role_groups: '/security/get-role-group',
     upsert_role_group: '/security/upsert-role-group',
@@ -173,6 +175,10 @@ export const server_base_endpoints = {
   tasks: {
     upsert_task_module_wise: '/tasks/create-task-module-wise',
     get_task_module_wise: '/tasks/get-task-module-wise',
+  },
+  projects: {
+    upsert_project: '/project',
+    get_projects: '/project',
   },
   template: {
     get_templates: '/template/get-templates',

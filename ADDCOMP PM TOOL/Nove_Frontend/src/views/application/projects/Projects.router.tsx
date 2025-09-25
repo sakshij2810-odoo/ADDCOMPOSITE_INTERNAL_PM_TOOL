@@ -4,18 +4,13 @@ import { ComingSoonView } from 'src/components/coming-soon';
 // ----------------------------------------------------------------------
 
 const ProjectsListView = lazy(() => import('./ProjectsListView'));
-const ProjectCreateView = lazy(() => import('./ProjectCreateView'));
-const ProjectDetailView = lazy(() => import('./ProjectDetailView'));
-const ProjectEditView = lazy(() => import('./ProjectEditView'));
 
 export const projectsRoutes = [
   {
     path: 'projects',
     children: [
       { element: <ProjectsListView />, index: true },
-      { path: 'create', element: <ProjectCreateView /> },
-      { path: ':id', element: <ProjectDetailView /> },
-      { path: ':id/edit', element: <ProjectEditView /> },
+
       {
         path: ':id/tasks',
         element: (
