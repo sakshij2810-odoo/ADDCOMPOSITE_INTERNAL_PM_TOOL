@@ -1,0 +1,469 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Daily Task Service API",
+    "version": "1.0.0",
+    "description": "API documentation for daily task management service"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3004/api/v1/daily-tasks",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["Daily Tasks"],
+        "summary": "Get all daily tasks",
+        "description": "Get daily tasks for a user with filtering and pagination",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "default": 1 },
+            "description": "Page number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            },
+            "description": "Number of items per page"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" },
+            "description": "Filter by specific date"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["PENDING", "IN_PROGRESS", "COMPLETED"]
+            },
+            "description": "Filter by task status"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Filter by project ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily tasks retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "dailyTasks": {
+                          "type": "array",
+                          "items": { "$ref": "#/components/schemas/DailyTask" }
+                        },
+                        "pagination": {
+                          "$ref": "#/components/schemas/Pagination"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - User ID not provided"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Daily Tasks"],
+        "summary": "Create a new daily task",
+        "description": "Create a new daily task for a user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDailyTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Daily task created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "dailyTask": {
+                          "$ref": "#/components/schemas/DailyTask"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid input data"
+          },
+          "401": {
+            "description": "Unauthorized - User ID not provided"
+          },
+          "404": {
+            "description": "Task not found or not assigned to user"
+          },
+          "409": {
+            "description": "Daily task already exists for this date"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "get": {
+        "tags": ["Daily Tasks"],
+        "summary": "Get daily task by ID",
+        "description": "Get a specific daily task by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Daily task ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily task retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "dailyTask": {
+                          "$ref": "#/components/schemas/DailyTask"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - User ID not provided"
+          },
+          "404": {
+            "description": "Daily task not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Daily Tasks"],
+        "summary": "Update daily task",
+        "description": "Update an existing daily task",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Daily task ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDailyTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Daily task updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "dailyTask": {
+                          "$ref": "#/components/schemas/DailyTask"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid input data"
+          },
+          "401": {
+            "description": "Unauthorized - User ID not provided"
+          },
+          "404": {
+            "description": "Daily task not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Daily Tasks"],
+        "summary": "Delete daily task",
+        "description": "Delete a daily task",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Daily task ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily task deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - User ID not provided"
+          },
+          "404": {
+            "description": "Daily task not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/{id}/start": {
+      "post": {
+        "tags": ["Daily Tasks"],
+        "summary": "Start daily task",
+        "description": "Start working on a daily task",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Daily task ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily task started successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - User ID not provided"
+          },
+          "404": {
+            "description": "Daily task not found or already started"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/{id}/complete": {
+      "post": {
+        "tags": ["Daily Tasks"],
+        "summary": "Complete daily task",
+        "description": "Mark a daily task as completed",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Daily task ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily task completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - User ID not provided"
+          },
+          "404": {
+            "description": "Daily task not found or not in progress"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DailyTask": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "userId": { "type": "string" },
+          "taskId": { "type": "string" },
+          "date": { "type": "string", "format": "date-time" },
+          "notes": { "type": "string" },
+          "timeSpent": { "type": "number" },
+          "status": {
+            "type": "string",
+            "enum": ["PENDING", "IN_PROGRESS", "COMPLETED"]
+          },
+          "startedAt": { "type": "string", "format": "date-time" },
+          "completedAt": { "type": "string", "format": "date-time" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "task": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "status": { "type": "string" },
+              "priority": { "type": "string" },
+              "taskType": { "type": "string" },
+              "dueDate": { "type": "string", "format": "date-time" },
+              "project": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "status": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateDailyTaskRequest": {
+        "type": "object",
+        "required": ["taskId", "date"],
+        "properties": {
+          "taskId": { "type": "string" },
+          "date": { "type": "string", "format": "date-time" },
+          "notes": { "type": "string" },
+          "timeSpent": { "type": "number", "minimum": 0 },
+          "status": {
+            "type": "string",
+            "enum": ["PENDING", "IN_PROGRESS", "COMPLETED"]
+          }
+        }
+      },
+      "UpdateDailyTaskRequest": {
+        "type": "object",
+        "properties": {
+          "notes": { "type": "string" },
+          "timeSpent": { "type": "number", "minimum": 0 },
+          "status": {
+            "type": "string",
+            "enum": ["PENDING", "IN_PROGRESS", "COMPLETED"]
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "page": { "type": "integer" },
+          "limit": { "type": "integer" },
+          "total": { "type": "integer" },
+          "totalPages": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

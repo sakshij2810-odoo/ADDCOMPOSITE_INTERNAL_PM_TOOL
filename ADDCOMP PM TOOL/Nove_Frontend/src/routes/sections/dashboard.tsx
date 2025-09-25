@@ -72,6 +72,8 @@ const PermissionDeniedPage = lazy(() => import('src/pages/dashboard/permission')
 // Blank page
 const ParamsPage = lazy(() => import('src/pages/dashboard/params'));
 const BlankPage = lazy(() => import('src/pages/dashboard/blank'));
+// Task Management
+const TaskManagementPage = lazy(() => import('src/pages/task/task-management'));
 
 // ----------------------------------------------------------------------
 
@@ -179,6 +181,8 @@ export const dashboardRoutes = [
       { path: 'permission', element: <PermissionDeniedPage /> },
       { path: 'params', element: <ParamsPage /> },
       { path: 'blank', element: <BlankPage /> },
+      // Task Management
+      { path: 'tasks/management', element: <TaskManagementPage /> },
     ],
   },
 ];

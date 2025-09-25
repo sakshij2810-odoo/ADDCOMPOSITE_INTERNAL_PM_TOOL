@@ -10,165 +10,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model DailyTask {
-  id                    String          @id @default(uuid())
-  userId                String
-  taskId                String
-  date                  DateTime
-  status                DailyTaskStatus @default(PENDING)
-  timeSpentPercentage   Float           @default(0)
-  notes                 String?
-  startedAt             DateTime?
-  completedAt           DateTime?
-  createdAt             DateTime        @default(now())
-  updatedAt             DateTime        @updatedAt
+model TaskModuleWise {
+  task_module_wise_id            Int       @id @default(autoincrement())
+  task_module_wise_uuid          String    @unique @default(uuid())
+  task_module_wise_code          String    @unique
+  module_name                    String
+  sub_module_name                String
+  module_reference_column        String?
+  module_reference_code_or_id    String?
+  task_name                      String
+  description                    String?
+  task_completed_date            DateTime?
+  task_priority                  String?
+  assigned_to_uuid               String?
+  assigned_to_name               String?
+  created_by_uuid                String?
+  created_by_name                String?
+  modified_by_uuid               String?
+  modified_by_name               String?
+  task_type                      String
+  status                         String    @default("ACTIVE")
+  file_upload                    Json?
+  date_created                   String?
+  due_date                       String?
+  due_time                       String?
+  date_completed                 String?
+  time_completed                 String?
+  create_ts                      DateTime  @default(now())
+  insert_ts                      DateTime  @default(now())
 
-  // Relations
-  user                  User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  task                  Task            @relation(fields: [taskId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, taskId, date])
-  @@map("daily_tasks")
-}
-
-model Task {
-  id           String     @id @default(uuid())
-  projectId    String
-  parentTaskId String?
-  assignedTo   String?
-  title        String
-  description  String?
-  status       TaskStatus @default(TODO)
-  priority     Priority   @default(MEDIUM)
-  taskType     TaskType
-  estimatedDays Int?
-  actualDays   Int?
-  dueDate      DateTime?
-  completedAt  DateTime?
-  startedAt    DateTime?
-  tags         String[]
-  metadata     Json?
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  createdBy    String?
-  updatedBy    String?
-
-  // Relations
-  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  parentTask   Task?      @relation("TaskHierarchy", fields: [parentTaskId], references: [id])
-  subtasks     Task[]     @relation("TaskHierarchy")
-  assignedUser User?      @relation(fields: [assignedTo], references: [id])
-  dailyTasks   DailyTask[]
-
-  @@map("tasks")
-}
-
-model Project {
-  id                  String        @id @default(uuid())
-  name                String
-  description         String?
-  status              ProjectStatus @default(PLANNING)
-  priority            Priority      @default(MEDIUM)
-  projectType         ProjectType
-  startDate           DateTime?
-  endDate             DateTime?
-  estimatedDays       Int?
-  actualDays          Int?
-  budget              Float?
-  actualCost          Float?
-  projectManagerId    String?
-  clientId            String?
-  googleDriveFolderId String?
-  googleCalendarId    String?
-  googleChatSpaceId   String?
-  tags                String[]
-  metadata            Json?
-  createdAt           DateTime      @default(now())
-  updatedAt           DateTime      @updatedAt
-  createdBy           String?
-  updatedBy           String?
-
-  // Relations
-  tasks               Task[]
-
-  @@map("projects")
-}
-
-model User {
-  id           String    @id @default(uuid())
-  googleId     String    @unique
-  email        String    @unique
-  name         String
-  firstName    String?
-  lastName     String?
-  avatarUrl    String?
-  role         UserRole  @default(EMPLOYEE)
-  department   String?
-  position     String?
-  phone        String?
-  isActive     Boolean   @default(true)
-  lastLoginAt  DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  createdBy    String?
-  updatedBy    String?
-
-  // Relations
-  dailyTasks   DailyTask[]
-  assignedTasks Task[]
-
-  @@map("users")
-}
-
-enum DailyTaskStatus {
-  PENDING
-  IN_PROGRESS
-  COMPLETED
-  SKIPPED
-}
-
-enum TaskStatus {
-  TODO
-  IN_PROGRESS
-  COMPLETED
-  BLOCKED
-  CANCELLED
-}
-
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  CRITICAL
-}
-
-enum TaskType {
-  DEVELOPMENT
-  DESIGN
-  TESTING
-  DOCUMENTATION
-  MEETING
-  OTHER
-}
-
-enum ProjectStatus {
-  PLANNING
-  ACTIVE
-  ON_HOLD
-  COMPLETED
-  CANCELLED
-  ARCHIVED
-}
-
-enum ProjectType {
-  CLIENT
-  INTERNAL
-  RND
-  MAINTENANCE
-}
-
-enum UserRole {
-  EMPLOYEE
-  PROJECT_MANAGER
-  ADMIN
+  @@map("task_module_wise")
 }

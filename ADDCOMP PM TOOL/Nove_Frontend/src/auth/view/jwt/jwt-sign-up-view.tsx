@@ -39,6 +39,8 @@ export const SignUpSchema = zod.object({
     .string()
     .min(1, { message: 'Password is required!' })
     .min(6, { message: 'Password must be at least 6 characters!' }),
+  department: zod.string().optional(),
+  mobile: zod.string().optional(),
 });
 
 // ----------------------------------------------------------------------
@@ -53,10 +55,12 @@ export function JwtSignUpView() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const defaultValues = {
-    firstName: 'Hello',
-    lastName: 'Friend',
-    email: 'hello@gmail.com',
-    password: '@demo1',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    department: '',
+    mobile: '',
   };
 
   const methods = useForm<SignUpSchemaType>({
@@ -76,9 +80,13 @@ export function JwtSignUpView() {
         password: data.password,
         firstName: data.firstName,
         lastName: data.lastName,
+        department: data.department,
+        mobile: data.mobile,
+        role: 'EMPLOYEE',
       });
       await checkUserSession?.();
 
+      router.push('/');
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -94,6 +102,11 @@ export function JwtSignUpView() {
       </Box>
 
       <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
+
+      <Box display="flex" gap={{ xs: 3, sm: 2 }} flexDirection={{ xs: 'column', sm: 'row' }}>
+        <Field.Text name="department" label="Department" InputLabelProps={{ shrink: true }} />
+        <Field.Text name="mobile" label="Mobile" InputLabelProps={{ shrink: true }} />
+      </Box>
 
       <Field.Text
         name="password"
@@ -134,7 +147,7 @@ export function JwtSignUpView() {
           <>
             {`Already have an account? `}
             <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
-              Get started
+              Sign in
             </Link>
           </>
         }

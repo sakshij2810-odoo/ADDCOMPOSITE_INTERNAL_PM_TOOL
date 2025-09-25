@@ -173,9 +173,9 @@ const config: Config = {
     ],
   },
 
-  // Nova World Group API
+  // Local API Gateway
   nova: {
-    baseUrl: process.env.NOVA_API_BASE_URL || "https://api.novaworldgroup.ca",
+    baseUrl: process.env.NOVA_API_BASE_URL || "http://localhost:3000",
     apiKey: process.env.NOVA_API_KEY || "",
     timeout: parseInt(process.env.NOVA_API_TIMEOUT || "10000", 10),
   },

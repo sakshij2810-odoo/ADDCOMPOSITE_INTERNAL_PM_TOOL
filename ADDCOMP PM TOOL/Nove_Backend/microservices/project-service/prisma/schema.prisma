@@ -12,6 +12,7 @@ datasource db {
 
 model Project {
   id                  String        @id @default(uuid())
+  project_uuid        String        @unique @default(uuid())
   name                String
   description         String?
   status              ProjectStatus @default(PLANNING)

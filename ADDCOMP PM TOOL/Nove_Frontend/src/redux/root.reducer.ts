@@ -14,6 +14,7 @@ import {
   loadingAndSnackbarReducer,
   messagesReducer,
   nocCodesReducer,
+  projectActivitiesReducer,
   questionnaireReducer,
   securityReducer,
   servicesReducer,
@@ -58,5 +59,8 @@ export const root_reducer = combineReducers({
   }),
   tasks: combineReducers({
     taskActivities: taskActivitiesReducer,
+  }),
+  projects: combineReducers({
+    projectActivities: projectActivitiesReducer,
   }),
 });

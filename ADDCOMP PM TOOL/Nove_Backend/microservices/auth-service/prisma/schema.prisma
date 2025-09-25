@@ -6,30 +6,97 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id           String    @id @default(uuid())
-  googleId     String    @unique
-  email        String    @unique
-  name         String
-  firstName    String?
-  lastName     String?
-  avatarUrl    String?
-  role         String    @default("EMPLOYEE")
-  department   String?
-  position     String?
-  phone        String?
-  isActive     Boolean   @default(true)
-  lastLoginAt  DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  createdBy    String?
-  updatedBy    String?
+  user_fact_id            Int       @id @default(autoincrement())
+  user_fact_unique_id     Int       @unique
+  user_uuid               String    @unique @default(uuid())
+  email                   String    @unique
+  password_hash           String
+  status                  String    @default("ACTIVE")
+  created_by_uuid         String?
+  created_by_name         String?
+  create_ts               DateTime  @default(now())
+  insert_ts               DateTime  @default(now())
+  user_dim_id             Int?
+  role_uuid               String?
+  role_value              String    @default("EMPLOYEE")
+  user_profile_id         Int?
+  first_name              String?
+  last_name               String?
+  full_name               String?
+  personal_email          String?
+  job_title               String?
+  user_type               String?
+  assigned_phone_number   String?
+  shared_email            String?
+  mobile                  String?
+  home_phone              String?
+  linkedin_profile        String?
+  hire_date               DateTime?
+  last_day_at_work        DateTime?
+  department              String?
+  fax                     String?
+  date_of_birth           DateTime?
+  mother_maiden_name      String?
+  photo                   String?
+  signature               String?
+  street_address          String?
+  unit_or_suite           String?
+  city                    String?
+  csr                     String?
+  csr_code                String?
+  marketer                String?
+  marketer_code           String?
+  producer_one            String?
+  producer_one_code       String?
+  producer_two            String?
+  producer_two_code       String?
+  producer_three          String?
+  producer_three_code     String?
+  branch_code             String?
+  province_or_state       String?
+  postal_code             String?
+  country                 String?
+  languages_known         String?
+  documents               Json?
+  branch_name             String?
+  branch_uuid             String?
+  referral_code           String?
 
   @@map("users")
+}
+
+model ModuleSecurity {
+  role_module_id          Int       @id @default(autoincrement())
+  role_module_unique_id   Int
+  role_module_uuid        String    @unique @default(uuid())
+  module_uuid             String
+  role_uuid               String
+  show_module             Int       @default(0)
+  view_access             Int       @default(0)
+  edit_access             Int       @default(0)
+  send_sms                Int       @default(0)
+  send_mail               Int       @default(0)
+  send_whatsapp           Int       @default(0)
+  send_call               Int       @default(0)
+  filter_values           Json?
+  status                  String    @default("ACTIVE")
+  created_by_uuid         String?
+  created_by_name         String?
+  modified_by_uuid        String?
+  modified_by_name        String?
+  create_ts               DateTime?
+  insert_ts               DateTime  @default(now())
+  module_name             String?
+  submodule_name          String?
+  table_name              String?
+  module_key              String?
+
+  @@map("module_security")
 }
 
 // UserRole enum values: EMPLOYEE, PROJECT_MANAGER, ADMIN

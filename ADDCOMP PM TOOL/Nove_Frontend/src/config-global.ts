@@ -26,11 +26,11 @@ export type ConfigValue = {
 // ----------------------------------------------------------------------
 
 export const CONFIG: ConfigValue = {
-  appName: 'Nova World',
+  appName: 'Addcomposites oy',
   appVersion: packageJson.version,
   serverUrl: import.meta.env.VITE_SERVER_URL ?? '',
-  serverChatUrl: import.meta.env.VITE_SERVER_BASE_URL ?? '',
-  serverBaseUrl: `${import.meta.env.VITE_SERVER_BASE_URL}/api/v1`,
+  serverChatUrl: import.meta.env.VITE_SERVER_CHAT_URL || 'http://localhost:3000',
+  serverBaseUrl: import.meta.env.VITE_SERVER_BASE_URL || 'http://localhost:3000',
   calendlyBaseUrl: import.meta.env.VITE_CALENDLY_SERVER_BASE_URL ?? '',
   calendlyAuthToken: import.meta.env.VITE_CALENDLY_AUTH_TOKEN ?? '',
   calendlyEventType: import.meta.env.VITE_CALENDLY_EVENT_TYPE ?? '',

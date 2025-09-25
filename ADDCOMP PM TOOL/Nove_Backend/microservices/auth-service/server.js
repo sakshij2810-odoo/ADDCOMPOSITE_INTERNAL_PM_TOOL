@@ -56,69 +56,14 @@ app.get("/health", (req, res) => {
 
 // Authentication routes
 app.post("/api/v1/authentication/login", (req, res) => {
-  const { email, password } = req.body;
-
-  // Mock authentication - in real app, check against database
-  const mockUsers = [
-    {
-      email: "sakshi.jadhav@addcomposites.com",
-      password: "12345678",
-      name: "Sakshi Jadhav",
-      role: "ADMIN",
+  res.status(501).json({
+    success: false,
+    error: {
+      code: "SERVICE_DEPRECATED",
+      message:
+        "This service has been deprecated. Please use working-auth-server.js instead.",
     },
-    {
-      email: "john.doe@addcomposites.com",
-      password: "12345678",
-      name: "John Doe",
-      role: "PROJECT_MANAGER",
-    },
-    {
-      email: "jane.smith@addcomposites.com",
-      password: "12345678",
-      name: "Jane Smith",
-      role: "EMPLOYEE",
-    },
-    {
-      email: "mike.wilson@addcomposites.com",
-      password: "12345678",
-      name: "Mike Wilson",
-      role: "EMPLOYEE",
-    },
-    {
-      email: "sarah.johnson@addcomposites.com",
-      password: "12345678",
-      name: "Sarah Johnson",
-      role: "EMPLOYEE",
-    },
-  ];
-
-  const user = mockUsers.find(
-    (u) => u.email === email && u.password === password
-  );
-
-  if (user) {
-    res.json({
-      success: true,
-      data: {
-        user: {
-          id: "user-" + Date.now(),
-          email: user.email,
-          name: user.name,
-          role: user.role,
-          isActive: true,
-        },
-        token: "mock-jwt-token-" + Date.now(),
-      },
-    });
-  } else {
-    res.status(401).json({
-      success: false,
-      error: {
-        code: "INVALID_CREDENTIALS",
-        message: "Invalid email or password",
-      },
-    });
-  }
+  });
 });
 
 app.post("/api/v1/authentication/user-verification", (req, res) => {

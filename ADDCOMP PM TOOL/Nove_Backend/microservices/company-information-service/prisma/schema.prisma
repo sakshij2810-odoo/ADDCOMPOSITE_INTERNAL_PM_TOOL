@@ -1,0 +1,147 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CompanyInformation {
+  id                  Int       @id @default(autoincrement())
+  company_name        String
+  preview_logo        String?
+  preview_fav_icon    String?
+  company_title       String?
+  company_description String?
+  adsense_header_code String?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @default(now())
+
+  @@map("company_information")
+}
+
+model BranchOffices {
+  branch_id          Int       @id @default(autoincrement())
+  branch_uuid        String    @unique @default(uuid())
+  branch_name        String
+  branch_code        String    @unique
+  branch_address     String?
+  city               String?
+  province_or_state  String?
+  postal_code        String?
+  country            String?
+  phone              String?
+  email              String?
+  manager_uuid       String?
+  manager_name       String?
+  status             String    @default("ACTIVE")
+  created_by_uuid    String?
+  created_by_name    String?
+  modified_by_uuid   String?
+  modified_by_name   String?
+  create_ts          DateTime  @default(now())
+  insert_ts          DateTime  @default(now())
+
+  @@map("branch_offices")
+}
+
+model SecuritySettings {
+  security_id      Int       @id @default(autoincrement())
+  security_uuid    String    @unique @default(uuid())
+  setting_name     String
+  setting_value    String?
+  setting_type     String    @default("TEXT")
+  category         String    @default("AUTHENTICATION")
+  description      String?
+  is_encrypted     Boolean   @default(true)
+  status           String    @default("ACTIVE")
+  created_by_uuid  String?
+  created_by_name  String?
+  modified_by_uuid String?
+  modified_by_name String?
+  create_ts        DateTime  @default(now())
+  insert_ts        DateTime  @default(now())
+
+  @@map("security_settings")
+}
+
+model ApplicationSettings {
+  setting_id       Int       @id @default(autoincrement())
+  setting_uuid     String    @unique @default(uuid())
+  setting_key      String    @unique
+  setting_value    String?
+  setting_type     String    @default("TEXT")
+  category         String    @default("GENERAL")
+  description      String?
+  is_encrypted     Boolean   @default(false)
+  is_public        Boolean   @default(false)
+  status           String    @default("ACTIVE")
+  created_by_uuid  String?
+  created_by_name  String?
+  modified_by_uuid String?
+  modified_by_name String?
+  create_ts        DateTime  @default(now())
+  insert_ts        DateTime  @default(now())
+
+  @@map("application_settings")
+}
+
+model RoleGroups {
+  role_group_id          Int       @id @default(autoincrement())
+  role_group_unique_id   Int       @unique
+  role_group_uuid        String    @unique @default(uuid())
+  role_group             String
+  status                 String    @default("ACTIVE")
+  created_by_uuid        String?
+  create_ts              DateTime  @default(now())
+  insert_ts              DateTime  @default(now())
+
+  @@map("role_groups")
+}
+
+model Roles {
+  role_id                Int       @id @default(autoincrement())
+  role_uuid              String    @unique @default(uuid())
+  role_name              String
+  role_value             String
+  role_group             String?
+  status                 String    @default("ACTIVE")
+  created_by_uuid        String?
+  created_by_name        String?
+  modified_by_uuid       String?
+  modified_by_name       String?
+  create_ts              DateTime?
+  insert_ts              DateTime  @default(now())
+
+  @@map("roles")
+}
+
+model RoleModule {
+  role_module_id         Int       @id @default(autoincrement())
+  role_module_uuid       String    @unique @default(uuid())
+  module_uuid            String
+  module_name            String?
+  submodule_name         String?
+  table_name             String?
+  map_column_user_uuid   String[]
+  column_relation_options Json?
+  role_uuid              String
+  show_module            Int       @default(0)
+  view_access            Int       @default(0)
+  edit_access            Int       @default(0)
+  send_sms               Int       @default(0)
+  send_mail              Int       @default(0)
+  send_whatsapp          Int       @default(0)
+  send_call              Int       @default(0)
+  filter_values          Json?
+  status                 String    @default("ACTIVE")
+  created_by_uuid        String?
+  created_by_name        String?
+  modified_by_uuid       String?
+  modified_by_name       String?
+  create_ts              DateTime?
+  insert_ts              DateTime  @default(now())
+
+  @@map("role_module")
+}
